@@ -20,9 +20,12 @@
     <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
     in your IDE for a better DX
   </p>
-  <p class="read-the-docs">
+  <p class="read-the-docs font-bold text-white">
     Click on the Vite and Vue logos to learn more
   </p>
+  <div class="font-bold text-[#333]">
+    test
+  </div>
 </template>
 
 <script setup lang="ts">
