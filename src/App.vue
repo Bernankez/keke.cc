@@ -12,7 +12,8 @@
 
 <script setup lang="ts">
 import { useHead } from "@vueuse/head";
-import HelloWorld from "./components/HelloWorld.vue";
+// import HelloWorld from "./components/HelloWorld.vue";
+import HelloWorld from "@/components/HelloWorld.vue";
 
 useHead({
   title: "Website Title",

@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@bernankez/eslint-config": "^0.2.0",
+    "@types/node": "^18.11.16",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vueuse/head": "^1.0.22",
     "critters": "^0.0.16",
