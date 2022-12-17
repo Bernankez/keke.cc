@@ -11,7 +11,18 @@
 </template>
 
 <script setup lang="ts">
+import { useHead } from "@vueuse/head";
 import HelloWorld from "./components/HelloWorld.vue";
+
+useHead({
+  title: "Website Title",
+  meta: [
+    {
+      name: "description",
+      content: "Website description",
+    },
+  ],
+});
 </script>
 
 <style scoped>
