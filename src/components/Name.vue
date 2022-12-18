@@ -1,5 +1,5 @@
 <template>
-  <div class="name">
+  <div class="name relative w-fit text-default dark-text-darkdefault">
     {{ names.join("") }}
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-const { name = "科科Cole", duration = 500, cursorDuration = 1500, immediate = false, fontSize = 50 } = defineProps<{
+const { name = "科科Cole", duration = 500, cursorDuration = 1500, immediate = true, fontSize = 50 } = defineProps<{
   name?: string;
   duration?: number;
   cursorDuration?: number;
@@ -60,7 +60,6 @@ onMounted(() => {
 
 <style scoped>
 .name {
-  @apply relative w-fit text-default dark-text-darkdefault;
   font-size: v-bind("computedFontSize");
 }
 

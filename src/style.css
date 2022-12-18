@@ -25,6 +25,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
 body {
   margin: 0;
   width: 100vw;
@@ -37,6 +41,6 @@ body {
   height: 100%;
 }
 
-html.dark {
-  color-scheme: dark;
+a {
+  text-decoration: none;
 }
