@@ -1,11 +1,11 @@
 <template>
   <a :href="url" target="_blank">
-    <div class="background relative text-6 p-5 box-border w-70 rounded-2 cursor-pointer whitespace-pre overflow-hidden">
+    <div class="background relative text-6 p-5 box-border w-70 rounded-2 cursor-pointer overflow-hidden">
       <div class="absolute -right-4 -bottom-4 text-17 text-white opacity-50">
         <slot name="icon">
         </slot>
       </div>
-      <div class="nickname" :title="maskTip">
+      <div class="nickname whitespace-pre" :title="maskTip">
         {{ nickName || " " }}
       </div>
     </div>
