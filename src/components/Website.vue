@@ -15,7 +15,7 @@
 <script setup lang="ts">
 const {
   left = "black",
-  right = "black",
+  right: _right,
   textColor = "white",
   url: _url,
   nickName: _nickName,
@@ -39,6 +39,7 @@ const {
   darkTextColor?: string;
 }>();
 
+const right = $computed(() => _right || left);
 const url = $computed(() => mask ? undefined : _url);
 const nickName = $computed(() => mask ? "■■■■■" : _nickName);
 const maskTip = $computed(() => mask ? _maskTip : "");
