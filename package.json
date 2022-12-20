@@ -9,7 +9,8 @@
     "dev": "vite",
     "build": "vue-tsc && vite-ssg build",
     "preview": "vite preview",
-    "lint": "eslint . --fix"
+    "lint": "eslint . --fix",
+    "release": "bumpp --no-push"
   },
   "dependencies": {
     "vue": "^3.2.45"
@@ -21,6 +22,7 @@
     "@vitejs/plugin-vue": "^4.0.0",
     "@vueuse/core": "^9.7.0",
     "@vueuse/head": "^1.0.22",
+    "bumpp": "^8.2.1",
     "critters": "^0.0.16",
     "eslint": "^8.29.0",
     "lint-staged": "^13.1.0",
