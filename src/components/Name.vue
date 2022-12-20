@@ -1,5 +1,5 @@
 <template>
-  <div class="name relative w-fit text-default dark-text-darkdefault">
+  <div class="name relative w-fit text-default dark-text-darkdefault leading-none">
     {{ names.join("") }}
   </div>
 </template>
@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-const { name = "科科Cole", duration = 500, cursorDuration = 1500, immediate = true, fontSize = 50 } = defineProps<{
+const { name = "科科Cole", duration = 500, cursorDuration = 1500, fontSize = 50 } = defineProps<{
   name?: string;
   duration?: number;
   cursorDuration?: number;
@@ -40,9 +40,6 @@ function play() {
     names.push(splitName.shift()!);
   }
 
-  if (immediate && splitName.length > 0) {
-    update();
-  }
   timer = window.setInterval(() => {
     if (splitName.length > 0) {
       update();
@@ -64,7 +61,7 @@ onMounted(() => {
 }
 
 .name::after {
-  @apply absolute left-full h-full w-0.1em rounded-3px bg-default dark-bg-darkdefault;
+  @apply b-r-0.1em b-default dark-b-darkdefault rounded-3px;
   content: "";
   animation: flash v-bind("computedCursorDuration") infinite;
 }
