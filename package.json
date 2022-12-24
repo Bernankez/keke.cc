@@ -10,7 +10,7 @@
     "build": "vue-tsc && vite-ssg build",
     "preview": "vite preview",
     "lint": "eslint . --fix",
-    "release": "bumpp --no-push"
+    "release": "bumpp"
   },
   "dependencies": {
     "vue": "^3.2.45"
