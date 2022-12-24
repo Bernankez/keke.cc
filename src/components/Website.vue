@@ -5,7 +5,7 @@
         <slot name="icon">
         </slot>
       </div>
-      <div class="nickname whitespace-pre" :title="maskTip">
+      <div class="nickname whitespace-pre w-fit" :title="maskTip">
         {{ nickName || " " }}
       </div>
     </div>

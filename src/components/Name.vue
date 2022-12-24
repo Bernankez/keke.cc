@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 
-const { name = "科科Cole", duration = 500, cursorDuration = 1500, fontSize = 50 } = defineProps<{
+const { name = "科科Cole", duration = 400, cursorDuration = 1500, fontSize = 50 } = defineProps<{
   name?: string;
   duration?: number;
   cursorDuration?: number;
