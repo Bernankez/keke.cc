@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@bernankez/eslint-config': ^0.2.1
+  '@ctrl/tinycolor': ^3.5.0
   '@iconify-json/ri': ^1.1.4
   '@types/node': ^18.11.16
   '@vitejs/plugin-vue': ^4.0.0
@@ -24,6 +25,7 @@ dependencies:
 
 devDependencies:
   '@bernankez/eslint-config': 0.2.1_ha6vam6werchizxrnqvarmz2zu
+  '@ctrl/tinycolor': 3.5.0
   '@iconify-json/ri': 1.1.4
   '@types/node': 18.11.16
   '@vitejs/plugin-vue': 4.0.0_vite@4.0.1+vue@3.2.45
@@ -188,6 +190,11 @@ packages:
       - eslint-import-resolver-webpack
       - supports-color
       - typescript
+    dev: true
+
+  /@ctrl/tinycolor/3.5.0:
+    resolution: {integrity: sha512-tlJpwF40DEQcfR/QF+wNMVyGMaO9FQp6Z1Wahj4Gk3CJQYHwA2xVG7iKDFdW6zuxZY9XWOpGcfNCTsX4McOsOg==}
+    engines: {node: '>=10'}
     dev: true
 
   /@esbuild/android-arm/0.16.7:

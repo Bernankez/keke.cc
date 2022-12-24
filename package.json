@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@bernankez/eslint-config": "^0.2.1",
+    "@ctrl/tinycolor": "^3.5.0",
     "@iconify-json/ri": "^1.1.4",
     "@types/node": "^18.11.16",
     "@vitejs/plugin-vue": "^4.0.0",
