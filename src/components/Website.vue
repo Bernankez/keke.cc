@@ -55,11 +55,13 @@ const darkRight = $computed(() => _darkRight || right);
 const darkTextColor = $computed(() => _darkTextColor || textColor);
 const spotlightColor = $computed(() => _spotlightColor || (new TinyColor(left).mix(right).darken().toHexString()));
 const darkSpotlightColor = $computed(() => _darkSpotlightColor || spotlightColor);
+const edgeSpotlightColor = $computed(() => (new TinyColor(spotlightColor).setAlpha(0.1).toRgbString()));
+const darkEdgeSpotlightColor = $computed(() => (new TinyColor(darkSpotlightColor).setAlpha(0.1).toRgbString()));
 
 const background = $ref<HTMLAnchorElement>();
 const { elementX: _elementX, elementY: _elementY, isOutside } = $(useMouseInElement($$(background)));
-const elementX = $computed(() => `${_elementX}px`);
-const elementY = $computed(() => `${_elementY}px`);
+const elementX = $computed(() => isOutside ? "0" : `${_elementX}px`);
+const elementY = $computed(() => isOutside ? "0" : `${_elementY}px`);
 </script>
 
 <style scoped>
@@ -68,7 +70,7 @@ const elementY = $computed(() => `${_elementY}px`);
 }
 
 .spotlight {
-  background: radial-gradient(circle at v-bind("elementX") v-bind("elementY"), v-bind("spotlightColor") 0%, rgba(255, 255, 255, 0) calc(0% + 150px)) no-repeat border-box border-box rgba(255, 255, 255, 0.1);
+  background: radial-gradient(circle at v-bind("elementX") v-bind("elementY"), v-bind("spotlightColor") 0%, rgba(255, 255, 255, 0) calc(0% + 150px)) no-repeat border-box border-box v-bind("edgeSpotlightColor");
 }
 
 .nickname {
@@ -84,6 +86,6 @@ const elementY = $computed(() => `${_elementY}px`);
 }
 
 .dark .spotlight {
-  background: radial-gradient(circle at v-bind("elementX") v-bind("elementY"), v-bind("darkSpotlightColor") 0%, rgba(255, 255, 255, 0) calc(0% + 150px)) no-repeat border-box border-box rgba(255, 255, 255, 0.1);
+  background: radial-gradient(circle at v-bind("elementX") v-bind("elementY"), v-bind("darkSpotlightColor") 0%, rgba(255, 255, 255, 0) calc(0% + 150px)) no-repeat border-box border-box v-bind("darkEdgeSpotlightColor");
 }
 </style>
