@@ -70,7 +70,7 @@ const elementY = $computed(() => isOutside ? "0" : `${_elementY}px`);
 }
 
 .spotlight {
-  background: radial-gradient(circle at v-bind("elementX") v-bind("elementY"), v-bind("spotlightColor") 0%, rgba(255, 255, 255, 0) calc(0% + 150px)) no-repeat border-box border-box v-bind("edgeSpotlightColor");
+  background: radial-gradient(circle at v-bind("elementX") v-bind("elementY"), v-bind("spotlightColor") 0%, rgba(255, 255, 255, 0) calc(0% + 70px)) no-repeat border-box border-box v-bind("edgeSpotlightColor");
 }
 
 .nickname {
@@ -86,6 +86,6 @@ const elementY = $computed(() => isOutside ? "0" : `${_elementY}px`);
 }
 
 .dark .spotlight {
-  background: radial-gradient(circle at v-bind("elementX") v-bind("elementY"), v-bind("darkSpotlightColor") 0%, rgba(255, 255, 255, 0) calc(0% + 150px)) no-repeat border-box border-box v-bind("darkEdgeSpotlightColor");
+  background: radial-gradient(circle at v-bind("elementX") v-bind("elementY"), v-bind("darkSpotlightColor") 0%, rgba(255, 255, 255, 0) calc(0% + 70px)) no-repeat border-box border-box v-bind("darkEdgeSpotlightColor");
 }
 </style>
