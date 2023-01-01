@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-40% min-w-400px">
-    <Name class="absolute top-50%  -translate-y-50% left-35%" />
+    <Typewriter class="absolute top-50%  -translate-y-50% left-35%" />
   </div>
   <div class="flex items-center justify-center w-60%">
     <div>
@@ -52,7 +52,7 @@
 
 <script setup lang="ts">
 import { useDark } from "@vueuse/core";
-import Name from "@/components/Name.vue";
+import Typewriter from "@/components/Typewriter.vue";
 import Website from "@/components/Website.vue";
 
 useDark();
