@@ -47,7 +47,8 @@ export const colorDarkBackground = {
 export const colorPrimary = {
   lighter: "#36ad6a",
   light: "#36ad6a",
-  DEFAULT: "#18a058",
+  // DEFAULT: "#18a058",
+  DEFAULT: "#c14344",
   dark: "#0c7a43",
   darker: "#0c7a43",
 };
