@@ -1,6 +1,6 @@
 <template>
-  <a ref="background" class="background overflow-hidden rounded-2" :href="url" target="_blank">
-    <div class="relative text-6 p-y-8 p-x-5 box-border w-70 cursor-pointer spotlight">
+  <a v-if="mode === 'simple'" ref="background" class="background overflow-hidden rounded-2" :href="url" target="_blank">
+    <div class="relative text-6 p-y-8 p-x-5 box-border w-70 spotlight" :class="mask ? 'cursor-default' : 'cursor-pointer'">
       <div class="absolute -right-4 -bottom-4 text-17 text-white opacity-50">
         <slot name="icon">
         </slot>
@@ -9,6 +9,19 @@
         {{ nickName || " " }}
       </div>
     </div>
+
+  </a>
+  <a
+    v-else-if="mode === 'expand'" ref="background" class="background overflow-hidden rounded-7" :href="url"
+    target="_blank" :title="maskTip || nickName"
+  >
+    <div class="relative text-6 p-5 box-border w-30 h-30 spotlight" :class="mask ? 'cursor-default' : 'cursor-pointer'">
+      <div class="absolute -right-3 -bottom-3 text-17 text-white opacity-50">
+        <slot name="icon">
+        </slot>
+      </div>
+    </div>
+
   </a>
 </template>
 
@@ -17,6 +30,7 @@ import { useMouseInElement } from "@vueuse/core";
 import { TinyColor } from "@ctrl/tinycolor";
 
 const {
+  mode = "simple",
   left = "black",
   right: _right,
   textColor = "white",
@@ -31,6 +45,7 @@ const {
   darkTextColor: _darkTextColor,
   darkSpotlightColor: _darkSpotlightColor,
 } = defineProps<{
+  mode?: "simple" | "expand";
   left?: string;
   right?: string;
   textColor?: string;

@@ -1,5 +1,5 @@
 <template>
-  <div class="name relative w-fit text-default dark-text-darkdefault leading-none">
+  <div class="name relative w-fit text-default dark-text-darkdefault leading-none transition">
     {{ names.join("") }}
   </div>
 </template>
