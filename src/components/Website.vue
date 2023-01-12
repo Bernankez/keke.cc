@@ -1,6 +1,6 @@
 <template>
   <a ref="background" class="background overflow-hidden rounded-2" :href="url" target="_blank">
-    <div class="relative text-6 p-y-8 p-x-5 box-border w-70 cursor-default" :class="{ spotlight: !isOutside }">
+    <div class="relative text-6 p-y-8 p-x-5 box-border w-70 cursor-pointer spotlight">
       <div class="absolute -right-4 -bottom-4 text-17 text-white opacity-50">
         <slot name="icon">
         </slot>
@@ -59,9 +59,9 @@ const edgeSpotlightColor = $computed(() => (new TinyColor(spotlightColor).setAlp
 const darkEdgeSpotlightColor = $computed(() => (new TinyColor(darkSpotlightColor).setAlpha(0.1).toRgbString()));
 
 const background = $ref<HTMLAnchorElement>();
-const { elementX: _elementX, elementY: _elementY, isOutside } = $(useMouseInElement($$(background)));
-const elementX = $computed(() => isOutside ? "0" : `${_elementX}px`);
-const elementY = $computed(() => isOutside ? "0" : `${_elementY}px`);
+const { elementX: _elementX, elementY: _elementY } = $(useMouseInElement($$(background)));
+const elementX = $computed(() => `${_elementX}px`);
+const elementY = $computed(() => `${_elementY}px`);
 </script>
 
 <style scoped>
