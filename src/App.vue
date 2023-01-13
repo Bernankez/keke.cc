@@ -10,8 +10,11 @@
     </Switch>
     <div class="w-50% min-w-400px">
       <div class="w-full h-full flex flex-col justify-center items-center">
-        <img class="w-50 h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault" draggable="false" :src="Avatar" alt="avatar" />
-        <Typewriter class="min-w-204px m-t-10" />
+        <img
+          class="w-50 h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault" draggable="false"
+          :src="Avatar" alt="avatar"
+        />
+        <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
       </div>
     </div>
     <div class="flex items-center justify-center w-50%">
@@ -68,11 +71,20 @@ import Typewriter from "@/components/Typewriter.vue";
 import Website from "@/components/Website.vue";
 import { colorPrimary } from "@/style/theme";
 
+let typewriterMinWidth = $ref("");
+const onTypewriterLoaded = (style: CSSStyleDeclaration) => {
+  typewriterMinWidth = style.width;
+};
 const isDark = $(useDark());
 </script>
 
-<style>
-::selection {
+<style scoped>
+:global(::selection) {
   background-color: v-bind("colorPrimary.DEFAULT");
+}
+
+.typewriter {
+  @apply m-t-10;
+  min-width: v-bind("typewriterMinWidth");
 }
 </style>

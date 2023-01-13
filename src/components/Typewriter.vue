@@ -1,11 +1,17 @@
 <template>
-  <div class="name relative w-fit text-default dark-text-darkdefault leading-none transition">
-    {{ names.join("") }}
+  <div>
+    <div ref="hiddenName" class="hidden name relative w-fit text-default dark-text-darkdefault leading-none transition">
+      {{ name }}
+    </div>
+    <div class="name relative w-fit text-default dark-text-darkdefault leading-none transition">
+      {{ names.join("") }}
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from "vue";
+import { onMounted, watch } from "vue";
+import { useHiddenElementStyle } from "@/composables/dom";
 
 const { name = "科科Cole", duration = 400, cursorDuration = 1500, fontSize = 50 } = defineProps<{
   name?: string;
@@ -14,6 +20,19 @@ const { name = "科科Cole", duration = 400, cursorDuration = 1500, fontSize = 5
   immediate?: boolean;
   fontSize?: string | number;
 }>();
+
+const emit = defineEmits<{
+  (event: "loaded", style: CSSStyleDeclaration): void;
+}>();
+
+const hiddenName = $ref<HTMLDivElement>();
+const { style } = $(useHiddenElementStyle($$(hiddenName)));
+const stop = watch(() => style, (style) => {
+  if (style) {
+    emit("loaded", style);
+    stop();
+  }
+});
 
 const computedCursorDuration = $computed(() => {
   if (names.length < name.length) {
