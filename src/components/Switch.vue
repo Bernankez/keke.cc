@@ -1,6 +1,6 @@
 <template>
   <div>
-    <label class="group background" :class="{ 'background--checked': checked }">
+    <label class="group background cursor-pointer" :class="{ 'background--checked': checked }">
       <input
         v-model="value" class="display-none" type="checkbox" :disabled="disabled" :true-value="trueValue"
         :false-value="falseValue"
