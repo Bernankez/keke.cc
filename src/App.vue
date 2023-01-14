@@ -1,14 +1,12 @@
 <template>
-  <div class="relative flex flex-col justify-center items-center lg:flex-row w-full h-full bg-background dark:bg-darkbackground-dark transition">
-    <Header />
-    <div class="lg:w-50% min-w-400px">
-      <div class="w-full h-full flex flex-col justify-center items-center">
-        <img
-          class="w-30 h-30 lg:w-50 lg:h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault transition"
-          draggable="false" :src="Avatar" alt="avatar"
-        />
-        <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
-      </div>
+  <Header />
+  <div class="relative p-y-18 box-border w-full min-h-full flex flex-col justify-center items-center lg:flex-row bg-background dark:bg-darkbackground-dark transition">
+    <div class="w-full lg:w-50% lg:h-full flex flex-col justify-center items-center">
+      <img
+        class="w-30 h-30 lg:w-50 lg:h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault transition"
+        draggable="false" :src="Avatar" alt="avatar"
+      />
+      <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
     </div>
     <div class="flex items-center justify-center m-t-10 lg:m-t-0 lg:w-50%">
       <div>

@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute top-0 left-0 flex items-center justify-between w-full h-18 lg:backdrop-saturate-50 lg:backdrop-blur-8 bg-opacity-70 dark:bg-opacity-70 bg-transparent p-x-5 box-border"
+    class="absolute z-1 top-0 left-0 flex items-center justify-between w-full h-18 lg:backdrop-saturate-50 lg:backdrop-blur-8 bg-opacity-70 dark:bg-opacity-70 bg-transparent p-x-5 box-border"
   >
     <div></div>
     <Switch v-model="isDark">
