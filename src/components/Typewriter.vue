@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div ref="hiddenName" class="hidden name relative w-fit text-default dark-text-darkdefault leading-none transition">
+    <div
+      ref="hiddenName"
+      class="hidden name relative w-fit text-6 lg:text-12.5 text-default dark-text-darkdefault leading-none transition"
+    >
       {{ name }}
     </div>
-    <div class="name relative w-fit text-default dark-text-darkdefault leading-none transition">
+    <div class="name relative w-fit text-6 lg:text-12.5 text-default dark-text-darkdefault leading-none transition">
       {{ names.join("") }}
     </div>
   </div>
@@ -13,12 +16,11 @@
 import { onMounted, watch } from "vue";
 import { useHiddenElementStyle } from "@/composables/dom";
 
-const { name = "科科Cole", duration = 400, cursorDuration = 1500, fontSize = 50 } = defineProps<{
+const { name = "科科Cole", duration = 400, cursorDuration = 1500 } = defineProps<{
   name?: string;
   duration?: number;
   cursorDuration?: number;
   immediate?: boolean;
-  fontSize?: string | number;
 }>();
 
 const emit = defineEmits<{
@@ -27,10 +29,10 @@ const emit = defineEmits<{
 
 const hiddenName = $ref<HTMLDivElement>();
 const { style } = $(useHiddenElementStyle($$(hiddenName)));
-const stop = watch(() => style, (style) => {
+watch(() => style, (style) => {
   if (style) {
+    console.log("loaded", style);
     emit("loaded", style);
-    stop();
   }
 });
 
@@ -39,13 +41,6 @@ const computedCursorDuration = $computed(() => {
     return "0";
   }
   return `${cursorDuration / 1000}s`;
-});
-
-const computedFontSize = $computed(() => {
-  if (typeof fontSize === "number") {
-    return `${fontSize}px`;
-  }
-  return fontSize;
 });
 
 let names = $ref<string[]>([]);
@@ -75,10 +70,6 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.name {
-  font-size: v-bind("computedFontSize");
-}
-
 .name::after {
   @apply b-r-0.1em b-default dark-b-darkdefault rounded-3px;
   content: "";

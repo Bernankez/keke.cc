@@ -15,7 +15,7 @@
     v-else-if="mode === 'simple'" ref="background" class="background overflow-hidden rounded-7" :href="url"
     target="_blank" :title="maskTip || nickName"
   >
-    <div class="relative text-6 p-5 box-border w-30 h-30 spotlight" :class="mask ? 'cursor-default' : 'cursor-pointer'">
+    <div class="relative text-6 p-5 box-border w-20 h-20 lg:w-30 lg:h-30 spotlight" :class="mask ? 'cursor-default' : 'cursor-pointer'">
       <div class="absolute -right-3 -bottom-3 text-17 text-white opacity-50 select-none">
         <slot name="icon">
         </slot>

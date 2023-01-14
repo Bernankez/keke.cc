@@ -1,16 +1,16 @@
 <template>
-  <div class="relative flex w-full h-full bg-background dark:bg-darkbackground-dark transition">
+  <div class="relative flex flex-col justify-center items-center lg:flex-row w-full h-full bg-background dark:bg-darkbackground-dark transition">
     <Header />
-    <div class="w-50% min-w-400px">
+    <div class="lg:w-50% min-w-400px">
       <div class="w-full h-full flex flex-col justify-center items-center">
         <img
-          class="w-50 h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault transition"
+          class="w-30 h-30 lg:w-50 lg:h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault transition"
           draggable="false" :src="Avatar" alt="avatar"
         />
         <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
       </div>
     </div>
-    <div class="flex items-center justify-center w-50%">
+    <div class="flex items-center justify-center m-t-10 lg:m-t-0 lg:w-50%">
       <div>
         <div class="w-fit grid grid-cols-3 gap-4">
           <Website
@@ -64,7 +64,6 @@
 </template>
 
 <script setup lang="ts">
-import Switch from "./components/Switch.vue";
 import Avatar from "@/assets/avatar.webp";
 import Header from "@/layout/Header.vue";
 import Typewriter from "@/components/Typewriter.vue";
@@ -83,7 +82,7 @@ const onTypewriterLoaded = (style: CSSStyleDeclaration) => {
 }
 
 .typewriter {
-  @apply m-t-10;
+  @apply m-t-5 lg-m-t-10;
   min-width: v-bind("typewriterMinWidth");
 }
 </style>
