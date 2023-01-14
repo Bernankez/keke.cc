@@ -31,7 +31,6 @@ const hiddenName = $ref<HTMLDivElement>();
 const { style } = $(useHiddenElementStyle($$(hiddenName)));
 watch(() => style, (style) => {
   if (style) {
-    console.log("loaded", style);
     emit("loaded", style);
   }
 });

@@ -1,6 +1,6 @@
-import type { MaybeComputedElementRef, MaybeElement, UnRefElementReturn } from "@vueuse/core";
+import type { Fn, MaybeComputedElementRef, MaybeElement, UnRefElementReturn } from "@vueuse/core";
 import { unrefElement, useEventListener } from "@vueuse/core";
-import { onUnmounted, ref, watch } from "vue";
+import { onMounted, onUnmounted, ref, watch } from "vue";
 
 export function useHiddenElementStyle(target: MaybeComputedElementRef) {
   const style = ref({} as CSSStyleDeclaration);
@@ -32,12 +32,15 @@ export function useHiddenElementStyle(target: MaybeComputedElementRef) {
       updateStyle(el);
     });
 
-  const stopListenResize = useEventListener(window, "resize", () => {
-    updateStyle(unrefElement(target));
-  });
+  let stopListenResize: Fn, stopListenOrientationChange: Fn;
+  onMounted(() => {
+    stopListenResize = useEventListener(window, "resize", () => {
+      updateStyle(unrefElement(target));
+    });
 
-  const stopListenOrientationChange = useEventListener(window, "orientationchange", () => {
-    updateStyle(unrefElement(target));
+    stopListenOrientationChange = useEventListener(window, "orientationchange", () => {
+      updateStyle(unrefElement(target));
+    });
   });
 
   onUnmounted(() => {
