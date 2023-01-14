@@ -1,8 +1,9 @@
 import { defineConfig, presetIcons, presetUno, transformerDirectives } from "unocss";
+import presetRemToPx from "@unocss/preset-rem-to-px";
 import { colorBackground, colorDarkBackground, colorDarkDefault, colorDefault, colorDisabled, colorPrimary } from "./src/style/theme";
 
 export default defineConfig({
-  presets: [presetUno(), presetIcons()],
+  presets: [presetUno(), presetRemToPx(), presetIcons()],
   theme: {
     colors: {
       default: colorDefault,
