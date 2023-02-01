@@ -2,6 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@bernankez/eslint-config': ^0.2.1
+  '@bernankez/theme': ^0.1.2
   '@ctrl/tinycolor': ^3.5.0
   '@iconify-json/ri': ^1.1.4
   '@types/node': ^18.11.16
@@ -26,6 +27,7 @@ dependencies:
 
 devDependencies:
   '@bernankez/eslint-config': 0.2.1_ha6vam6werchizxrnqvarmz2zu
+  '@bernankez/theme': 0.1.2
   '@ctrl/tinycolor': 3.5.0
   '@iconify-json/ri': 1.1.4
   '@types/node': 18.11.16
@@ -196,6 +198,11 @@ packages:
       - eslint-import-resolver-webpack
       - supports-color
       - typescript
+    dev: true
+
+  /@bernankez/theme/0.1.2:
+    resolution: {integrity: sha512-aMLT0DYJV4zVz9rIzMdgYcuyBGXB8cI2AjZUrbA3GzKznmoE6frXcqHjQPZAczDWv7mQukCYX1HyMhEOzzVQVQ==}
+    requiresBuild: true
     dev: true
 
   /@ctrl/tinycolor/3.5.0:
