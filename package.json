@@ -22,6 +22,7 @@
     "@iconify-json/ri": "^1.1.4",
     "@types/node": "^18.11.16",
     "@unocss/preset-rem-to-px": "^0.47.6",
+    "@vitejs/plugin-basic-ssl": "^1.0.1",
     "@vitejs/plugin-vue": "^4.0.0",
     "@vueuse/core": "^9.7.0",
     "@vueuse/head": "^1.0.22",

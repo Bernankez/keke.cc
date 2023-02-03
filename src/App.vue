@@ -1,14 +1,14 @@
 <template>
-  <Header />
+  <Header :show-grant="compatible && (!isGranted && !isDenied)" @grant="grant" />
   <div class="relative p-y-18 box-border w-full min-h-full flex flex-col justify-center lg:justify-evenly items-center lg:flex-row bg-background dark:bg-darkbackground-dark transition">
-    <div class="w-fit lg:h-full flex flex-col justify-center items-center">
+    <div :class="compatible ? 'orientation-shadow' : ''" class="w-fit lg:h-full flex flex-col justify-center items-center">
       <img
         class="w-30 h-30 lg:w-50 lg:h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault transition"
         draggable="false" :src="Avatar" alt="avatar"
       />
       <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
     </div>
-    <div class="flex items-center justify-center m-t-10 lg:m-t-0 w-fit">
+    <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center m-t-10 lg:m-t-0 w-fit">
       <div>
         <div class="w-fit grid grid-cols-3 gap-4">
           <Website
@@ -62,21 +62,29 @@
 </template>
 
 <script setup lang="ts">
+import { colorDarkBackground, colorPrimaryRed as colorPrimary } from "@bernankez/theme";
+import { uesOrientationShadow } from "./composables/orientation-shadow";
 import Avatar from "@/assets/avatar.webp";
 import Header from "@/layout/Header.vue";
 import Typewriter from "@/components/Typewriter.vue";
 import Website from "@/components/Website.vue";
-import { colorPrimary } from "@/style/theme";
 
 let typewriterMinWidth = $ref("");
 const onTypewriterLoaded = (style: CSSStyleDeclaration) => {
   typewriterMinWidth = style.width;
 };
+
+const { rotateY, offsetX, offsetY, compatible, grant, isGranted, isDenied } = uesOrientationShadow();
 </script>
 
 <style scoped>
 :global(::selection) {
   background-color: v-bind("colorPrimary.DEFAULT");
+}
+
+.orientation-shadow {
+  transform: translateZ(16px) rotateY(v-bind(rotateY));
+  filter: drop-shadow(v-bind(offsetX) v-bind(offsetY) 10px v-bind("colorDarkBackground.lighter"));
 }
 
 .typewriter {

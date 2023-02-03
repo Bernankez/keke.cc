@@ -7,6 +7,7 @@ specifiers:
   '@iconify-json/ri': ^1.1.4
   '@types/node': ^18.11.16
   '@unocss/preset-rem-to-px': ^0.47.6
+  '@vitejs/plugin-basic-ssl': ^1.0.1
   '@vitejs/plugin-vue': ^4.0.0
   '@vueuse/core': ^9.7.0
   '@vueuse/head': ^1.0.22
@@ -32,6 +33,7 @@ devDependencies:
   '@iconify-json/ri': 1.1.4
   '@types/node': 18.11.16
   '@unocss/preset-rem-to-px': 0.47.6
+  '@vitejs/plugin-basic-ssl': 1.0.1_vite@4.0.1
   '@vitejs/plugin-vue': 4.0.0_vite@4.0.1+vue@3.2.45
   '@vueuse/core': 9.7.0_vue@3.2.45
   '@vueuse/head': 1.0.22_vue@3.2.45
@@ -910,6 +912,15 @@ packages:
       vite: 4.0.1_@types+node@18.11.16
     transitivePeerDependencies:
       - rollup
+    dev: true
+
+  /@vitejs/plugin-basic-ssl/1.0.1_vite@4.0.1:
+    resolution: {integrity: sha512-pcub+YbFtFhaGRTo1832FQHQSHvMrlb43974e2eS8EKleR3p1cDdkJFPci1UhwkEf1J9Bz+wKBSzqpKp7nNj2A==}
+    engines: {node: '>=14.6.0'}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0
+    dependencies:
+      vite: 4.0.1_@types+node@18.11.16
     dev: true
 
   /@vitejs/plugin-vue/4.0.0_vite@4.0.1+vue@3.2.45:
