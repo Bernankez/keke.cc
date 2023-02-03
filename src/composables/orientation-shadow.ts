@@ -12,7 +12,7 @@ export function uesOrientationShadow() {
   const { isMobileDevice, isIOS } = useDevice();
   const isGranted = ref(false);
   const isDenied = ref(false);
-  const compatible = computed(() => isMobileDevice.value && isSupported.value && (isGranted.value || !isDenied.value));
+  const compatible = computed(() => isMobileDevice.value && isSupported.value);
 
   const rotateY = computed(() => `${(gamma.value ?? 0) / 2}deg`);
   const offsetX = computed(() => `${-0.01 * (gamma.value ?? 0) * 16}px`);
@@ -26,8 +26,8 @@ export function uesOrientationShadow() {
   });
 
   onMounted(() => {
-    if (isMobileDevice.value && !isIOS.value) {
-      // Only android devices don't need to grant
+    if (isMobileDevice.value && (!isIOS.value || !("requestPermission" in window.DeviceOrientationEvent))) {
+      // Only android devices or ios version < 14.5 doesn't need to grant
       isGranted.value = true;
     }
   });
@@ -35,7 +35,7 @@ export function uesOrientationShadow() {
   function grant() {
     const result = confirm("想要试试小彩蛋吗👾");
     if (!result) { return; }
-    if (compatible.value) {
+    if (compatible.value && (!isGranted.value || !isDenied.value)) {
       (window.DeviceOrientationEvent as IOSDeviceOrientationEvent).requestPermission().then((response) => {
         if (response === "granted") {
           isGranted.value = true;
