@@ -1,4 +1,4 @@
-import { isIOS, useDeviceOrientation } from "@vueuse/core";
+import { useDeviceOrientation } from "@vueuse/core";
 import { computed, onMounted, ref } from "vue";
 import { useDevice } from "./device";
 
