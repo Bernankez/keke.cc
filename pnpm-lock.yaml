@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 specifiers:
   '@bernankez/eslint-config': ^0.2.1
-  '@bernankez/theme': ^0.1.2
+  '@bernankez/theme': ^0.2.0
   '@ctrl/tinycolor': ^3.5.0
   '@iconify-json/ri': ^1.1.4
   '@types/node': ^18.11.16
@@ -28,7 +28,7 @@ dependencies:
 
 devDependencies:
   '@bernankez/eslint-config': 0.2.1_ha6vam6werchizxrnqvarmz2zu
-  '@bernankez/theme': 0.1.2
+  '@bernankez/theme': 0.2.0
   '@ctrl/tinycolor': 3.5.0
   '@iconify-json/ri': 1.1.4
   '@types/node': 18.11.16
@@ -202,8 +202,8 @@ packages:
       - typescript
     dev: true
 
-  /@bernankez/theme/0.1.2:
-    resolution: {integrity: sha512-aMLT0DYJV4zVz9rIzMdgYcuyBGXB8cI2AjZUrbA3GzKznmoE6frXcqHjQPZAczDWv7mQukCYX1HyMhEOzzVQVQ==}
+  /@bernankez/theme/0.2.0:
+    resolution: {integrity: sha512-e0p9ihaRFB2IqBCy2q9Wf2Bh7JsuUDfsnFuqGJiBLxrjyCseslU5CQ8Ud/KEVdFAZrfEOLexTFPalC4ybPPXqg==}
     requiresBuild: true
     dev: true
 

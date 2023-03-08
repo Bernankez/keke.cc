@@ -1,6 +1,6 @@
 <template>
   <Header :show-grant="compatible && (!isGranted && !isDenied)" @grant="grant" />
-  <div class="relative p-y-18 box-border w-full min-h-full flex flex-col justify-center lg:justify-evenly items-center lg:flex-row bg-background dark:bg-darkbackground-dark transition">
+  <div class="relative p-y-18 box-border w-full min-h-full flex flex-col justify-center lg:justify-evenly items-center lg:flex-row bg-background dark:bg-darkbackground transition">
     <div :class="compatible ? 'orientation-shadow' : ''" class="w-fit lg:h-full flex flex-col justify-center items-center">
       <img
         class="w-30 h-30 lg:w-50 lg:h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault transition"
