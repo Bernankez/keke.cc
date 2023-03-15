@@ -21,10 +21,12 @@ specifiers:
   vite: ^4.0.0
   vite-ssg: ^0.22.1
   vue: ^3.2.45
+  vue-router: '4'
   vue-tsc: ^1.0.11
 
 dependencies:
   vue: 3.2.45
+  vue-router: 4.1.6_vue@3.2.45
 
 devDependencies:
   '@bernankez/eslint-config': 0.2.1_ha6vam6werchizxrnqvarmz2zu
@@ -45,7 +47,7 @@ devDependencies:
   typescript: 4.9.4
   unocss: 0.47.6_vite@4.0.1
   vite: 4.0.1_@types+node@18.11.16
-  vite-ssg: 0.22.1_t655cv2tzyxzoxn2qge4iug7hq
+  vite-ssg: 0.22.1_nzlvm5kxl5zpo3pmfsg6sv7ase
   vue-tsc: 1.0.13_typescript@4.9.4
 
 packages:
@@ -1007,6 +1009,9 @@ packages:
     dependencies:
       '@vue/compiler-dom': 3.2.45
       '@vue/shared': 3.2.45
+
+  /@vue/devtools-api/6.5.0:
+    resolution: {integrity: sha512-o9KfBeaBmCKl10usN4crU53fYtC1r7jJwdGKjPT24t348rHxgfpZ0xL3Xm/gLUYnc0oTp8LAmrxOeLyu6tbk2Q==}
 
   /@vue/reactivity-transform/3.2.45:
     resolution: {integrity: sha512-BHVmzYAvM7vcU5WmuYqXpwaBHjsS8T63jlKGWVtHxAHIoMIlmaMyurUSEs1Zcg46M4AYT5MtB1U274/2aNzjJQ==}
@@ -4060,7 +4065,7 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
-  /vite-ssg/0.22.1_t655cv2tzyxzoxn2qge4iug7hq:
+  /vite-ssg/0.22.1_nzlvm5kxl5zpo3pmfsg6sv7ase:
     resolution: {integrity: sha512-aiFbedElOR/amu0VPfWNj2oR7V9zX6oS4jzWEkOe5fJuZIV2+FnUyiupoyoo3lv3njgS2GENNpmxijN6tpJsTA==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -4087,6 +4092,7 @@ packages:
       prettier: 2.8.1
       vite: 4.0.1_@types+node@18.11.16
       vue: 3.2.45
+      vue-router: 4.1.6_vue@3.2.45
       yargs: 17.6.2
     transitivePeerDependencies:
       - bufferutil
@@ -4161,6 +4167,14 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-router/4.1.6_vue@3.2.45:
+    resolution: {integrity: sha512-DYWYwsG6xNPmLq/FmZn8Ip+qrhFEzA14EI12MsMgVxvHFDYvlr4NXpVF5hrRH1wVcDP8fGi5F4rxuJSl8/r+EQ==}
+    peerDependencies:
+      vue: ^3.2.0
+    dependencies:
+      '@vue/devtools-api': 6.5.0
+      vue: 3.2.45
 
   /vue-template-compiler/2.7.14:
     resolution: {integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==}
