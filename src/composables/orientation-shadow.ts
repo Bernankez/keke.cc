@@ -55,7 +55,7 @@ export function uesOrientationShadow() {
     alpha,
     beta,
     gamma,
-    compatible,
+    compatible: ref(false),
 
     rotateY,
     offsetX,
