@@ -7,9 +7,14 @@
       />
       <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
     </div>
-    <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center m-t-10 lg:m-t-0 w-fit">
-      <div>
-        <div class="w-fit grid grid-cols-3 gap-4">
+    <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center w-full m-t-10 lg:m-t-0 w-fit">
+      <div class="w-full m-x-25 box-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3">
+        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
+        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
+        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
+        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
+        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
+        <!-- <div class="w-fit grid grid-cols-3 gap-4">
           <Website
             left="#ff709f" right="#fb7299" :mask="false" nick-name="鹿野的科科"
             url="https://space.bilibili.com/32431375"
@@ -54,7 +59,7 @@
               <div class="i-ri:mastodon-line"></div>
             </template>
           </Website>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -66,6 +71,7 @@ import { uesOrientationShadow } from "@/composables/orientation-shadow";
 import Avatar from "@/assets/avatar.webp";
 import Typewriter from "@/components/Typewriter.vue";
 import Website from "@/components/Website.vue";
+import Tagi from "@/components/Tagi.vue";
 
 let typewriterMinWidth = $ref("");
 const onTypewriterLoaded = (style: CSSStyleDeclaration) => {
