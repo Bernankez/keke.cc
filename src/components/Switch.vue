@@ -54,10 +54,10 @@ const checked = $computed(() => value === trueValue);
 
 <style scoped>
 .background {
-  --width: 50px;
-  --height: 26px;
-  --toggle-diameter: 30px;
-  --toggle-wider: 35px;
+  --width: 45px;
+  --height: 23px;
+  --toggle-diameter: 26px;
+  --toggle-wider: 28px;
   --button-toggle-offset: calc((var(--height) - var(--toggle-diameter)) / 2);
   --toggle-shadow-offset: 10px;
 
