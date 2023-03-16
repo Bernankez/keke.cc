@@ -7,43 +7,47 @@
       />
       <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
     </div>
-    <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center w-full m-t-10 lg:m-t-0 w-fit">
-      <div class="w-full m-x-17 box-border grid grid-cols-1 gap-3">
-        <div>
+    <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center w-full lg:w-fit m-t-10 lg:m-t-0 w-fit">
+      <div class="w-full m-x-17 box-border grid grid-cols-1 xl:flex gap-3 xl:flex-gap-3">
+        <div class="xl:min-w-50">
           <Tagi title="Blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
         </div>
-        <div class="grid grid-cols-1 gap-2">
-          <div class="text-7 text-center m-3">
+        <div>
+          <div class="text-7 text-center lg:text-start m-3 cursor-default">
             Projects
           </div>
-          <Tagi title="Bilibili Fans Card" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/">
-            <template #icon>
-              Fc
-            </template>
-          </Tagi>
-          <Tagi title="Bilibili SuperChat" desc="Generate custom SuperChat image." href="https://bilibili-fans.keke.cc/">
-            <template #icon>
-              Sc
-            </template>
-          </Tagi>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+            <Tagi title="Bilibili Fans Card" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/">
+              <template #icon>
+                Fc
+              </template>
+            </Tagi>
+            <Tagi title="Bilibili SuperChat" desc="Generate custom SuperChat image." href="https://sc.keke.cc/">
+              <template #icon>
+                Sc
+              </template>
+            </Tagi>
+          </div>
         </div>
-        <div class="grid grid-cols-1 gap-2">
-          <div class="text-7 text-center m-3">
+        <div class="xl:min-w-90">
+          <div class="text-7 text-center lg:text-start m-3 cursor-default">
             Socials
           </div>
-          <Tagi title="Bilibili" icon="i-ri:bilibili-fill" href="https://space.bilibili.com/32431375" />
-          <Tagi title="Blog" icon="i-ri:github-fill" href="https://github.com/Bernankez" />
-          <Tagi title="简书" href="https://www.jianshu.com/u/97ce768c5437">
-            <template #icon>
-              简
-            </template>
-          </Tagi>
-          <Tagi title="博客园" href="https://www.cnblogs.com/bernanke">
-            <template #icon>
-              博
-            </template>
-          </Tagi>
-          <Tagi title="Lofter" icon="i-fa6-solid:l" href="https://bernankez.lofter.com" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            <Tagi title="Bilibili" icon="i-ri:bilibili-fill" href="https://space.bilibili.com/32431375" />
+            <Tagi title="GitHub" icon="i-ri:github-fill" href="https://github.com/Bernankez" />
+            <Tagi title="简书" href="https://www.jianshu.com/u/97ce768c5437">
+              <template #icon>
+                简
+              </template>
+            </Tagi>
+            <Tagi title="博客园" href="https://www.cnblogs.com/bernanke">
+              <template #icon>
+                博
+              </template>
+            </Tagi>
+            <Tagi title="Lofter" icon="i-fa6-solid:l" href="https://bernankez.lofter.com" />
+          </div>
         </div>
       </div>
     </div>
