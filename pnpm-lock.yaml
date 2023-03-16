@@ -4,7 +4,7 @@ specifiers:
   '@bernankez/eslint-config': ^0.2.1
   '@bernankez/theme': ^0.2.0
   '@ctrl/tinycolor': ^3.5.0
-  '@iconify-json/ri': ^1.1.4
+  '@iconify/json': ^2.2.35
   '@types/node': ^18.11.16
   '@unocss/preset-rem-to-px': ^0.47.6
   '@vitejs/plugin-basic-ssl': ^1.0.1
@@ -32,7 +32,7 @@ devDependencies:
   '@bernankez/eslint-config': 0.2.1_ha6vam6werchizxrnqvarmz2zu
   '@bernankez/theme': 0.2.0
   '@ctrl/tinycolor': 3.5.0
-  '@iconify-json/ri': 1.1.4
+  '@iconify/json': 2.2.35
   '@types/node': 18.11.16
   '@unocss/preset-rem-to-px': 0.47.6
   '@vitejs/plugin-basic-ssl': 1.0.1_vite@4.0.1
@@ -449,10 +449,11 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iconify-json/ri/1.1.4:
-    resolution: {integrity: sha512-gAk2gQBVghgbMLOmbUCc3l4COMMH5sR3HhBqpjaPUFBbC4WsNNRyOD4RZgjlanU7DTgFrj4NarY5K2EkXaVxuw==}
+  /@iconify/json/2.2.35:
+    resolution: {integrity: sha512-x8la14O904XMHAw5lNPU36dEqIurckYNFG6SdeZ4o6AoZp8KvQSqciuAA9UA9zAVPED4W7oKKgA+zGR6afLPOA==}
     dependencies:
       '@iconify/types': 2.0.0
+      pathe: 1.0.0
     dev: true
 
   /@iconify/types/2.0.0:
