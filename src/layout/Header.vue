@@ -7,21 +7,13 @@
       <div v-if="showGrant" class="flex justify-center items-center w-30px h-30px bg-background-lighter shadow-sm rounded-999 select-none cursor-pointer" title="enable shaking" @click="onGrant">
         👋
       </div>
-      <Switch v-model="isDark">
-        <template #checked>
-          <div class="i-ri:moon-line"></div>
-        </template>
-        <template #unchecked>
-          <div class="i-ri:sun-line"></div>
-        </template>
-      </Switch>
+      <ModeSwitch />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { isDark } from "@/composables/dark";
-import Switch from "@/components/Switch.vue";
+import ModeSwitch from "@/components/ModeSwitch.vue";
 
 const { showGrant = false } = defineProps<{
   showGrant?: boolean;
