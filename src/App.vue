@@ -1,6 +1,6 @@
 <template>
   <Header :show-grant="compatible && (!isGranted && !isDenied)" @grant="grant" />
-  <main class="w-full min-h-full h-full">
+  <main class="w-full min-h-full grid">
     <RouterView />
   </main>
 </template>
