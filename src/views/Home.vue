@@ -8,58 +8,43 @@
       <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
     </div>
     <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center w-full m-t-10 lg:m-t-0 w-fit">
-      <div class="w-full m-x-25 box-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-3">
-        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
-        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
-        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
-        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
-        <Tagi title="Blog" desc="This is a sample description of my blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
-        <!-- <div class="w-fit grid grid-cols-3 gap-4">
-          <Website
-            left="#ff709f" right="#fb7299" :mask="false" nick-name="鹿野的科科"
-            url="https://space.bilibili.com/32431375"
-          >
+      <div class="w-full m-x-17 box-border grid grid-cols-1 gap-3">
+        <div>
+          <Tagi title="Blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
+        </div>
+        <div class="grid grid-cols-1 gap-2">
+          <div class="text-7 text-center m-3">
+            Projects
+          </div>
+          <Tagi title="Bilibili Fans Card" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/">
             <template #icon>
-              <div class="i-ri:bilibili-fill"></div>
+              Fc
             </template>
-          </Website>
-          <Website left="#24292f" right="#24292f" nick-name="科科" url="https://github.com/Bernankez">
+          </Tagi>
+          <Tagi title="Bilibili SuperChat" desc="Generate custom SuperChat image." href="https://bilibili-fans.keke.cc/">
             <template #icon>
-              <div class="i-ri:github-fill"></div>
+              Sc
             </template>
-          </Website>
-          <Website left="#ec6149" nick-name="科科Cole" url="https://www.jianshu.com/u/97ce768c5437">
+          </Tagi>
+        </div>
+        <div class="grid grid-cols-1 gap-2">
+          <div class="text-7 text-center m-3">
+            Socials
+          </div>
+          <Tagi title="Bilibili" icon="i-ri:bilibili-fill" href="https://space.bilibili.com/32431375" />
+          <Tagi title="Blog" icon="i-ri:github-fill" href="https://github.com/Bernankez" />
+          <Tagi title="简书" href="https://www.jianshu.com/u/97ce768c5437">
             <template #icon>
-              <div class="text-15">
-                简
-              </div>
+              简
             </template>
-          </Website>
-          <Website left="#59a0e1" nick-name="科科" url="https://www.cnblogs.com/bernanke/">
+          </Tagi>
+          <Tagi title="博客园" href="https://www.cnblogs.com/bernanke">
             <template #icon>
-              <div class="text-15">
-                博
-              </div>
+              博
             </template>
-          </Website>
-          <Website left="#459a93" nick-name="科科" url="https://bernankez.lofter.com">
-            <template #icon>
-              <div class="text-18">
-                L
-              </div>
-            </template>
-          </Website>
-          <Website left="#ff8200" mask mask-tip="■■■">
-            <template #icon>
-              <div class="i-ri:weibo-fill"></div>
-            </template>
-          </Website>
-          <Website left="#595aff" mask mask-tip="■■■">
-            <template #icon>
-              <div class="i-ri:mastodon-line"></div>
-            </template>
-          </Website>
-        </div> -->
+          </Tagi>
+          <Tagi title="Lofter" icon="i-fa6-solid:l" href="https://bernankez.lofter.com" />
+        </div>
       </div>
     </div>
   </div>
