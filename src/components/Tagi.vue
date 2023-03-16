@@ -1,5 +1,5 @@
 <template>
-  <a :href="href" :target="target" class="group flex flex-gap-3 items-center p-2.5 box-border b-1.5 b-solid b-disabled-darker rounded-3.5 cursor-pointer">
+  <a :href="href" :target="target" class="group flex flex-gap-3 items-center p-2.5 box-border rounded-3.5 cursor-pointer hover:bg-background-light bg-opacity-80! dark:hover:bg-darkbackground-dark dark:bg-opacity-60! transition-300">
     <div class="text-9 transition-300 text-default-light group-hover:text-default dark:group-hover:text-darkdefault">
       <slot name="icon">
         <div :class="icon"></div>
