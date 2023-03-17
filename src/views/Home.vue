@@ -8,7 +8,7 @@
       <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
     </div>
     <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center w-full lg:w-fit m-t-10 lg:m-t-0 w-fit">
-      <div class="w-full m-x-17 box-border grid grid-cols-1 xl:flex gap-3 xl:flex-gap-3">
+      <div class="w-full m-x-17 lg:m-x-0 box-border grid grid-cols-1 xl:flex gap-3 xl:flex-gap-3">
         <div class="xl:min-w-50">
           <Tagi title="Blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
         </div>
