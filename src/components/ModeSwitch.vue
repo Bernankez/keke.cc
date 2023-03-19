@@ -1,5 +1,5 @@
 <template>
-  <div role="button" class="cursor-pointer" @click="toggleMode">
+  <div role="button" aria-label="switch mode" class="cursor-pointer" @click="toggleMode">
     <div :class="icon" class="text-5.5 text-default dark:text-darkdefault transition-500"></div>
   </div>
 </template>
