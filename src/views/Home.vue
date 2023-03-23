@@ -37,19 +37,19 @@
             Socials
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-            <Tagi title="Bilibili" icon="i-ri:bilibili-fill" href="https://space.bilibili.com/32431375" />
-            <Tagi title="GitHub" icon="i-ri:github-fill" href="https://github.com/Bernankez" />
-            <Tagi title="简书" href="https://www.jianshu.com/u/97ce768c5437">
+            <Tagi title="Bilibili" icon="i-ri:bilibili-fill" href="https://space.bilibili.com/32431375" target="_blank" />
+            <Tagi title="GitHub" icon="i-ri:github-fill" href="https://github.com/Bernankez" target="_blank" />
+            <Tagi title="简书" href="https://www.jianshu.com/u/97ce768c5437" target="_blank">
               <template #icon>
                 简
               </template>
             </Tagi>
-            <Tagi title="博客园" href="https://www.cnblogs.com/bernanke">
+            <Tagi title="博客园" href="https://www.cnblogs.com/bernanke" target="_blank">
               <template #icon>
                 博
               </template>
             </Tagi>
-            <Tagi title="Lofter" icon="i-fa6-solid:l" href="https://bernankez.lofter.com" />
+            <Tagi title="Lofter" icon="i-fa6-solid:l" href="https://bernankez.lofter.com" target="_blank" />
           </div>
         </div>
       </div>

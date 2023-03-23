@@ -6,8 +6,9 @@
       </slot>
     </div>
     <div class="flex flex-col">
-      <div class="text-4.5 transition-300 text-default-light group-hover:text-default dark:group-hover:text-darkdefault">
+      <div class="flex items-center text-4.5 transition-300 text-default-light group-hover:text-default dark:group-hover:text-darkdefault">
         <slot>{{ title }}</slot>
+        <div v-if="target === '_blank'" class="i-ri:external-link-fill m-l-3"></div>
       </div>
       <div v-if="desc || $slots.desc" class="m-t-2 text-3.5 transition-300 text-default-light group-hover:text-default dark:text-default-light dark:group-hover:text-default-lighter">
         <slot name="desc">
@@ -19,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-const { title = "", desc = "", icon = "", href = "", target = "_blank" } = defineProps<{
+const { title = "", desc = "", icon = "", href = "", target = "" } = defineProps<{
   title?: string;
   desc?: string;
   icon?: string;
