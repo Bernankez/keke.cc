@@ -9,8 +9,11 @@
     </div>
     <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center w-full lg:w-fit m-t-10 lg:m-t-0 w-fit">
       <div class="w-full m-x-17 lg:m-x-0 box-border grid grid-cols-1 xl:flex gap-3 xl:flex-gap-3">
-        <div class="xl:min-w-50">
-          <Tagi title="Blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
+        <div>
+          <div class="xl:min-w-50 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+            <Tagi title="Blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
+            <Tagi title="ChatGPT" desc="A ChatGPT Robot." icon="i-ri:chat-quote-fill" href="https://chatgpt.keke.cc/" />
+          </div>
         </div>
         <div>
           <div class="text-7 text-center lg:text-start m-3 cursor-default">
