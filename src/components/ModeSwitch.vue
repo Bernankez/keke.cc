@@ -38,12 +38,12 @@ const toggleMode = (event: MouseEvent) => {
 
       document.documentElement.animate(
         {
-          clipPath: isDark.value ? clipPath : [...clipPath].reverse(),
+          clipPath,
         },
         {
           duration: 500,
           easing: "ease-in",
-          pseudoElement: isDark.value ? "::view-transition-new(root)" : "::view-transition-old(root)",
+          pseudoElement: "::view-transition-new(root)",
         },
       );
     });
