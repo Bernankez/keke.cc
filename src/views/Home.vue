@@ -30,6 +30,9 @@
                 Sc
               </template>
             </Tagi>
+            <Tagi icon="i-mdi:counter" desc="Custom Visitor Badge." href="https://github.com/Bernankez/visitor-badge">
+              <img class="h-12 object-scale-down" src="https://badge.keke.cc/api/keke.cc/bernankez" alt="visitor badge" />
+            </Tagi>
           </div>
         </div>
         <div class="xl:min-w-90">
