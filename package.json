@@ -1,7 +1,7 @@
 {
   "name": "homepage",
   "type": "module",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "packageManager": "pnpm@8.4.0",
   "scripts": {
