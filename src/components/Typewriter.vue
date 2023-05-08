@@ -70,7 +70,7 @@ onMounted(() => {
 
 <style scoped>
 .name::after {
-  @apply b-r-0.1em b-default dark-b-darkdefault rounded-3px;
+  @apply b-r-0.1em b-r-solid b-default dark-b-darkdefault rounded-3px;
   content: "";
   animation: flash v-bind("computedCursorDuration") infinite;
 }

@@ -2,7 +2,7 @@
   <div class="relative p-y-18 box-border w-full h-full flex flex-col justify-center lg:justify-evenly items-center lg:flex-row bg-background dark:bg-darkbackground transition">
     <div :class="compatible ? 'orientation-shadow' : ''" class="w-fit lg:h-full flex flex-col justify-center items-center">
       <img
-        class="w-30 h-30 lg:w-50 lg:h-50 rounded-999 select-none border-4 border-default dark:border-darkdefault transition"
+        class="w-30 h-30 lg:w-50 lg:h-50 rounded-999 select-none b-4 b-solid b-default dark:b-darkdefault transition"
         draggable="false" :src="Avatar" alt="avatar"
       />
       <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
@@ -62,7 +62,6 @@ import { colorDarkBackground } from "@bernankez/theme";
 import { uesOrientationShadow } from "@/composables/orientation-shadow";
 import Avatar from "@/assets/avatar.webp";
 import Typewriter from "@/components/Typewriter.vue";
-import Website from "@/components/Website.vue";
 import Tagi from "@/components/Tagi.vue";
 
 let typewriterMinWidth = $ref("");
