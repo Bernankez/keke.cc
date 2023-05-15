@@ -68,7 +68,7 @@ import Typewriter from "@/components/Typewriter.vue";
 import Tagi from "@/components/Tagi.vue";
 
 let typewriterMinWidth = $ref("");
-const onTypewriterLoaded = (style: CSSStyleDeclaration) => {
+const onTypewriterLoaded = (style: Record<keyof CSSStyleDeclaration, string>) => {
   typewriterMinWidth = style.width;
 };
 

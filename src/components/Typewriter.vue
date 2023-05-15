@@ -24,7 +24,7 @@ const { name = "科科Cole", duration = 400, cursorDuration = 1500 } = definePro
 }>();
 
 const emit = defineEmits<{
-  (event: "loaded", style: CSSStyleDeclaration): void;
+  (event: "loaded", style: Record<keyof CSSStyleDeclaration, string>): void;
 }>();
 
 const hiddenName = $ref<HTMLDivElement>();

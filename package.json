@@ -10,6 +10,7 @@
     "dev": "vite",
     "build": "vue-tsc && vite-ssg build",
     "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit",
     "lint": "eslint .",
     "fix": "eslint . --fix",
     "release": "bumpp"
