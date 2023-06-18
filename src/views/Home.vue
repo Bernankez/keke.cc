@@ -20,19 +20,12 @@
             Projects
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
-            <Tagi title="Bilibili Fans Card" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/">
-              <template #icon>
-                Fc
-              </template>
-            </Tagi>
-            <Tagi title="Bilibili SuperChat" desc="Generate custom SuperChat image." href="https://sc.keke.cc/">
-              <template #icon>
-                Sc
-              </template>
-            </Tagi>
+            <Tagi title="Bilibili Fans Card" icon="i-tabler:brand-bilibili" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/" />
+            <Tagi title="Bilibili SuperChat" icon="i-tabler:brand-bilibili" desc="Generate custom SuperChat image." href="https://sc.keke.cc/" />
             <Tagi icon="i-mdi:counter" desc="Custom Visitor Badge." href="https://github.com/Bernankez/visitor-badge">
               <img class="h-12 object-scale-down" src="https://badge.keke.cc/api/keke.cc/bernankez" alt="visitor badge" />
             </Tagi>
+            <Tagi title="Snippets" icon="i-mdi:vector-intersection" desc="Just snippets." href="https://snippets.keke.cc/" />
           </div>
         </div>
         <div class="xl:min-w-90">
