@@ -26,6 +26,7 @@
               <img class="h-12 object-scale-down" src="https://badge.keke.cc/api/keke.cc/bernankez" alt="visitor badge" />
             </Tagi>
             <Tagi title="Snippets" icon="i-mdi:vector-intersection" desc="Just snippets." href="https://snippets.keke.cc/" />
+            <Tagi title="create-l" icon="i-simple-icons:typescript" desc="TypeScript library scaffold." href="https://github.com/Bernankez/create-l" />
           </div>
         </div>
         <!-- <div class="xl:min-w-90">

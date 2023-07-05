@@ -18,7 +18,7 @@ const props = withDefaults(defineProps<{
   title?: string;
   target?: string;
   href?: string;
-  show: "title" | "icon" | "auto";
+  show?: "title" | "icon" | "auto";
 }>(), {
   to: "",
   target: "_blank",
