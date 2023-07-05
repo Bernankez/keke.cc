@@ -2,11 +2,11 @@
   <div>
     <div
       ref="hiddenName"
-      class="name relative hidden w-fit text-6 leading-none text-default transition lg:text-12.5 dark-text-darkdefault"
+      class="name relative hidden w-fit leading-none text-default transition dark-text-darkdefault"
     >
       {{ name }}
     </div>
-    <div class="name relative w-fit text-6 leading-none text-default transition lg:text-12.5 dark-text-darkdefault">
+    <div class="name relative w-fit leading-none text-default transition dark-text-darkdefault">
       {{ names.join("") }}
     </div>
   </div>
@@ -17,7 +17,6 @@ const props = withDefaults(defineProps<{
   name?: string;
   duration?: number;
   cursorDuration?: number;
-  immediate?: boolean;
 }>(), {
   name: "科科Cole",
   duration: 400,

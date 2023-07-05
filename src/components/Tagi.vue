@@ -1,44 +1,33 @@
 <template>
-  <a
-    :href="href" :target="target"
-    class="box-border flex cursor-default select-none items-center flex-gap-3 rounded-3.5 p-2.5 transition-300 bg-opacity-80! dark:bg-opacity-60!"
-  >
-    <div class="text-9 text-default-light transition-300">
-      <slot name="icon">
-        <div :class="icon"></div>
-      </slot>
-    </div>
-    <div class="flex flex-col">
-      <div
-        class="flex items-center text-4.5 text-default-light transition-300"
-      >
-        <slot>{{ title }}</slot>
-        <div v-if="target === '_blank'" class="i-ri:external-link-fill m-l-3"></div>
+  <RouterLink :to="to" class="block flex items-center flex-gap-3 p-2" :href="href" :target="target">
+    <div :class="icon" class="text-8"></div>
+    <div class="flex flex-col flex-gap-3">
+      <div class="text-5">
+        {{ title }}
       </div>
-      <div
-        v-if="desc || $slots.desc"
-        class="m-t-2 text-3.5 text-default-light transition-300 dark:text-default-light"
-      >
-        <slot name="desc">
-          {{ desc }}
-        </slot>
+      <div class="text-4">
+        {{ desc }}
       </div>
     </div>
-  </a>
+  </RouterLink>
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
+const props = withDefaults(defineProps<{
   title?: string;
   desc?: string;
   icon?: string;
   href?: string;
+  to?: string;
   target?: string;
 }>(), {
   title: "",
   desc: "",
   icon: "",
   href: "",
-  target: "",
+  to: "",
+  target: "_blank",
 });
+
+const target = computed(() => props.href ? props.target : "");
 </script>

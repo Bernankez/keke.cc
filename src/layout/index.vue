@@ -1,6 +1,6 @@
 <template>
   <Header />
-  <main class="grid min-h-full w-full">
+  <main class="grid box-border min-h-full w-full p-t-18">
     <RouterView />
   </main>
 </template>
