@@ -1,38 +1,38 @@
 <template>
-  <div class="relative p-y-18 box-border w-full h-full flex flex-col justify-center lg:justify-evenly items-center lg:flex-row bg-background dark:bg-darkbackground transition">
-    <div :class="compatible ? 'orientation-shadow' : ''" class="w-fit lg:h-full flex flex-col justify-center items-center">
+  <div class="relative box-border h-full w-full flex flex-col items-center justify-center bg-background p-y-18 transition lg:flex-row lg:justify-evenly dark:bg-darkbackground">
+    <div class="w-fit flex flex-col items-center justify-center lg:h-full">
       <img
-        class="w-30 h-30 lg:w-50 lg:h-50 rounded-999 select-none b-4 b-solid b-default dark:b-darkdefault transition"
+        class="h-30 w-30 select-none b-0 b-default rounded-999 b-solid transition lg:h-50 lg:w-50 dark:b-darkdefault"
         draggable="false" :src="Avatar" alt="avatar"
       />
       <Typewriter class="typewriter" @loaded="onTypewriterLoaded" />
     </div>
-    <div :class="compatible ? 'orientation-shadow' : ''" class="flex items-center justify-center w-full lg:w-fit m-t-10 lg:m-t-0 w-fit">
-      <div class="w-full m-x-17 lg:m-x-0 box-border grid grid-cols-1 xl:flex gap-3 xl:flex-gap-3">
+    <div class="m-t-10 w-fit w-full flex items-center justify-center lg:m-t-0 lg:w-fit">
+      <div class="grid grid-cols-1 m-x-17 box-border w-full gap-3 lg:m-x-0 xl:flex xl:flex-gap-3">
         <div>
-          <div class="xl:min-w-50 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
+          <div class="grid grid-cols-1 gap-2 lg:grid-cols-1 sm:grid-cols-2 xl:min-w-50">
             <Tagi title="Blog" icon="i-ri:book-read-fill" href="https://blog.keke.cc/" />
             <Tagi title="ChatGPT" desc="A ChatGPT Robot." icon="i-ri:chat-quote-fill" href="https://chatgpt.keke.cc/" />
           </div>
         </div>
         <div>
-          <div class="text-7 text-center lg:text-start m-3 cursor-default">
+          <div class="m-3 cursor-default text-center text-7 lg:text-start">
             Projects
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-2">
-            <Tagi title="Bilibili Fans Card" icon="i-tabler:brand-bilibili" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/" />
-            <Tagi title="Bilibili SuperChat" icon="i-tabler:brand-bilibili" desc="Generate custom SuperChat image." href="https://sc.keke.cc/" />
+          <div class="grid grid-cols-1 gap-2 lg:grid-cols-1 sm:grid-cols-2">
+            <Tagi title="Bilibili Fans Card" icon="i-ri:bilibili-fill" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/" />
+            <Tagi title="Bilibili SuperChat" icon="i-ri:bilibili-fill" desc="Generate custom SuperChat image." href="https://sc.keke.cc/" />
             <Tagi icon="i-mdi:counter" desc="Custom Visitor Badge." href="https://github.com/Bernankez/visitor-badge">
               <img class="h-12 object-scale-down" src="https://badge.keke.cc/api/keke.cc/bernankez" alt="visitor badge" />
             </Tagi>
             <Tagi title="Snippets" icon="i-mdi:vector-intersection" desc="Just snippets." href="https://snippets.keke.cc/" />
           </div>
         </div>
-        <div class="xl:min-w-90">
-          <div class="text-7 text-center lg:text-start m-3 cursor-default">
+        <!-- <div class="xl:min-w-90">
+          <div class="m-3 cursor-default text-center text-7 lg:text-start">
             Socials
           </div>
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div class="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <Tagi title="Bilibili" icon="i-ri:bilibili-fill" href="https://space.bilibili.com/32431375" target="_blank" />
             <Tagi title="GitHub" icon="i-ri:github-fill" href="https://github.com/Bernankez" target="_blank" />
             <Tagi title="简书" href="https://www.jianshu.com/u/97ce768c5437" target="_blank">
@@ -47,35 +47,25 @@
             </Tagi>
             <Tagi title="Lofter" icon="i-fa6-solid:l" href="https://bernankez.lofter.com" target="_blank" />
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { colorDarkBackground } from "@bernankez/theme";
-import { uesOrientationShadow } from "@/composables/orientation-shadow";
 import Avatar from "@/assets/avatar.webp";
-import Typewriter from "@/components/Typewriter.vue";
-import Tagi from "@/components/Tagi.vue";
 
-let typewriterMinWidth = $ref("");
+const typewriterMinWidth = ref("");
 const onTypewriterLoaded = (style: Record<keyof CSSStyleDeclaration, string>) => {
-  typewriterMinWidth = style.width;
+  typewriterMinWidth.value = style.width;
 };
-
-const { rotateY, offsetX, offsetY, compatible } = uesOrientationShadow();
 </script>
 
 <style scoped>
-.orientation-shadow {
-  transform: translateZ(16px) rotateY(v-bind(rotateY));
-  filter: drop-shadow(v-bind(offsetX) v-bind(offsetY) 10px v-bind("colorDarkBackground.lighter"));
-}
-
 .typewriter {
   @apply m-t-5 lg-m-t-10;
+
   min-width: v-bind("typewriterMinWidth");
 }
 </style>

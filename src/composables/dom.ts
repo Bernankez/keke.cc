@@ -1,6 +1,4 @@
 import type { Fn, MaybeComputedElementRef, MaybeElement, UnRefElementReturn } from "@vueuse/core";
-import { unrefElement, useEventListener } from "@vueuse/core";
-import { onMounted, onUnmounted, ref, watch } from "vue";
 
 export function useHiddenElementStyle(target: MaybeComputedElementRef) {
   const style = ref<Record<keyof CSSStyleDeclaration, string>>({} as any);
@@ -43,7 +41,7 @@ export function useHiddenElementStyle(target: MaybeComputedElementRef) {
     });
   });
 
-  onUnmounted(() => {
+  tryOnScopeDispose(() => {
     stopListenResize();
     stopListenOrientationChange();
   });

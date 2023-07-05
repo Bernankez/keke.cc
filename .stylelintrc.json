@@ -1,0 +1,7 @@
+{
+  "extends": "@bernankez/stylelint-config",
+  "rules": {
+    "selector-pseudo-element-no-unknown": [true, { "ignorePseudoElements": ["/^view-transition-*/"] }],
+    "function-no-unknown": [true, { "ignoreFunctions": ["v-bind"] }]
+  }
+}

@@ -1,33 +1,14 @@
 <template>
-  <div
-    class="absolute z-1 top-0 left-0 flex items-center justify-between w-full h-18 lg:backdrop-saturate-50 lg:backdrop-blur-8 bg-opacity-70 dark:bg-opacity-70 bg-transparent p-x-5 box-border"
-  >
+  <div class="absolute left-0 top-0 z-1 box-border h-18 w-full flex items-center justify-between bg-transparent bg-opacity-70 p-x-5 dark:bg-opacity-70 lg:backdrop-blur-8 lg:backdrop-saturate-50">
     <div></div>
     <div class="flex items-center flex-gap-4">
-      <div v-if="showGrant" class="flex justify-center items-center w-30px h-30px bg-background-lighter shadow-sm rounded-999 select-none cursor-pointer" title="enable shaking" @click="onGrant">
-        👋
-      </div>
-      <ModeSwitch />
+      <Icon href="https://blog.keke.cc/" title="Posts" icon="i-ri:bill-line" show="auto" />
+      <Icon href="https://github.com/Bernankez" title="GitHub" icon="i-ri:github-line" />
+      <ColorModeSwitch />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import ModeSwitch from "@/components/ModeSwitch.vue";
 
-const { showGrant = false } = defineProps<{
-  showGrant?: boolean;
-}>();
-
-const emit = defineEmits<{
-  (event: "grant"): void;
-}>();
-
-const onGrant = () => {
-  emit("grant");
-};
 </script>
-
-<style lang="scss" scoped>
-
-</style>
