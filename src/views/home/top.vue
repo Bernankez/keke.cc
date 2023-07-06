@@ -1,7 +1,8 @@
 <template>
   <div class="flex flex-col flex-gap-4">
     <div class="flex flex-gap-2">
-      <img class="h-20 w-20 select-none rounded-999" draggable="false" src="/avatar.webp" alt="avatar" />
+      <div v-if="!imageLoaded" class="i-svg-spinners:pulse h-20 w-20"></div>
+      <img class="select-none rounded-999" :class="[imageLoaded ? 'h-20 w-20' : 'h-0 w-0']" draggable="false" src="/avatar.webp" alt="avatar" :onload="onImageLoad" />
       <div class="flex flex-col justify-center">
         <Typewriter data-blobity="true" data-blobity-magnetic="true" class="p-2 text-7.5" />
       </div>
@@ -20,5 +21,7 @@
 </template>
 
 <script setup lang="ts">
+const imageLoaded = ref(false);
 
+const onImageLoad = () => imageLoaded.value = true;
 </script>
