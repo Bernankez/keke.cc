@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="to" class="block flex items-center flex-gap-3 p-2 text-dark-500 dark:text-darkdefault" :href="href" :target="target">
+  <RouterLink :to="to" class="block flex select-none items-center flex-gap-3 p-2 text-dark-500 dark:text-darkdefault" :href="href" :target="target">
     <div :class="icon" class="text-9"></div>
     <div class="w-full flex flex-col flex-gap-1">
       <div class="text-5">
