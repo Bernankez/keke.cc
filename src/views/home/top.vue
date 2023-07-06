@@ -15,12 +15,6 @@
           简
         </div>
       </Icon>
-      <Icon href="https://www.cnblogs.com/bernanke" title="博客园" show="auto">
-        <div class="h-5.5 w-5.5 flex items-center justify-center text-4.5">
-          博
-        </div>
-      </Icon>
-      <Icon icon="i-fa6-solid:l text-5" title="Lofter" href="https://bernankez.lofter.com" show="auto" />
     </div>
   </div>
 </template>
