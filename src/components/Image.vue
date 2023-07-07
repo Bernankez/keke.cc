@@ -1,6 +1,6 @@
 <template>
-  <img v-if="!loading" ref="imageRef" :src="src" :alt="alt" />
-  <template v-else>
+  <img v-show="!loading" v-bind="$attrs" ref="imageRef" :src="src" :alt="alt" :onload="onImageLoad" />
+  <template v-if="loading">
     <slot>
       <div class="i-svg-spinners:pulse" v-bind="$attrs"></div>
     </slot>
@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
+defineProps<{
   src: string;
   alt?: string;
 }>();
@@ -16,21 +16,13 @@ const props = defineProps<{
 const loading = ref(true);
 const imageRef = ref<HTMLImageElement>();
 
+const onImageLoad = () => {
+  loading.value = false;
+};
+
 watchEffect(() => {
-  if (props.src) {
-    reset();
-    loadImage();
+  if (imageRef.value?.complete) {
+    loading.value = false;
   }
 });
-
-function reset() {
-  loading.value = true;
-}
-function loadImage() {
-  const img = new Image();
-  img.onload = () => {
-    loading.value = false;
-  };
-  img.src = props.src;
-}
 </script>

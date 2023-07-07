@@ -6,10 +6,7 @@
       <Tagi title="Bilibili SuperChat" icon="i-ri:bilibili-fill" desc="Generate custom SuperChat image." href="https://sc.keke.cc/" />
       <Tagi icon="i-mdi:counter" desc="Custom Visitor Badge." href="https://github.com/Bernankez/visitor-badge">
         <Image class="h-12 text-10" src="https://badge.keke.cc/api/keke.cc/bernankez" alt="visitor badge">
-          <div class="h-12 flex items-center">
-            Visitor Badge
-            <div class="i-svg-spinners:pulse text-10"></div>
-          </div>
+          <div class="i-svg-spinners:3-dots-scale h-12 text-6"></div>
         </Image>
       </Tagi>
       <Tagi title="Snippets" icon="i-mdi:vector-intersection" desc="Just snippets." href="https://snippets.keke.cc/" />
