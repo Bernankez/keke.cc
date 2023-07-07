@@ -6,7 +6,7 @@
         <Bottom />
       </div>
     </div>
-    <div class="absolute bottom-0 h-10 w-full text-center vertical-middle">
+    <div class="absolute bottom-0 box-border h-10 w-full flex items-end justify-center p-b-2">
       <span class="text-3.5 tracking-3 text-disabled-dark md:tracking-7">/{{ hackedText }}/</span>
     </div>
   </div>
