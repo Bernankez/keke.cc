@@ -10,11 +10,11 @@
       <Icon href="https://blog.keke.cc/" title="Posts" icon="i-ri:bill-line" show="auto" />
       <Icon href="https://github.com/Bernankez" title="GitHub" icon="i-ri:github-line" show="auto" />
       <Icon icon="i-ri:bilibili-fill" title="Bilibili" href="https://space.bilibili.com/32431375" show="auto" />
-      <Icon href="https://www.jianshu.com/u/97ce768c5437" title="简书" show="auto">
+      <!-- <Icon href="https://www.jianshu.com/u/97ce768c5437" title="简书" show="auto">
         <div class="h-5.5 w-5.5 flex items-center justify-center text-4.5">
           简
         </div>
-      </Icon>
+      </Icon> -->
     </div>
   </div>
 </template>
