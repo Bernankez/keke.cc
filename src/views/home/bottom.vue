@@ -11,6 +11,7 @@
       </Tagi>
       <Tagi title="Snippets" icon="i-mdi:vector-intersection" desc="Just snippets." href="https://snippets.keke.cc/" />
       <Tagi title="create-l" icon="i-gridicons:create" desc="TypeScript library scaffold." href="https://github.com/Bernankez/create-l" />
+      <Tagi title="Password Generator" icon="i-solar:key-linear" desc="Password generator." href="https://pwgen.keke.cc/" />
     </div>
   </div>
 </template>
