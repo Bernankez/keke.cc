@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     ColorModeSwitch: typeof import('./src/components/ColorModeSwitch.vue')['default']
+    Dialog: typeof import('./src/components/Dialog.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']
     Image: typeof import('./src/components/Image.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
