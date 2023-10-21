@@ -16,7 +16,9 @@ export default defineConfig({
         defineModel: true,
       },
     }),
-    Components(),
+    Components({
+      deep: true,
+    }),
     AutoImport({
       imports: [
         "vue",
