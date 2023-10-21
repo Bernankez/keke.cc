@@ -1,7 +1,7 @@
 <template>
   <DefineTemplate>
     <div v-if="show" :style="{ zIndex }" class="fixed bottom-0 left-0 right-0 top-0 bg-darkbackground bg-opacity-50 backdrop-blur-10 backdrop-saturate-50 transition-300" @click="emit('click', $event)">
-      <div class="relative left-50% top-50% h-fit w-fit -translate-x-50% -translate-y-50%">
+      <div class="relative left-50% top-50% h-fit w-fit -translate-x-50% -translate-y-50%" @click.stop>
         <slot></slot>
       </div>
     </div>
