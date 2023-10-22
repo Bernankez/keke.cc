@@ -10,6 +10,7 @@
     "build": "vue-tsc && vite-ssg build",
     "preview": "vite preview",
     "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run",
     "lint": "eslint . && pnpm run stylelint",
     "fix": "eslint . --fix && pnpm stylelint:fix",
     "stylelint": "stylelint **/*.{css,vue}",
@@ -20,6 +21,7 @@
     "@unocss/reset": "^0.56.5",
     "@vueuse/core": "^10.5.0",
     "blobity": "^0.2.3",
+    "dayjs": "^1.11.10",
     "vue": "^3.3.6",
     "vue-router": "^4.2.5"
   },

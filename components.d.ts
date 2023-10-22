@@ -7,11 +7,11 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Calendar: typeof import('./src/components/Calendar/Calendar.vue')['default']
     ColorModeSwitch: typeof import('./src/components/ColorModeSwitch.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']
     Image: typeof import('./src/components/Image.vue')['default']
     Mask: typeof import('./src/components/Mask.vue')['default']
-    Modal: typeof import('./src/components/Modal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Tagi: typeof import('./src/components/Tagi.vue')['default']

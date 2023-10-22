@@ -3,7 +3,7 @@
     <div class="flex items-center flex-gap-3">
       <Icon icon="i-ri:calendar-2-line" title="DayGram" />
       <Icon icon="i-ri:switch-fill" @click="show = !show" />
-      <Modal v-model="show" close-on-mask />
+      <Calendar v-model="show" close-on-mask />
     </div>
     <div class="flex items-center flex-gap-3">
       <Icon icon="i-ri:chat-quote-line" title="ChatGPT Robot" href="https://chatgpt.keke.cc/" />
@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-const show = ref(false);
+const show = ref(true);
 const { use } = useZIndex();
 const zIndex = ref(use());
 </script>

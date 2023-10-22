@@ -42,6 +42,9 @@ export default defineConfig({
   },
   server: {
     https: true,
+    watch: {
+      usePolling: true,
+    },
   },
   test: {
     environment: "happy-dom",
