@@ -39,10 +39,10 @@ useLockHTMLScroll(lock);
 const [DefineTemplate, ReuseTemplate] = createReusableTemplate();
 
 const zIndex = ref(0);
-const { use, release } = useZIndex();
+const { use, release, nextZIndex } = useZIndex();
 watch(show, (show) => {
   if (show) {
-    zIndex.value = use();
+    zIndex.value = use(nextZIndex.value);
   } else {
     release(zIndex.value);
   }
