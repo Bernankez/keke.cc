@@ -10,6 +10,7 @@
         </Image>
       </Tagi>
       <Tagi title="Snippets" icon="i-mdi:vector-intersection" desc="Just snippets." href="https://snippets.keke.cc/" />
+      <Tagi title="Prototype" icon="i-iconoir:emoji-think-left" desc="Collection of component prototypes." href="https://prototype.keke.cc/" />
       <Tagi title="Password Generator" icon="i-solar:key-linear" desc="Password generator." href="https://pwgen.keke.cc/" />
     </div>
   </div>
