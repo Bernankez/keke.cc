@@ -23,6 +23,8 @@ export default defineConfig({
       ],
       dirs: [
         "./src/composables/**",
+        "./src/components/**/use*.ts",
+        "!*.test.ts",
       ],
       vueTemplate: true,
     }),

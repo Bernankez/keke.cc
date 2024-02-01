@@ -10,13 +10,15 @@
         <div v-for="day in days" :key="day" class="h-10 w-15 flex items-end justify-end text-3.5">
           {{ day }}
         </div>
-        <div v-for="i in 31" :key="i" class="box-border min-h-15 w-15 rounded-2 p-1.5">
-          <div class="text-end">
-            {{ i }}
-          </div>
-          <div class="text-end text-3">
-            content
-          </div>
+        <div v-for="date in dates" :key="date.date" class="box-border min-h-15 w-15 rounded-2 p-1.5">
+          <template v-if="date.isCurrentMonth">
+            <div class="text-end">
+              {{ date.day }}
+            </div>
+            <div class="text-end text-3">
+              content
+            </div>
+          </template>
         </div>
       </div>
     </div>
@@ -24,6 +26,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from "dayjs";
 import { getSequenceDays } from ".";
 
 const props = withDefaults(defineProps<{
@@ -43,4 +46,11 @@ function onMask() {
     show.value = !show.value;
   }
 }
+
+const today = dayjs();
+const year = ref(today.year());
+const month = ref(today.month() + 1);
+const renderList = ref([]);
+
+const { dates } = useDates(year, month, { start: props.startDay });
 </script>
