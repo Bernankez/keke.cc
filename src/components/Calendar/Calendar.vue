@@ -6,19 +6,23 @@
       </div>
     </div>
     <div class="rounded-4 p-3 transition-200 sm:bg-background bg-opacity-45! sm:dark:bg-background dark:bg-opacity-3!">
-      <div class="grid grid-cols-7 items-center justify-items-center gap-x-1.5 gap-y-10">
+      <div class="date-cell-warpper">
         <div v-for="day in days" :key="day" class="h-10 w-15 flex items-end justify-end text-3.5">
           {{ day }}
         </div>
-        <div v-for="date in dates" :key="date.date" class="box-border min-h-15 w-15 rounded-2 p-1.5">
-          <template v-if="date.isCurrentMonth">
-            <div class="text-end">
-              {{ date.day }}
-            </div>
-            <div class="text-end text-3">
-              content
-            </div>
-          </template>
+      </div>
+      <div class="flex overflow-hidden">
+        <div v-for="(month, i) in renderList" :key="i" class="date-cell-warpper mt-10 w-full shrink-0">
+          <div v-for="date in month" :key="date.date" class="box-border min-h-15 w-15 rounded-2 p-1.5">
+            <template v-if="date.isCurrentMonth">
+              <div class="text-end">
+                {{ date.day }}
+              </div>
+              <div class="text-end text-3">
+                content
+              </div>
+            </template>
+          </div>
         </div>
       </div>
     </div>
@@ -50,7 +54,18 @@ function onMask() {
 const today = dayjs();
 const year = ref(today.year());
 const month = ref(today.month() + 1);
-const renderList = ref([]);
+// TODO virtual-list
+const renderList = ref([-1, 0, 1].map((offset) => {
+  const day = dayjs().add(offset, "month");
+  return generateDayCells(day.year(), day.month() + 1, props.startDay);
+}));
 
 const { dates } = useDates(year, month, { start: props.startDay });
+console.log(dates.value);
 </script>
+
+<style scoped>
+.date-cell-warpper {
+  @apply grid grid-cols-7 items-center justify-items-center gap-x-1.5 gap-y-10;
+}
+</style>
