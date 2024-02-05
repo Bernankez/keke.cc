@@ -34,7 +34,7 @@ const emit = defineEmits<{
 
 const { lockScroll, show } = toRefs(props);
 const lock = computed(() => lockScroll.value && show.value);
-useLockHTMLScroll(lock);
+useLockHtmlScroll(lock);
 
 const [DefineTemplate, ReuseTemplate] = createReusableTemplate();
 

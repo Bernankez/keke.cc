@@ -35,7 +35,6 @@ declare global {
   const generateDayCells: typeof import('./src/components/Calendar/useDates')['generateDayCells']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
-  const getDays: typeof import('./src/components/Calendar/useDates')['getDays']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
@@ -46,7 +45,7 @@ declare global {
   const isReactive: typeof import('vue')['isReactive']
   const isReadonly: typeof import('vue')['isReadonly']
   const isRef: typeof import('vue')['isRef']
-  const lockHTMLScrollRightCompensationRef: typeof import('./src/composables/dom/useLockHTMLScroll')['lockHTMLScrollRightCompensationRef']
+  const lockHtmlScrollRightCompensationRef: typeof import('./src/composables/dom/useLockHtmlScroll')['lockHtmlScrollRightCompensationRef']
   const makeDestructurable: typeof import('@vueuse/core')['makeDestructurable']
   const markRaw: typeof import('vue')['markRaw']
   const nextTick: typeof import('vue')['nextTick']
@@ -190,7 +189,7 @@ declare global {
   const useLastChanged: typeof import('@vueuse/core')['useLastChanged']
   const useLink: typeof import('vue-router')['useLink']
   const useLocalStorage: typeof import('@vueuse/core')['useLocalStorage']
-  const useLockHTMLScroll: typeof import('./src/composables/dom/useLockHTMLScroll')['useLockHTMLScroll']
+  const useLockHtmlScroll: typeof import('./src/composables/dom/useLockHtmlScroll')['useLockHtmlScroll']
   const useMagicKeys: typeof import('@vueuse/core')['useMagicKeys']
   const useManualRefHistory: typeof import('@vueuse/core')['useManualRefHistory']
   const useMediaControls: typeof import('@vueuse/core')['useMediaControls']
@@ -343,7 +342,7 @@ declare module 'vue' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
-    readonly lockHTMLScrollRightCompensationRef: UnwrapRef<typeof import('./src/composables/dom/useLockHTMLScroll')['lockHTMLScrollRightCompensationRef']>
+    readonly lockHtmlScrollRightCompensationRef: UnwrapRef<typeof import('./src/composables/dom/useLockHtmlScroll')['lockHtmlScrollRightCompensationRef']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
@@ -487,7 +486,7 @@ declare module 'vue' {
     readonly useLastChanged: UnwrapRef<typeof import('@vueuse/core')['useLastChanged']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
     readonly useLocalStorage: UnwrapRef<typeof import('@vueuse/core')['useLocalStorage']>
-    readonly useLockHTMLScroll: UnwrapRef<typeof import('./src/composables/dom/useLockHTMLScroll')['useLockHTMLScroll']>
+    readonly useLockHtmlScroll: UnwrapRef<typeof import('./src/composables/dom/useLockHtmlScroll')['useLockHtmlScroll']>
     readonly useMagicKeys: UnwrapRef<typeof import('@vueuse/core')['useMagicKeys']>
     readonly useManualRefHistory: UnwrapRef<typeof import('@vueuse/core')['useManualRefHistory']>
     readonly useMediaControls: UnwrapRef<typeof import('@vueuse/core')['useMediaControls']>
@@ -633,7 +632,7 @@ declare module '@vue/runtime-core' {
     readonly isReactive: UnwrapRef<typeof import('vue')['isReactive']>
     readonly isReadonly: UnwrapRef<typeof import('vue')['isReadonly']>
     readonly isRef: UnwrapRef<typeof import('vue')['isRef']>
-    readonly lockHTMLScrollRightCompensationRef: UnwrapRef<typeof import('./src/composables/dom/useLockHTMLScroll')['lockHTMLScrollRightCompensationRef']>
+    readonly lockHtmlScrollRightCompensationRef: UnwrapRef<typeof import('./src/composables/dom/useLockHtmlScroll')['lockHtmlScrollRightCompensationRef']>
     readonly makeDestructurable: UnwrapRef<typeof import('@vueuse/core')['makeDestructurable']>
     readonly markRaw: UnwrapRef<typeof import('vue')['markRaw']>
     readonly nextTick: UnwrapRef<typeof import('vue')['nextTick']>
@@ -777,7 +776,7 @@ declare module '@vue/runtime-core' {
     readonly useLastChanged: UnwrapRef<typeof import('@vueuse/core')['useLastChanged']>
     readonly useLink: UnwrapRef<typeof import('vue-router')['useLink']>
     readonly useLocalStorage: UnwrapRef<typeof import('@vueuse/core')['useLocalStorage']>
-    readonly useLockHTMLScroll: UnwrapRef<typeof import('./src/composables/dom/useLockHTMLScroll')['useLockHTMLScroll']>
+    readonly useLockHtmlScroll: UnwrapRef<typeof import('./src/composables/dom/useLockHtmlScroll')['useLockHtmlScroll']>
     readonly useMagicKeys: UnwrapRef<typeof import('@vueuse/core')['useMagicKeys']>
     readonly useManualRefHistory: UnwrapRef<typeof import('@vueuse/core')['useManualRefHistory']>
     readonly useMediaControls: UnwrapRef<typeof import('@vueuse/core')['useMediaControls']>

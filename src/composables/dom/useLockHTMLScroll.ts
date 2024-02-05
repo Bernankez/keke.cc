@@ -1,33 +1,39 @@
 import type { MaybeRefOrGetter, WatchStopHandle } from "vue";
 
+export interface UseLockHtmlScrollOptions {
+  hideScrollbar?: boolean;
+}
+
 let lockCount = 0;
-let originalMarginRight = "";
+let originalPaddingRight = "";
 let originalOverflow = "";
 let originalOverflowX = "";
 let originalOverflowY = "";
-export const lockHTMLScrollRightCompensationRef = ref("0px");
+export const lockHtmlScrollRightCompensationRef = ref("0px");
 
-export function useLockHTMLScroll(lockRef: MaybeRefOrGetter<boolean>) {
+export function useLockHtmlScroll(lockRef: MaybeRefOrGetter<boolean>, options: UseLockHtmlScrollOptions = {}): void {
+  const { hideScrollbar = true } = options;
+  // not browser
   if (typeof document === "undefined") { return; }
   const el = document.documentElement;
-  let stop: WatchStopHandle | undefined;
+  let watchStopHandle: WatchStopHandle | undefined;
   let activated = false;
   const unlock = () => {
-    el.style.marginRight = originalMarginRight;
+    el.style.paddingRight = originalPaddingRight;
     el.style.overflow = originalOverflow;
     el.style.overflowX = originalOverflowX;
     el.style.overflowY = originalOverflowY;
-    lockHTMLScrollRightCompensationRef.value = "0px";
+    lockHtmlScrollRightCompensationRef.value = "0px";
   };
   onMounted(() => {
-    stop = watch(() => toValue(lockRef), (lock) => {
+    watchStopHandle = watch(() => toValue(lockRef), (lock) => {
       if (lock) {
         if (lockCount <= 0) {
           const scrollbarWidth = window.innerWidth - el.offsetWidth;
-          if (scrollbarWidth > 0) {
-            originalMarginRight = el.style.marginRight;
-            el.style.marginRight = `${scrollbarWidth}px`;
-            lockHTMLScrollRightCompensationRef.value = `${scrollbarWidth}px`;
+          if (scrollbarWidth > 0 && hideScrollbar) {
+            originalPaddingRight = el.style.paddingRight;
+            el.style.paddingRight = `${scrollbarWidth}px`;
+            lockHtmlScrollRightCompensationRef.value = `${scrollbarWidth}px`;
           }
           originalOverflow = el.style.overflow;
           originalOverflowX = el.style.overflowX;
@@ -50,7 +56,7 @@ export function useLockHTMLScroll(lockRef: MaybeRefOrGetter<boolean>) {
     });
   });
   onBeforeUnmount(() => {
-    stop?.();
+    watchStopHandle?.();
     if (activated) {
       lockCount--;
       if (lockCount <= 0) {
