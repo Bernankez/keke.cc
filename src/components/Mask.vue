@@ -8,7 +8,7 @@
   </DefineTemplate>
   <Teleport :to="to">
     <ReuseTemplate v-if="!props.transition" />
-    <Transition v-else name="mask">
+    <Transition v-else name="mask" @after-leave="() => unlock?.()">
       <ReuseTemplate />
     </Transition>
   </Teleport>
@@ -33,8 +33,8 @@ const emit = defineEmits<{
 }>();
 
 const { lockScroll, show } = toRefs(props);
-const lock = computed(() => lockScroll.value && show.value);
-useLockHtmlScroll(lock);
+const isLocked = computed(() => lockScroll.value && show.value);
+const { markUnlock, unlock, lock } = useLockHtmlScroll(isLocked, { manual: true });
 
 const [DefineTemplate, ReuseTemplate] = createReusableTemplate();
 
@@ -48,6 +48,17 @@ watch(show, (show) => {
   }
 }, {
   immediate: true,
+});
+
+watch(show, (show) => {
+  if (show) {
+    lock?.();
+  } else {
+    markUnlock?.();
+    if (!props.transition) {
+      unlock?.();
+    }
+  }
 });
 </script>
 
