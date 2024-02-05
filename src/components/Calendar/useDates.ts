@@ -21,7 +21,12 @@ export function useDates(year: MaybeRefOrGetter<number>, month: MaybeRefOrGetter
 export function generateDayCells(year: number, month: number, start: number): DateCell[] {
   const firstDay = dayjs(`${toValue(year)}-${toValue(month)}-01`).startOf("week").add(start % 7, "day");
   const lastDay = dayjs(`${toValue(year)}-${toValue(month)}-01`).endOf("month").endOf("week").add(start % 7, "day");
-  const days = lastDay.diff(firstDay, "day") + 1;
+  // fill to 6 lines
+  let days = lastDay.diff(firstDay, "day") + 1;
+  if (days <= 35) {
+    lastDay.add(7, "day");
+    days += 7;
+  }
   const today = dayjs();
   const dateCells = Array.from({ length: days }, (_, index) => {
     const date = firstDay.add(index, "day");

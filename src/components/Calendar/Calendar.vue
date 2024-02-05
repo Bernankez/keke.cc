@@ -11,17 +11,17 @@
           {{ day }}
         </div>
       </div>
-      <div class="flex overflow-hidden">
-        <div v-for="(month, i) in renderList" :key="i" class="date-cell-warpper mt-10 w-full shrink-0">
-          <div v-for="date in month" :key="date.date" class="box-border min-h-15 w-15 rounded-2 p-1.5">
-            <template v-if="date.isCurrentMonth">
+      <div class="viewport mt-10 select-none overflow-hidden">
+        <div ref="wrapperRef" class="flex overflow-y-auto">
+          <div v-for="(month, i) in renderList" :key="i" class="date-cell-warpper w-full shrink-0">
+            <div v-for="date in month" :key="date.date" :class="[date.isCurrentMonth ? '' : 'text-disabled-dark dark:text-disabled-darker']" class="box-border h-15 w-15 rounded-2 p-1.5">
               <div class="text-end">
                 {{ date.day }}
               </div>
-              <div class="text-end text-3">
-                content
+              <div class="whitespace-pre text-end text-3">
+                {{ date.isCurrentMonth ? "content" : " " }}
               </div>
-            </template>
+            </div>
           </div>
         </div>
       </div>
@@ -42,7 +42,6 @@ const props = withDefaults(defineProps<{
 
 const show = defineModel({ default: false });
 
-// TODO toggle month
 const days = computed(() => getSequenceDays(props.startDay));
 
 function onMask() {
@@ -51,20 +50,77 @@ function onMask() {
   }
 }
 
+const wrapperRef = ref<HTMLDivElement>();
+const startScrollX = ref(0);
+const startTimestamp = ref(0);
+const speed = ref(0);
+const inertia = ref(0.5);
+const duration = ref(300);
+// extract to composable
+// unify scroll and pointer
+const { direction, posStart, posEnd, distanceX } = usePointerSwipe(wrapperRef, {
+  threshold: 0,
+  disableTextSelect: true,
+  onSwipeStart(e) {
+    startScrollX.value = wrapperRef.value?.scrollLeft || 0;
+    startTimestamp.value = e.timeStamp;
+  },
+  onSwipe(e) {
+    let scrollLeft = startScrollX.value + distanceX.value;
+    if (scrollLeft < 0) {
+      scrollLeft = 0;
+    }
+    speed.value = distanceX.value / (e.timeStamp - startTimestamp.value);
+    requestAnimationFrame(() => {
+      wrapperRef.value!.scrollLeft = scrollLeft;
+    });
+  },
+  onSwipeEnd(e) {
+    // 当速度够大才用惯性
+    if (Math.abs(speed.value) > 0.1) {
+      inertiaScroll();
+    }
+    const target = wrapperRef.value!.scrollLeft + speed.value * 100 * inertia.value;
+    const startTime = performance.now();
+    const animate = () => {
+      const progress = Math.min((performance.now() - startTime) / duration.value, 1);
+      const ease = 1 - (1 - progress) ** 3;
+      wrapperRef.value!.scrollLeft = startScrollX.value + (target - startScrollX.value) * ease;
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+    requestAnimationFrame(animate);
+  },
+});
+
+watchEffect(() => {
+  console.log(direction.value, distanceX.value);
+});
+
 const today = dayjs();
 const year = ref(today.year());
 const month = ref(today.month() + 1);
-// TODO virtual-list
-const renderList = ref([-1, 0, 1].map((offset) => {
-  const day = dayjs().add(offset, "month");
-  return generateDayCells(day.year(), day.month() + 1, props.startDay);
-}));
-
-const { dates } = useDates(year, month, { start: props.startDay });
-console.log(dates.value);
+const renderCount = ref(2);
+const renderList = computed(() => {
+  const months = Array.from({ length: renderCount.value }, (_, i) => {
+    const date = dayjs(`${year.value}-${month.value + i}-01`);
+    const { dates } = useDates(date.year(), date.month() + 1, { start: props.startDay });
+    return dates.value;
+  });
+  return [...months];
+});
 </script>
 
 <style scoped>
+.viewport {
+  scrollbar-width: 0;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
 .date-cell-warpper {
   @apply grid grid-cols-7 items-center justify-items-center gap-x-1.5 gap-y-10;
 }
