@@ -14,9 +14,10 @@
         </div>
       </div>
       <div class="mt-10 select-none overflow-hidden">
-        <!-- height: 6 * 5rem + 5 * 1.25rem -->
-        <div ref="wrapperRef" class="relative h-145 overflow-x-auto" @scroll="e => onScroll((e.currentTarget as HTMLDivElement).scrollLeft)">
-          <div class="absolute flex select-none">
+        <!-- TODO only highlight current month -->
+        <div ref="wrapperRef" class="overflow-x-auto" @wheel="onWheel" @scroll="e => onScroll((e.currentTarget as HTMLDivElement).scrollLeft)">
+          <div class="flex select-none">
+            <div class="shrink-0" :style="{ width: `${startOffset}px` }"></div>
             <div v-for="(month, i) in renderList" :key="i" class="date-cell-warpper w-full shrink-0">
               <div v-for="date in month.dates" :key="date.date" :class="[date.isCurrentMonth ? '' : 'text-disabled-dark dark:text-disabled-darker']" class="box-border h-20 w-full rounded-2">
                 <div class="flex justify-center p-1.5">
@@ -29,6 +30,7 @@
                 <div class="h-3 w-full bg-black"></div> -->
               </div>
             </div>
+            <div class="shrink-0" :style="{ width: `${endOffset}px` }"></div>
           </div>
         </div>
       </div>
@@ -60,7 +62,7 @@ function onMask() {
 const wrapperRef = ref<HTMLDivElement>();
 const { width: wrapperWidth } = useElementSize(wrapperRef);
 
-const renderCount = ref(100);
+const renderCount = ref(1000);
 const monthList = computed(() => {
   const today = dayjs();
   const months = Array.from({ length: renderCount.value }, (_, i) => {
@@ -75,11 +77,20 @@ const monthList = computed(() => {
   return [...months];
 });
 
-const { data: renderList, onScroll, startIndex } = useVirtualScroll(monthList, {
+const { data: renderList, onScroll, startIndex, startOffset, endOffset } = useVirtualScroll(monthList, {
   width: wrapperWidth,
 });
 
 const currentMonth = computed(() => monthList.value[startIndex.value]);
+
+// TODO auto sticky
+function onWheel(e: WheelEvent) {
+  if (e.deltaY !== 0) {
+    const scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft + e.deltaY;
+    (e.currentTarget as HTMLDivElement).scrollLeft = scrollLeft;
+    onScroll(scrollLeft);
+  }
+}
 </script>
 
 <style scoped>
