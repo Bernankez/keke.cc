@@ -1,50 +1,65 @@
+import type { MaybeComputedElementRef } from "@vueuse/core";
 import type { MaybeRefOrGetter } from "vue";
 
 export interface UseVirtualScrollOptions {
+  scrollEl: MaybeComputedElementRef<HTMLElement | undefined>;
   width: MaybeRefOrGetter<number>;
+  bufferSize?: MaybeRefOrGetter<number>;
 }
 
 export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: UseVirtualScrollOptions) {
-  const { width } = options;
-
-  const visibleCount = ref(1);
-  const bufferSize = ref(5);
-
-  const startOffset = ref(0);
-  const startIndex = ref(0);
-  const endIndex = computed(() => startIndex.value + visibleCount.value);
-  const endOffset = computed(() => toValue(list).length * toValue(width) - startOffset.value - visibleCount.value * toValue(width));
-
-  // TODO rerender on show
-
-  const visibleData = computed(() => {
-    const start = Math.max(0, startIndex.value - bufferSize.value);
-    // TODO end boundary
-    const end = Math.min(toValue(list).length, endIndex.value + bufferSize.value);
-    return toValue(list).slice(start, end);
+  const { width, bufferSize = ref(5), scrollEl } = options;
+  const visibleCount = computed(() => {
+    const el = toValue(scrollEl);
+    if (!el) {
+      return 1;
+    }
+    return Math.ceil(el.clientWidth / toValue(width));
   });
 
-  function _onScroll(offset: number) {
-    // TODO use absolute position
-    // TODO calculate translateY
-    // can also fix width
-    const c = toValue(width) - offset % toValue(width);
-    startOffset.value = Math.max(0, offset - bufferSize.value * toValue(width) + c);
-    startIndex.value = Math.floor(startOffset.value / toValue(width));
+  const totalLength = computed(() => toValue(list).length);
+  const totalWidth = computed(() => totalLength.value * toValue(width));
+
+  const offset = ref(0);
+  const firstActiveIndex = ref(0);
+  // [startIndex, endIndex)
+  const startIndex = computed(() => Math.max(0, firstActiveIndex.value - toValue(bufferSize)));
+  const startOffset = computed(() => startIndex.value * toValue(width));
+  const endIndex = computed(() => Math.min(totalLength.value, firstActiveIndex.value + visibleCount.value + toValue(bufferSize)));
+
+  const renderData = computed(() => {
+    return toValue(list).slice(startIndex.value, endIndex.value);
+  });
+
+  function handleScroll(scrollLeft: number) {
+    updateRenderRange(scrollLeft);
+  }
+
+  // TODO end bound
+  // TODO handle width change
+  function updateRenderRange(scrollLeft: number) {
+    offset.value = scrollLeft % toValue(width);
+    const index = (offset.value <= (toValue(width) / 2)) ? Math.floor(scrollLeft / toValue(width)) : Math.ceil(scrollLeft / toValue(width));
+    firstActiveIndex.value = useClamp(index, 0, totalLength).value;
+    console.log("scrollLeft:", scrollLeft, "width:", toValue(width), "offset:", offset.value, "firstActiveIndex:", firstActiveIndex.value);
   }
 
   // TODO mock onScrollStart onScrollEnd
-
   // TODO onStart onEnd auto inject items
 
   return {
+    firstActiveIndex,
     startIndex,
     startOffset,
-    endOffset,
-    data: visibleData,
-    onScroll(scrollOffset: number) {
+    endIndex,
+    offset,
+
+    data: renderData,
+    totalWidth,
+
+    scrollTo(scrollLeft: number) {
       requestAnimationFrame(() => {
-        _onScroll(scrollOffset);
+        handleScroll(scrollLeft);
       });
     },
   };

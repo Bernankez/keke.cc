@@ -20,6 +20,7 @@ export default defineConfig({
         "vue",
         "vue-router",
         "@vueuse/core",
+        "@vueuse/math",
       ],
       dirs: [
         "./src/composables/**",

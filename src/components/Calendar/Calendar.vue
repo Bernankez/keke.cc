@@ -2,6 +2,7 @@
   <Mask class="max-w-200 w-full" to="body" :show="show" @click="onMask">
     <div class="m-b-3 w-full flex justify-center text-8 text-primary" @click="onMask">
       <div @click.stop>
+        <!-- TODO background year and month -->
         {{ currentMonth.year }}-{{ currentMonth.month }}
       </div>
     </div>
@@ -13,24 +14,26 @@
           </div>
         </div>
       </div>
-      <div class="mt-10 select-none overflow-hidden">
+      <div class="mt-10 overflow-hidden">
         <!-- TODO only highlight current month -->
-        <div ref="wrapperRef" class="overflow-x-auto" @wheel="onWheel" @scroll="e => onScroll((e.currentTarget as HTMLDivElement).scrollLeft)">
-          <div class="flex select-none">
-            <div class="shrink-0" :style="{ width: `${startOffset}px` }"></div>
-            <div v-for="(month, i) in renderList" :key="i" class="date-cell-warpper w-full shrink-0">
-              <div v-for="date in month.dates" :key="date.date" :class="[date.isCurrentMonth ? '' : 'text-disabled-dark dark:text-disabled-darker']" class="box-border h-20 w-full rounded-2">
-                <div class="flex justify-center p-1.5">
-                  <div class="w-15 text-end">
-                    {{ date.day }}
+        <!-- TODO use placeholder div -->
+        <div ref="viewportRef" class="overflow-x-auto" @wheel="onWheel" @scroll="e => scrollTo((e.currentTarget as HTMLDivElement).scrollLeft)">
+          <!-- 145 = 6 * 20 + 5 * 5 -->
+          <div class="relative h-145" :style="{ width: `${totalWidth}px` }">
+            <div class="absolute flex select-none" :style="{ transform: `translateX(${startOffset}px)` }">
+              <div v-for="(month, i) in renderList" :key="i" :style="{ width: `${viewportWidth}px` }" class="date-cell-warpper shrink-0">
+                <div v-for="date in month.dates" :key="date.date" :class="[date.isCurrentMonth ? '' : 'text-disabled-dark dark:text-disabled-darker']" class="box-border h-20 w-full rounded-2">
+                  <div class="flex justify-center p-1.5">
+                    <div class="w-15 text-end">
+                      {{ date.day }}
+                    </div>
                   </div>
-                </div>
-                <!-- <div class="h-3 w-full bg-black"></div>
+                  <!-- <div class="h-3 w-full bg-black"></div>
                 <div class="h-3 w-full bg-gray"></div>
                 <div class="h-3 w-full bg-black"></div> -->
+                </div>
               </div>
             </div>
-            <div class="shrink-0" :style="{ width: `${endOffset}px` }"></div>
           </div>
         </div>
       </div>
@@ -59,10 +62,10 @@ function onMask() {
   }
 }
 
-const wrapperRef = ref<HTMLDivElement>();
-const { width: wrapperWidth } = useElementSize(wrapperRef);
+const viewportRef = ref<HTMLDivElement>();
+const { width: viewportWidth } = useElementSize(viewportRef);
 
-const renderCount = ref(1000);
+const renderCount = ref(100);
 const monthList = computed(() => {
   const today = dayjs();
   const months = Array.from({ length: renderCount.value }, (_, i) => {
@@ -77,18 +80,19 @@ const monthList = computed(() => {
   return [...months];
 });
 
-const { data: renderList, onScroll, startIndex, startOffset, endOffset } = useVirtualScroll(monthList, {
-  width: wrapperWidth,
+const { startOffset, data: renderList, firstActiveIndex, totalWidth, scrollTo } = useVirtualScroll(monthList, {
+  scrollEl: viewportRef,
+  width: viewportWidth,
 });
 
-const currentMonth = computed(() => monthList.value[startIndex.value]);
+const currentMonth = computed(() => monthList.value[firstActiveIndex.value]);
 
 // TODO auto sticky
 function onWheel(e: WheelEvent) {
   if (e.deltaY !== 0) {
     const scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft + e.deltaY;
     (e.currentTarget as HTMLDivElement).scrollLeft = scrollLeft;
-    onScroll(scrollLeft);
+    scrollTo(scrollLeft);
   }
 }
 </script>
