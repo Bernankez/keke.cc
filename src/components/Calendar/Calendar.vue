@@ -90,6 +90,7 @@ const currentMonth = computed(() => monthList.value[firstActiveIndex.value]);
 // TODO auto sticky
 function onWheel(e: WheelEvent) {
   if (e.deltaY !== 0) {
+    e.preventDefault();
     const scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft + e.deltaY;
     (e.currentTarget as HTMLDivElement).scrollLeft = scrollLeft;
     scrollTo(scrollLeft);

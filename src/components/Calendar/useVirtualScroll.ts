@@ -27,21 +27,34 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
   const startOffset = computed(() => startIndex.value * toValue(width));
   const endIndex = computed(() => Math.min(totalLength.value, firstActiveIndex.value + visibleCount.value + toValue(bufferSize)));
 
-  const renderData = computed(() => {
-    return toValue(list).slice(startIndex.value, endIndex.value);
-  });
+  const renderData = computed(() => toValue(list).slice(startIndex.value, endIndex.value));
 
+  const scrollLeftRatio = ref(0);
   function handleScroll(scrollLeft: number) {
+    if (ignoreScroll.value) {
+      ignoreScroll.value = false;
+      return;
+    }
+    const el = toValue(scrollEl);
+    if (el) {
+      scrollLeftRatio.value = scrollLeft / el.scrollWidth;
+    }
     updateRenderRange(scrollLeft);
   }
 
-  // TODO end bound
-  // TODO handle width change
+  const ignoreScroll = ref(false);
+  useResizeObserver(scrollEl, () => {
+    const el = toValue(scrollEl);
+    if (el) {
+      ignoreScroll.value = true;
+      el.scrollLeft = scrollLeftRatio.value * el.scrollWidth;
+    }
+  });
+
   function updateRenderRange(scrollLeft: number) {
     offset.value = scrollLeft % toValue(width);
     const index = (offset.value <= (toValue(width) / 2)) ? Math.floor(scrollLeft / toValue(width)) : Math.ceil(scrollLeft / toValue(width));
-    firstActiveIndex.value = useClamp(index, 0, totalLength).value;
-    console.log("scrollLeft:", scrollLeft, "width:", toValue(width), "offset:", offset.value, "firstActiveIndex:", firstActiveIndex.value);
+    firstActiveIndex.value = useClamp(index, 0, totalLength.value - 1).value;
   }
 
   // TODO mock onScrollStart onScrollEnd
