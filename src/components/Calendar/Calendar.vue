@@ -17,7 +17,7 @@
       <div class="mt-10 overflow-hidden">
         <!-- TODO only highlight current month -->
         <!-- TODO use placeholder div -->
-        <div ref="viewportRef" class="overflow-x-auto" @wheel="onWheel" @scroll="e => scrollTo((e.currentTarget as HTMLDivElement).scrollLeft)">
+        <div ref="viewportRef" class="overflow-x-auto" @wheel="onWheel" @scroll="onScroll">
           <!-- 145 = 6 * 20 + 5 * 5 -->
           <div class="relative h-145" :style="{ width: `${totalWidth}px` }">
             <div class="absolute flex select-none" :style="{ transform: `translateX(${startOffset}px)` }">
@@ -80,7 +80,19 @@ const monthList = computed(() => {
   return [...months];
 });
 
-const { startOffset, data: renderList, firstActiveIndex, totalWidth, scrollTo } = useVirtualScroll(monthList, {
+const bufferSize = 5;
+
+const { startOffset, data: renderList, firstActiveIndex, totalWidth, handleScroll } = useVirtualScroll(monthList, {
+  bufferSize,
+  onScrollStart() {
+    console.log("scroll start");
+  },
+  onScroll() {
+    console.log("scroll");
+  },
+  onScrollEnd() {
+    console.log("scroll end");
+  },
   scrollEl: viewportRef,
   width: viewportWidth,
 });
@@ -91,10 +103,15 @@ const currentMonth = computed(() => monthList.value[firstActiveIndex.value]);
 function onWheel(e: WheelEvent) {
   if (e.deltaY !== 0) {
     e.preventDefault();
-    const scrollLeft = (e.currentTarget as HTMLDivElement).scrollLeft + e.deltaY;
-    (e.currentTarget as HTMLDivElement).scrollLeft = scrollLeft;
-    scrollTo(scrollLeft);
+    const el = e.currentTarget as HTMLDivElement;
+    const scrollLeft = el.scrollLeft + e.deltaY;
+    // Setting scrollLeft will trigger scroll event
+    // So don't need to handle scroll here manually
+    el.scrollLeft = scrollLeft;
   }
+}
+function onScroll(e: UIEvent) {
+  handleScroll(e);
 }
 </script>
 

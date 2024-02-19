@@ -1,14 +1,21 @@
-import type { MaybeComputedElementRef } from "@vueuse/core";
+import { type Fn, type MaybeComputedElementRef } from "@vueuse/core";
 import type { MaybeRefOrGetter } from "vue";
 
 export interface UseVirtualScrollOptions {
+  startActiveIndex?: number;
   scrollEl: MaybeComputedElementRef<HTMLElement | undefined>;
   width: MaybeRefOrGetter<number>;
   bufferSize?: MaybeRefOrGetter<number>;
+  onScrollStart?: (e: UIEvent) => void;
+  onScroll?: (e: UIEvent) => void;
+  onScrollEnd?: Fn;
+  onReachTop?: Fn;
+  onReachBottom?: Fn;
+  detectionInterval?: number;
 }
 
 export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: UseVirtualScrollOptions) {
-  const { width, bufferSize = ref(5), scrollEl } = options;
+  const { startActiveIndex = 0, width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachTop, onReachBottom, detectionInterval = 500 } = options;
   const visibleCount = computed(() => {
     const el = toValue(scrollEl);
     if (!el) {
@@ -21,25 +28,48 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
   const totalWidth = computed(() => totalLength.value * toValue(width));
 
   const offset = ref(0);
-  const firstActiveIndex = ref(0);
+  const firstActiveIndex = ref(startActiveIndex);
   // [startIndex, endIndex)
   const startIndex = computed(() => Math.max(0, firstActiveIndex.value - toValue(bufferSize)));
   const startOffset = computed(() => startIndex.value * toValue(width));
   const endIndex = computed(() => Math.min(totalLength.value, firstActiveIndex.value + visibleCount.value + toValue(bufferSize)));
 
+  watch(firstActiveIndex, (newIndex, oldIndex) => {
+    if (!isDefined(oldIndex)) {
+      onReachTop?.();
+    } else {
+      if (newIndex < toValue(bufferSize) && oldIndex >= toValue(bufferSize)) {
+        onReachTop?.();
+      } else if (newIndex > totalLength.value - toValue(bufferSize) && oldIndex <= totalLength.value - toValue(bufferSize)) {
+        onReachBottom?.();
+      }
+    }
+  }, { immediate: true });
+
   const renderData = computed(() => toValue(list).slice(startIndex.value, endIndex.value));
 
+  const isScroll = ref(false);
   const scrollLeftRatio = ref(0);
-  function handleScroll(scrollLeft: number) {
+  const debouncedScrollEnd = useDebounceFn(() => {
+    isScroll.value = false;
+    onScrollEnd?.();
+  }, detectionInterval);
+
+  function handleScroll(e: UIEvent) {
     if (ignoreScroll.value) {
       ignoreScroll.value = false;
       return;
     }
-    const el = toValue(scrollEl);
-    if (el) {
-      scrollLeftRatio.value = scrollLeft / el.scrollWidth;
+    if (!isScroll.value) {
+      isScroll.value = true;
+      onScrollStart?.(e);
+    } else {
+      onScroll?.(e);
     }
-    updateRenderRange(scrollLeft);
+    debouncedScrollEnd();
+    const el = e.currentTarget as HTMLDivElement;
+    scrollLeftRatio.value = el.scrollLeft / el.scrollWidth;
+    updateRenderRange(el.scrollLeft);
   }
 
   const ignoreScroll = ref(false);
@@ -57,7 +87,6 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
     firstActiveIndex.value = useClamp(index, 0, totalLength.value - 1).value;
   }
 
-  // TODO mock onScrollStart onScrollEnd
   // TODO onStart onEnd auto inject items
 
   return {
@@ -70,10 +99,8 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
     data: renderData,
     totalWidth,
 
-    scrollTo(scrollLeft: number) {
-      requestAnimationFrame(() => {
-        handleScroll(scrollLeft);
-      });
-    },
+    isScroll,
+
+    handleScroll,
   };
 }
