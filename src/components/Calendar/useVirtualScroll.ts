@@ -9,13 +9,13 @@ export interface UseVirtualScrollOptions {
   onScrollStart?: (e: UIEvent) => void;
   onScroll?: (e: UIEvent) => void;
   onScrollEnd?: Fn;
-  onReachTop?: Fn;
-  onReachBottom?: Fn;
+  onReachStart?: Fn;
+  onReachEnd?: Fn;
   detectionInterval?: number;
 }
 
 export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: UseVirtualScrollOptions) {
-  const { startActiveIndex = 0, width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachTop, onReachBottom, detectionInterval = 500 } = options;
+  const { startActiveIndex = 0, width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachStart, onReachEnd, detectionInterval = 100 } = options;
   const visibleCount = computed(() => {
     const el = toValue(scrollEl);
     if (!el) {
@@ -36,12 +36,12 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
 
   watch(firstActiveIndex, (newIndex, oldIndex) => {
     if (!isDefined(oldIndex)) {
-      onReachTop?.();
+      onReachStart?.();
     } else {
       if (newIndex < toValue(bufferSize) && oldIndex >= toValue(bufferSize)) {
-        onReachTop?.();
+        onReachStart?.();
       } else if (newIndex > totalLength.value - toValue(bufferSize) && oldIndex <= totalLength.value - toValue(bufferSize)) {
-        onReachBottom?.();
+        onReachEnd?.();
       }
     }
   }, { immediate: true });
@@ -87,6 +87,22 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
     firstActiveIndex.value = useClamp(index, 0, totalLength.value - 1).value;
   }
 
+  function align(index: number, smooth = true) {
+    const el = toValue(scrollEl);
+    if (!el) {
+      // TODO
+      return;
+    }
+    if (smooth) {
+      el.scrollTo({
+        left: index * toValue(width),
+        behavior: "smooth",
+      });
+    } else {
+      el.scrollLeft = index * toValue(width);
+    }
+  }
+
   // TODO onStart onEnd auto inject items
 
   return {
@@ -102,5 +118,6 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
     isScroll,
 
     handleScroll,
+    align,
   };
 }
