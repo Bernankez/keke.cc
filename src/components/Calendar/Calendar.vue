@@ -46,7 +46,6 @@
 
 <script setup lang="ts">
 import dayjs from "dayjs";
-import type { DateCell } from ".";
 import { getSequenceDays } from ".";
 
 const props = withDefaults(defineProps<{
@@ -69,9 +68,7 @@ function onMask() {
 const viewportRef = ref<HTMLDivElement>();
 const { width: viewportWidth } = useElementSize(viewportRef);
 
-const renderCount = ref(100);
 const today = shallowRef(dayjs());
-const monthList = ref<{ year: number;month: number;dates: DateCell[] }[]>([]);
 function generateMonthList(start: string, end: string, startDay: number) {
   const startDate = dayjs(start);
   const endDate = dayjs(end);
@@ -87,35 +84,16 @@ function generateMonthList(start: string, end: string, startDay: number) {
   });
   return [...months];
 }
-watch([today, renderCount], ([today, renderCount]) => {
-  monthList.value = Array.from({ length: renderCount }, (_, i) => {
-    const date = dayjs(`${today.year()}-${today.month() + 1}-01`).add(i, "month");
-    const { dates } = useDates(date.year(), date.month() + 1, { start: props.startDay });
-    return {
-      year: date.year(),
-      month: date.month() + 1,
-      dates: dates.value,
-    };
-  });
-}, { immediate: true });
-// const monthList = computed(() => {
-//   const today = dayjs();
-//   const months = Array.from({ length: renderCount.value }, (_, i) => {
-//     const date = dayjs(`${today.year()}-${today.month() + 1}-01`).add(i, "month");
-//     const { dates } = useDates(date.year(), date.month() + 1, { start: props.startDay });
-//     return {
-//       year: date.year(),
-//       month: date.month() + 1,
-//       dates: dates.value,
-//     };
-//   });
-//   return [...months];
-// });
+
+const start = shallowRef(today.value.subtract(1, "year"));
+const end = shallowRef(today.value.add(1, "year"));
+const monthList = computed(() => generateMonthList(start.value.format("YYYY-MM-DD"), end.value.format("YYYY-MM-DD"), props.startDay));
 
 const bufferSize = 5;
 
 const { startOffset, data: renderList, firstActiveIndex, totalWidth, handleScroll, align } = useVirtualScroll(monthList, {
   bufferSize,
+  startActiveIndex: Math.floor(monthList.value.length / 2),
   onScrollStart() {
     console.log("scroll start");
   },
@@ -127,32 +105,29 @@ const { startOffset, data: renderList, firstActiveIndex, totalWidth, handleScrol
     // align(firstActiveIndex.value);
   },
   onReachStart() {
-    console.log("reach start");
-    // TODO
-    // today.value = today.value.subtract(1, "year");
-    // align(firstActiveIndex.value, false);
+    const el = viewportRef.value;
+    if (el) {
+      const scrollLeft = el.scrollLeft;
+      start.value = start.value.subtract(1, "year");
+      end.value = end.value.subtract(1, "year");
+      el.scrollLeft = scrollLeft + 12 * viewportWidth.value;
+    }
   },
   onReachEnd() {
-    console.log("reach end");
-    // today.value = today.value.add(1, "year");
+    const el = viewportRef.value;
+    if (el) {
+      const scrollLeft = el.scrollLeft;
+      start.value = start.value.add(1, "year");
+      end.value = end.value.add(1, "year");
+      el.scrollLeft = scrollLeft - 12 * viewportWidth.value;
+    }
   },
   scrollEl: viewportRef,
   width: viewportWidth,
 });
 
-function alignDate(date: string, smooth?: boolean) {
-  const index = monthList.value.findIndex((month) => {
-    return month.dates.some(dateCell => dateCell.date === date);
-  });
-  console.log(index);
-  if (index !== -1) {
-    align(index, smooth);
-  }
-}
-
 const currentMonth = computed(() => monthList.value[firstActiveIndex.value]);
 
-// TODO auto sticky
 function onWheel(e: WheelEvent) {
   if (e.deltaY !== 0) {
     e.preventDefault();

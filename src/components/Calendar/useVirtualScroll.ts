@@ -34,15 +34,21 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
   const startOffset = computed(() => startIndex.value * toValue(width));
   const endIndex = computed(() => Math.min(totalLength.value, firstActiveIndex.value + visibleCount.value + toValue(bufferSize)));
 
+  // Only trigger when the scrollEl is visible
   watch(firstActiveIndex, (newIndex, oldIndex) => {
-    if (!isDefined(oldIndex)) {
+    if (newIndex < toValue(bufferSize) && oldIndex >= toValue(bufferSize)) {
       onReachStart?.();
-    } else {
-      if (newIndex < toValue(bufferSize) && oldIndex >= toValue(bufferSize)) {
-        onReachStart?.();
-      } else if (newIndex > totalLength.value - toValue(bufferSize) && oldIndex <= totalLength.value - toValue(bufferSize)) {
-        onReachEnd?.();
-      }
+    } else if (newIndex > totalLength.value - toValue(bufferSize) && oldIndex <= totalLength.value - toValue(bufferSize)) {
+      onReachEnd?.();
+    }
+  });
+
+  // Align with the firstActiveIndex every time the scrollEl visible
+  watch([() => toValue(scrollEl), () => toValue(width)], ([el, width]) => {
+    if (el && width) {
+      setTimeout(() => {
+        align(firstActiveIndex.value, false);
+      }, 0);
     }
   }, { immediate: true });
 
@@ -90,7 +96,6 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
   function align(index: number, smooth = true) {
     const el = toValue(scrollEl);
     if (!el) {
-      // TODO
       return;
     }
     if (smooth) {
