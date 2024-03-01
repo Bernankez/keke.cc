@@ -46,9 +46,9 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
   // Align with the firstActiveIndex every time the scrollEl visible
   watch([() => toValue(scrollEl), () => toValue(width)], ([el, width]) => {
     if (el && width) {
-      setTimeout(() => {
+      requestAnimationFrame(() => {
         align(firstActiveIndex.value, false);
-      }, 0);
+      });
     }
   }, { immediate: true });
 
@@ -107,8 +107,6 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
       el.scrollLeft = index * toValue(width);
     }
   }
-
-  // TODO onStart onEnd auto inject items
 
   return {
     firstActiveIndex,
