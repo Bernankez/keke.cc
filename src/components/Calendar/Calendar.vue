@@ -91,9 +91,9 @@ const monthList = computed(() => generateMonthList(start.value.format("YYYY-MM-D
 
 const bufferSize = 5;
 
-const { startOffset, data: renderList, firstActiveIndex, totalWidth, handleScroll, align } = useVirtualScroll(monthList, {
+const startActiveIndex = Math.floor(monthList.value.length / 2);
+const { startOffset, data: renderList, firstActiveIndex, setFirstActiveIndex, totalWidth, handleScroll, scroll } = useVirtualScroll(monthList, {
   bufferSize,
-  startActiveIndex: Math.floor(monthList.value.length / 2),
   onScrollStart() {
     console.log("scroll start");
   },
@@ -105,26 +105,37 @@ const { startOffset, data: renderList, firstActiveIndex, totalWidth, handleScrol
     // align(firstActiveIndex.value);
   },
   onReachStart() {
-    const el = viewportRef.value;
-    if (el) {
-      const scrollLeft = el.scrollLeft;
-      start.value = start.value.subtract(1, "year");
-      end.value = end.value.subtract(1, "year");
-      el.scrollLeft = scrollLeft + 12 * viewportWidth.value;
-    }
+    // const el = viewportRef.value;
+    // if (el) {
+    //   const scrollLeft = el.scrollLeft;
+    //   start.value = start.value.subtract(1, "year");
+    //   end.value = end.value.subtract(1, "year");
+    //   el.scrollLeft = scrollLeft + 12 * viewportWidth.value;
+    // }
   },
   onReachEnd() {
-    const el = viewportRef.value;
-    if (el) {
-      const scrollLeft = el.scrollLeft;
-      start.value = start.value.add(1, "year");
-      end.value = end.value.add(1, "year");
-      el.scrollLeft = scrollLeft - 12 * viewportWidth.value;
-    }
+    // const el = viewportRef.value;
+    // if (el) {
+    //   const scrollLeft = el.scrollLeft;
+    //   start.value = start.value.add(1, "year");
+    //   end.value = end.value.add(1, "year");
+    //   el.scrollLeft = scrollLeft - 12 * viewportWidth.value;
+    // }
   },
   scrollEl: viewportRef,
   width: viewportWidth,
 });
+
+watch([() => toValue(viewportRef), () => toValue(viewportWidth)], ([el, width]) => {
+  if (el && width) {
+    // requestAnimationFrame is necessary, I don't know why
+    requestAnimationFrame(() => {
+      setFirstActiveIndex(startActiveIndex, true, {
+        behavior: "auto",
+      });
+    });
+  }
+}, { immediate: true });
 
 const currentMonth = computed(() => monthList.value[firstActiveIndex.value]);
 
@@ -133,9 +144,7 @@ function onWheel(e: WheelEvent) {
     e.preventDefault();
     const el = e.currentTarget as HTMLDivElement;
     const scrollLeft = el.scrollLeft + e.deltaY;
-    // Setting scrollLeft will trigger scroll event
-    // So don't need to handle scroll here manually
-    el.scrollLeft = scrollLeft;
+    scroll(scrollLeft, { emit: true });
   }
 }
 function onScroll(e: UIEvent) {

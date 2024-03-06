@@ -2,7 +2,6 @@ import { type Fn, type MaybeComputedElementRef } from "@vueuse/core";
 import type { MaybeRefOrGetter } from "vue";
 
 export interface UseVirtualScrollOptions {
-  startActiveIndex?: number;
   scrollEl: MaybeComputedElementRef<HTMLElement | undefined>;
   width: MaybeRefOrGetter<number>;
   bufferSize?: MaybeRefOrGetter<number>;
@@ -14,8 +13,18 @@ export interface UseVirtualScrollOptions {
   detectionInterval?: number;
 }
 
+export interface ManualScrollOptions {
+  emit?: boolean;
+  behavior?: "auto" | "smooth";
+}
+
+export interface SetFirstActiveIndexOptions {
+  keepOffset?: boolean;
+  behavior?: "auto" | "smooth";
+}
+
 export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: UseVirtualScrollOptions) {
-  const { startActiveIndex = 0, width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachStart, onReachEnd, detectionInterval = 100 } = options;
+  const { width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachStart, onReachEnd, detectionInterval = 100 } = options;
   const visibleCount = computed(() => {
     const el = toValue(scrollEl);
     if (!el) {
@@ -28,64 +37,61 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
   const totalWidth = computed(() => totalLength.value * toValue(width));
 
   const offset = ref(0);
-  const firstActiveIndex = ref(startActiveIndex);
+  const firstActiveIndex = ref(0);
   // [startIndex, endIndex)
   const startIndex = computed(() => Math.max(0, firstActiveIndex.value - toValue(bufferSize)));
   const startOffset = computed(() => startIndex.value * toValue(width));
   const endIndex = computed(() => Math.min(totalLength.value, firstActiveIndex.value + visibleCount.value + toValue(bufferSize)));
 
   // Only trigger when the scrollEl is visible
-  watch(firstActiveIndex, (newIndex, oldIndex) => {
-    if (newIndex < toValue(bufferSize) && oldIndex >= toValue(bufferSize)) {
-      onReachStart?.();
-    } else if (newIndex > totalLength.value - toValue(bufferSize) && oldIndex <= totalLength.value - toValue(bufferSize)) {
-      onReachEnd?.();
-    }
-  });
+  // watch(firstActiveIndex, (newIndex, oldIndex) => {
+  //   if (newIndex < toValue(bufferSize) && oldIndex >= toValue(bufferSize)) {
+  //     onReachStart?.();
+  //   } else if (newIndex > totalLength.value - toValue(bufferSize) && oldIndex <= totalLength.value - toValue(bufferSize)) {
+  //     onReachEnd?.();
+  //   }
+  // });
 
-  // Align with the firstActiveIndex every time the scrollEl visible
-  watch([() => toValue(scrollEl), () => toValue(width)], ([el, width]) => {
-    if (el && width) {
-      requestAnimationFrame(() => {
-        align(firstActiveIndex.value, false);
-      });
-    }
-  }, { immediate: true });
-
-  const renderData = computed(() => toValue(list).slice(startIndex.value, endIndex.value));
-
-  const isScroll = ref(false);
+  const ignoreScrollEvent = ref(false);
   const scrollLeftRatio = ref(0);
+  const isScroll = ref(false);
   const debouncedScrollEnd = useDebounceFn(() => {
     isScroll.value = false;
     onScrollEnd?.();
   }, detectionInterval);
 
+  function scroll(scrollLeft: number, options?: ManualScrollOptions) {
+    const el = toValue(scrollEl);
+    if (!el) {
+      return;
+    }
+    if (el.scrollLeft === scrollLeft) {
+      return;
+    }
+    const { emit = false, behavior } = options || {};
+    ignoreScrollEvent.value = !emit;
+    el.scrollTo({
+      left: scrollLeft,
+      behavior,
+    });
+  }
+
   function handleScroll(e: UIEvent) {
-    if (ignoreScroll.value) {
-      ignoreScroll.value = false;
+    if (ignoreScrollEvent.value) {
+      ignoreScrollEvent.value = false;
       return;
     }
     if (!isScroll.value) {
-      isScroll.value = true;
       onScrollStart?.(e);
     } else {
       onScroll?.(e);
     }
-    debouncedScrollEnd();
+    isScroll.value = true;
+    debouncedScrollEnd?.();
     const el = e.currentTarget as HTMLDivElement;
     scrollLeftRatio.value = el.scrollLeft / el.scrollWidth;
     updateRenderRange(el.scrollLeft);
   }
-
-  const ignoreScroll = ref(false);
-  useResizeObserver(scrollEl, () => {
-    const el = toValue(scrollEl);
-    if (el) {
-      ignoreScroll.value = true;
-      el.scrollLeft = scrollLeftRatio.value * el.scrollWidth;
-    }
-  });
 
   function updateRenderRange(scrollLeft: number) {
     offset.value = scrollLeft % toValue(width);
@@ -93,34 +99,46 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
     firstActiveIndex.value = useClamp(index, 0, totalLength.value - 1).value;
   }
 
-  function align(index: number, smooth = true) {
+  useResizeObserver(scrollEl, () => {
     const el = toValue(scrollEl);
-    if (!el) {
-      return;
+    if (el) {
+      const scrollLeft = scrollLeftRatio.value * el.scrollWidth;
+      scroll(scrollLeft);
     }
-    if (smooth) {
-      el.scrollTo({
-        left: index * toValue(width),
-        behavior: "smooth",
-      });
-    } else {
-      el.scrollLeft = index * toValue(width);
+  });
+
+  function setFirstActiveIndex(index: number, autoScroll = true, scrollOptions?: SetFirstActiveIndexOptions) {
+    const { behavior = "smooth", keepOffset = true } = scrollOptions || {};
+    if (autoScroll) {
+      const el = toValue(scrollEl);
+      if (el) {
+        let scrollLeft = index * toValue(width);
+        if (keepOffset) {
+          const offset = scrollLeft % toValue(width);
+          scrollLeft += offset;
+        }
+        if (scrollLeft !== el.scrollLeft) {
+          scroll(scrollLeft, { emit: true, behavior });
+        }
+      }
     }
+    firstActiveIndex.value = index;
   }
 
   return {
-    firstActiveIndex,
+    firstActiveIndex: readonly(firstActiveIndex),
+    setFirstActiveIndex,
+
     startIndex,
     startOffset,
     endIndex,
     offset,
 
-    data: renderData,
+    data: computed(() => toValue(list).slice(startIndex.value, endIndex.value)),
     totalWidth,
 
+    scroll,
     isScroll,
-
     handleScroll,
-    align,
   };
 }
