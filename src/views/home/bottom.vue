@@ -17,6 +17,7 @@
   <div class="text-7">
     <span class="text-primary">Libraries</span>
     <div class="grid grid-cols-1 m-t-2 grid-gap-2 md:grid-cols-2">
+      <Tagi title="vite-plugin-font-carrier" icon="i-radix-icons:font-family" desc="Compress your font asset on demand using font-carrier." href="https://github.com/Bernankez/vite-plugin-font-carrier" />
       <Tagi title="git-sync" icon="i-tabler:git-branch" desc="Auto sync repos when pushing to git." href="https://github.com/Bernankez/git-sync" />
       <Tagi title="create-l" icon="i-gridicons:create" desc="TypeScript library scaffold." href="https://github.com/Bernankez/create-l" />
       <Tagi title="@bernankez/utils" icon="i-ph:package" desc="Using utils out-of-the-box" href="https://utils.keke.cc/" />
