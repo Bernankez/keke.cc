@@ -27,7 +27,7 @@
     <span class="text-primary">Presets</span>
     <div class="grid grid-cols-1 m-t-2 grid-gap-2 md:grid-cols-2">
       <Tagi title="vscode-settings" icon="i-nonicons:vscode-16" desc="My VSCode settings." href="https://github.com/Bernankez/vscode-settings" />
-      <Tagi title="eslint-config" icon="i-nonicons:eslint-16" desc="My ESLint config presets." href="https://github.com/Bernankez/eslint-config" />
+      <Tagi title="eslint-config" icon="i-nonicons:eslint-16" desc="My ESLint config presets." href="https://eslint.keke.cc/" />
       <Tagi title="stylelint-config (Outdated)" icon="i-file-icons:stylelint" desc="My Stylelint config presets." href="https://github.com/Bernankez/stylelint-config" />
     </div>
   </div>
