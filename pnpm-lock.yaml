@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@backmoji/vue':
+        specifier: ^0.1.0
+        version: 0.1.0(vue@3.4.23(typescript@5.4.5))
       '@unocss/reset':
         specifier: ^0.59.3
         version: 0.59.3
@@ -291,6 +294,11 @@ packages:
   '@babel/types@7.24.0':
     resolution: {integrity: sha512-+j7a5c253RfKh8iABBhywc8NSfP5LURe7Uh4qpsh6jc+aLJguvmIUBdjSdEMQv2bENrCR5MfRdjGo7vzS/ob7w==}
     engines: {node: '>=6.9.0'}
+
+  '@backmoji/vue@0.1.0':
+    resolution: {integrity: sha512-//GTJKaq4hZa+B1VaOcDoKfnITyQnZiXORzk9+dUit5shILrD6xUOhQVCXdxcv7c+EC+vhsDD6ZV5k+uy7MjIQ==}
+    peerDependencies:
+      vue: '>=3.4.0'
 
   '@bernankez/eslint-config-unocss@0.7.4':
     resolution: {integrity: sha512-5cPclKx2vIwQ6Qw78gcF+CuZmSlXPyfVJk6hbnBmpRbiTTwEvJh4uxDkR7A7IXsLC14fgE7Lt1OtncMv312+qA==}
@@ -1160,6 +1168,9 @@ packages:
 
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
+
+  backmoji@0.1.0:
+    resolution: {integrity: sha512-DbXMD8Hzwgpf5e7WiW0Fy19WGs/NxtP6A4+0+dFAvVogTv3lOkaDayScnhbJvn+L56mvj2LHvPay9ND9yjFVdQ==}
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
@@ -3450,6 +3461,11 @@ snapshots:
       '@babel/helper-validator-identifier': 7.22.20
       to-fast-properties: 2.0.0
 
+  '@backmoji/vue@0.1.0(vue@3.4.23(typescript@5.4.5))':
+    dependencies:
+      backmoji: 0.1.0
+      vue: 3.4.23(typescript@5.4.5)
+
   '@bernankez/eslint-config-unocss@0.7.4(eslint@9.0.0)(typescript@5.4.5)':
     dependencies:
       '@unocss/eslint-plugin': 0.57.7(eslint@9.0.0)(typescript@5.4.5)
@@ -4570,6 +4586,8 @@ snapshots:
   assertion-error@1.1.0: {}
 
   asynckit@0.4.0: {}
+
+  backmoji@0.1.0: {}
 
   balanced-match@1.0.2: {}
 
