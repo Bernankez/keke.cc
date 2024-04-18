@@ -5,8 +5,8 @@
   <div class="text-7">
     <span class="text-primary">Projects</span>
     <div class="grid grid-cols-1 m-t-2 grid-gap-2 md:grid-cols-2">
-      <Tagi title="Bilibili Fans Card" icon="i-ri:bilibili-fill" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/" />
-      <Tagi title="Bilibili SuperChat" icon="i-ri:bilibili-fill" desc="Generate custom SuperChat image." href="https://sc.keke.cc/" />
+      <Tagi title="Bilibili Fans Card" icon="i-ri:bilibili-line" desc="A tool making bilibili fans card." href="https://bilibili-fans.keke.cc/" />
+      <Tagi title="Bilibili SuperChat" icon="i-ri:bilibili-line" desc="Generate custom SuperChat image." href="https://sc.keke.cc/" />
       <Tagi icon="i-mdi:counter" desc="Custom Visitor Badge." href="https://github.com/Bernankez/visitor-badge">
         <Image class="h-12 text-10" src="https://badge.keke.cc/api/keke.cc/bernankez" alt="visitor badge">
           <div class="i-svg-spinners:3-dots-scale h-12 text-6"></div>
@@ -21,6 +21,7 @@
     <span class="text-primary">Libraries</span>
     <div class="grid grid-cols-1 m-t-2 grid-gap-2 md:grid-cols-2">
       <Tagi title="vite-plugin-font-carrier" icon="i-radix-icons:font-family" desc="Compress your font asset on demand using font-carrier." href="https://github.com/Bernankez/vite-plugin-font-carrier" />
+      <Tagi title="Backmoji" icon="i-ph:paw-print" desc="A library for creating patterns quickly and easily." href="https://backmoji.keke.cc/" />
       <Tagi title="git-sync" icon="i-tabler:git-branch" desc="Auto sync repos when pushing to git." href="https://github.com/Bernankez/git-sync" />
       <Tagi title="create-l" icon="i-gridicons:create" desc="TypeScript library scaffold." href="https://github.com/Bernankez/create-l" />
       <Tagi title="@bernankez/utils" icon="i-ph:package" desc="Using utils out-of-the-box" href="https://utils.keke.cc/" />
