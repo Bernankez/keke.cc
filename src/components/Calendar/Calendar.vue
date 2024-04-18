@@ -43,6 +43,11 @@ const start = shallowRef(today.value.subtract(1, "year"));
 const end = shallowRef(today.value.add(1, "year"));
 const monthList = computed(() => generateMonthList(start.value.format("YYYY-MM-DD"), end.value.format("YYYY-MM-DD"), props.startDay));
 
+function resetMonthList() {
+  start.value = today.value.subtract(1, "year");
+  end.value = today.value.add(1, "year");
+}
+
 const bufferSize = 5;
 
 const startActiveIndex = Math.floor(monthList.value.length / 2);
@@ -74,6 +79,7 @@ watch([() => toValue(viewportRef), () => toValue(viewportWidth)], ([el, width]) 
   if (el && width) {
     // requestAnimationFrame is necessary, I don't know why
     requestAnimationFrame(() => {
+      resetMonthList();
       setFirstActiveIndex(startActiveIndex, true, {
         behavior: "auto",
       });
@@ -94,6 +100,18 @@ function onWheel(e: WheelEvent) {
 function onScroll(e: Event) {
   handleScroll(e);
 }
+
+const _backmoji = defineEvent("backmoji", [
+  {
+    from: "2024-03-18",
+    to: "2024-04-18",
+  },
+  "2024-02-06",
+]);
+
+const dateWrapperRef = ref<HTMLDivElement>();
+const { width: _ } = useElementSize(dateWrapperRef); // width / 7
+const _height = "36.25rem"; // 145 = 6 * 20 + 5 * 5
 </script>
 
 <template>
@@ -104,19 +122,19 @@ function onScroll(e: Event) {
       </div>
     </div>
     <div class="rounded-4 p-3 transition-200 sm:bg-background bg-opacity-45! sm:dark:bg-background dark:bg-opacity-3!">
-      <div class="date-cell-warpper">
+      <div class="date-cell-wrapper">
         <div v-for="day in days" :key="day" class="h-10 w-full flex items-end justify-center text-3.5">
           <div class="w-15 text-end">
             {{ day }}
           </div>
         </div>
       </div>
-      <div class="mt-10 overflow-hidden">
+      <div ref="dateWrapperRef" class="mt-10 overflow-hidden">
         <div ref="viewportRef" class="overflow-x-auto overflow-y-hidden" @wheel="onWheel" @scroll="onScroll">
           <!-- 145 = 6 * 20 + 5 * 5 -->
           <div class="relative h-145" :style="{ width: `${totalWidth}px` }">
             <div class="absolute flex select-none" :style="{ transform: `translateX(${startOffset}px)` }">
-              <div v-for="month in renderList" :key="`${month.year}${month.month}`" :style="{ width: `${viewportWidth}px` }" class="date-cell-warpper relative shrink-0">
+              <div v-for="month in renderList" :key="`${month.year}${month.month}`" :style="{ width: `${viewportWidth}px` }" class="date-cell-wrapper relative shrink-0">
                 <div class="absolute left-10% top-0 inline-block align-start text-40 text-primary font-bold leading-[1] opacity-20 md:text-50">
                   {{ month.year.toString().slice(2) }}
                 </div>
@@ -133,6 +151,7 @@ function onScroll(e: Event) {
                   <div class="h-3 w-full bg-gray"></div>
                   <div class="h-3 w-full bg-black"></div> -->
                 </div>
+                <div class="absolute left-0 right-0 top-50px bottom-0 bg-black"></div>
               </div>
             </div>
           </div>
@@ -151,7 +170,7 @@ function onScroll(e: Event) {
   display: none;
 }
 
-.date-cell-warpper {
+.date-cell-wrapper {
   @apply grid grid-cols-7 gap-y-5;
 }
 </style>
