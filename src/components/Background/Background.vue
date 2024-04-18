@@ -27,7 +27,11 @@ const renderer = useTextRenderer("●", {
         const x = columnIndex * (renderItemWidth + columnGap) + (rowIndex % 2 === 0 ? 1 : -1) * offset;
         const y = rowIndex * (renderItemHeight + rowGap);
         if ((columnIndex - rowIndex) % 2 === 0) {
-          ctx.fillStyle = "#efefef";
+          if (isDark.value) {
+            ctx.fillStyle = "#191919";
+          } else {
+            ctx.fillStyle = "#efefef";
+          }
           ctx.fillText(item, x, y);
         }
       }
