@@ -1,3 +1,25 @@
+<script setup lang="ts">
+import { getSequenceDays } from ".";
+
+const props = withDefaults(defineProps<{
+  closeOnMask?: boolean;
+  startDay?: number;
+}>(), {
+  startDay: 1,
+});
+
+const show = defineModel({ default: false });
+
+// TODO toggle month
+const days = computed(() => getSequenceDays(props.startDay));
+
+function onMask() {
+  if (props.closeOnMask) {
+    show.value = !show.value;
+  }
+}
+</script>
+
 <template>
   <Mask class="max-w-200 w-full" to="body" :show="show" @click="onMask">
     <div class="m-b-3 w-full flex justify-center text-8 text-primary" @click="onMask">
@@ -22,25 +44,3 @@
     </div>
   </Mask>
 </template>
-
-<script setup lang="ts">
-import { getSequenceDays } from ".";
-
-const props = withDefaults(defineProps<{
-  closeOnMask?: boolean;
-  startDay?: number;
-}>(), {
-  startDay: 1,
-});
-
-const show = defineModel({ default: false });
-
-// TODO toggle month
-const days = computed(() => getSequenceDays(props.startDay));
-
-function onMask() {
-  if (props.closeOnMask) {
-    show.value = !show.value;
-  }
-}
-</script>

@@ -8,7 +8,9 @@ let originalOverflowY = "";
 export const lockHTMLScrollRightCompensationRef = ref("0px");
 
 export function useLockHTMLScroll(lockRef: MaybeRefOrGetter<boolean>) {
-  if (typeof document === "undefined") { return; }
+  if (typeof document === "undefined") {
+    return;
+  }
   const el = document.documentElement;
   let stop: WatchStopHandle | undefined;
   let activated = false;

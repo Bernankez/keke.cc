@@ -1,3 +1,6 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <div class="text-7">
     <span class="text-primary">Projects</span>
@@ -32,6 +35,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-</script>

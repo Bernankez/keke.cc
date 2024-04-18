@@ -1,7 +1,3 @@
-<template>
-  <Layout />
-</template>
-
 <script setup lang="ts">
 import useBlobity from "blobity/lib/vue/useBlobity";
 import { colorPrimaryRed } from "@bernankez/theme";
@@ -18,3 +14,7 @@ useBlobity({
   invert: true,
 });
 </script>
+
+<template>
+  <Layout />
+</template>
