@@ -24,7 +24,7 @@ export interface SetFirstActiveIndexOptions {
 }
 
 export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: UseVirtualScrollOptions) {
-  const { width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachStart: _, onReachEnd: _1, detectionInterval = 100 } = options;
+  const { width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachStart, onReachEnd, detectionInterval = 100 } = options;
   const visibleCount = computed(() => {
     const el = toValue(scrollEl);
     if (!el) {
@@ -43,14 +43,13 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
   const startOffset = computed(() => startIndex.value * toValue(width));
   const endIndex = computed(() => Math.min(totalLength.value, firstActiveIndex.value + visibleCount.value + toValue(bufferSize)));
 
-  // Only trigger when the scrollEl is visible
-  // watch(firstActiveIndex, (newIndex, oldIndex) => {
-  //   if (newIndex < toValue(bufferSize) && oldIndex >= toValue(bufferSize)) {
-  //     onReachStart?.();
-  //   } else if (newIndex > totalLength.value - toValue(bufferSize) && oldIndex <= totalLength.value - toValue(bufferSize)) {
-  //     onReachEnd?.();
-  //   }
-  // });
+  watchEffect(() => {
+    if (firstActiveIndex.value < toValue(bufferSize)) {
+      onReachStart?.();
+    } else if (firstActiveIndex.value > totalLength.value - toValue(bufferSize)) {
+      onReachEnd?.();
+    }
+  });
 
   const ignoreScrollEvent = ref(false);
   const scrollLeftRatio = ref(0);

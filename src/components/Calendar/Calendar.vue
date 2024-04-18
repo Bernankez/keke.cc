@@ -48,33 +48,23 @@ const bufferSize = 5;
 const startActiveIndex = Math.floor(monthList.value.length / 2);
 const { startOffset, data: renderList, firstActiveIndex, setFirstActiveIndex, totalWidth, handleScroll, scroll } = useVirtualScroll(monthList, {
   bufferSize,
-  onScrollStart() {
-    console.log("scroll start");
-  },
-  onScroll() {
-    console.log("scroll");
-  },
-  onScrollEnd() {
-    console.log("scroll end");
-    // align(firstActiveIndex.value);
-  },
   onReachStart() {
-    // const el = viewportRef.value;
-    // if (el) {
-    //   const scrollLeft = el.scrollLeft;
-    //   start.value = start.value.subtract(1, "year");
-    //   end.value = end.value.subtract(1, "year");
-    //   el.scrollLeft = scrollLeft + 12 * viewportWidth.value;
-    // }
+    const el = viewportRef.value;
+    if (el) {
+      const scrollLeft = el.scrollLeft;
+      start.value = start.value.subtract(1, "year");
+      end.value = end.value.subtract(1, "year");
+      el.scrollLeft = scrollLeft + 12 * viewportWidth.value;
+    }
   },
   onReachEnd() {
-    // const el = viewportRef.value;
-    // if (el) {
-    //   const scrollLeft = el.scrollLeft;
-    //   start.value = start.value.add(1, "year");
-    //   end.value = end.value.add(1, "year");
-    //   el.scrollLeft = scrollLeft - 12 * viewportWidth.value;
-    // }
+    const el = viewportRef.value;
+    if (el) {
+      const scrollLeft = el.scrollLeft;
+      start.value = start.value.add(1, "year");
+      end.value = end.value.add(1, "year");
+      el.scrollLeft = scrollLeft - 12 * viewportWidth.value;
+    }
   },
   scrollEl: viewportRef,
   width: viewportWidth,
@@ -140,8 +130,8 @@ function onScroll(e: Event) {
                     </div>
                   </div>
                   <!-- <div class="h-3 w-full bg-black"></div>
-                <div class="h-3 w-full bg-gray"></div>
-                <div class="h-3 w-full bg-black"></div> -->
+                  <div class="h-3 w-full bg-gray"></div>
+                  <div class="h-3 w-full bg-black"></div> -->
                 </div>
               </div>
             </div>
@@ -153,13 +143,13 @@ function onScroll(e: Event) {
 </template>
 
 <style scoped>
-/* .viewport {
+.viewport {
   scrollbar-width: 0;
 }
 
 ::-webkit-scrollbar {
   display: none;
-} */
+}
 
 .date-cell-warpper {
   @apply grid grid-cols-7 gap-y-5;
