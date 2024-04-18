@@ -1,3 +1,6 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <div class="flex flex-col flex-gap-4">
     <div class="flex flex-gap-2">
@@ -13,6 +16,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-</script>

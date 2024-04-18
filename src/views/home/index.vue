@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import Top from "./top.vue";
+import Bottom from "./bottom.vue";
+
+const says: string[] = ["什么也不会，喜欢睡觉"];
+const index = Math.floor(Math.random() * (says.length));
+
+const { hackedText } = useHackedText(says[index]);
+</script>
+
 <template>
   <div class="relative">
     <div class="h-full w-full flex items-center justify-center">
@@ -11,13 +21,3 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import Top from "./top.vue";
-import Bottom from "./bottom.vue";
-
-const says: string[] = ["什么也不会，喜欢睡觉"];
-const index = Math.floor(Math.random() * (says.length));
-
-const { hackedText } = useHackedText(says[index]);
-</script>

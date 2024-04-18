@@ -1,49 +1,3 @@
-<template>
-  <Mask class="max-w-200 w-full" to="body" :show="show" @click="onMask">
-    <div class="m-b-3 w-full flex justify-center text-8 text-primary" @click="onMask">
-      <div @click.stop>
-        DayGram
-      </div>
-    </div>
-    <div class="rounded-4 p-3 transition-200 sm:bg-background bg-opacity-45! sm:dark:bg-background dark:bg-opacity-3!">
-      <div class="date-cell-warpper">
-        <div v-for="day in days" :key="day" class="h-10 w-full flex items-end justify-center text-3.5">
-          <div class="w-15 text-end">
-            {{ day }}
-          </div>
-        </div>
-      </div>
-      <div class="mt-10 overflow-hidden">
-        <div ref="viewportRef" class="overflow-x-auto overflow-y-hidden" @wheel="onWheel" @scroll="onScroll">
-          <!-- 145 = 6 * 20 + 5 * 5 -->
-          <div class="relative h-145" :style="{ width: `${totalWidth}px` }">
-            <div class="absolute flex select-none" :style="{ transform: `translateX(${startOffset}px)` }">
-              <div v-for="month in renderList" :key="`${month.year}${month.month}`" :style="{ width: `${viewportWidth}px` }" class="date-cell-warpper relative shrink-0">
-                <div class="absolute left-10% top-0 inline-block align-start text-40 text-primary font-bold leading-[1] opacity-20 md:text-50">
-                  {{ month.year.toString().slice(2) }}
-                </div>
-                <div class="absolute bottom-0 right-0 inline-block align-bottom text-70 text-primary font-bold leading-[1] opacity-20 md:text-90">
-                  {{ month.month.toString().padStart(2, "0") }}
-                </div>
-                <div v-for="date in month.dates" :key="date.date" :class="[(date.isCurrentMonth && month.month === currentMonth.month) ? '' : 'text-disabled-dark dark:text-disabled-darker']" class="box-border h-20 w-full rounded-2 transition">
-                  <div class="flex justify-center p-1.5">
-                    <div class="w-15 text-end">
-                      {{ date.day }}
-                    </div>
-                  </div>
-                  <!-- <div class="h-3 w-full bg-black"></div>
-                <div class="h-3 w-full bg-gray"></div>
-                <div class="h-3 w-full bg-black"></div> -->
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </Mask>
-</template>
-
 <script setup lang="ts">
 import dayjs from "dayjs";
 import { getSequenceDays } from ".";
@@ -147,10 +101,56 @@ function onWheel(e: WheelEvent) {
     scroll(scrollLeft, { emit: true });
   }
 }
-function onScroll(e: UIEvent) {
+function onScroll(e: Event) {
   handleScroll(e);
 }
 </script>
+
+<template>
+  <Mask class="max-w-200 w-full" to="body" :show="show" @click="onMask">
+    <div class="m-b-3 w-full flex justify-center text-8 text-primary" @click="onMask">
+      <div @click.stop>
+        DayGram
+      </div>
+    </div>
+    <div class="rounded-4 p-3 transition-200 sm:bg-background bg-opacity-45! sm:dark:bg-background dark:bg-opacity-3!">
+      <div class="date-cell-warpper">
+        <div v-for="day in days" :key="day" class="h-10 w-full flex items-end justify-center text-3.5">
+          <div class="w-15 text-end">
+            {{ day }}
+          </div>
+        </div>
+      </div>
+      <div class="mt-10 overflow-hidden">
+        <div ref="viewportRef" class="overflow-x-auto overflow-y-hidden" @wheel="onWheel" @scroll="onScroll">
+          <!-- 145 = 6 * 20 + 5 * 5 -->
+          <div class="relative h-145" :style="{ width: `${totalWidth}px` }">
+            <div class="absolute flex select-none" :style="{ transform: `translateX(${startOffset}px)` }">
+              <div v-for="month in renderList" :key="`${month.year}${month.month}`" :style="{ width: `${viewportWidth}px` }" class="date-cell-warpper relative shrink-0">
+                <div class="absolute left-10% top-0 inline-block align-start text-40 text-primary font-bold leading-[1] opacity-20 md:text-50">
+                  {{ month.year.toString().slice(2) }}
+                </div>
+                <div class="absolute bottom-0 right-0 inline-block align-bottom text-70 text-primary font-bold leading-[1] opacity-20 md:text-90">
+                  {{ month.month.toString().padStart(2, "0") }}
+                </div>
+                <div v-for="date in month.dates" :key="date.date" :class="[(date.isCurrentMonth && month.month === currentMonth.month) ? '' : 'text-disabled-dark dark:text-disabled-darker']" class="box-border h-20 w-full rounded-2 transition">
+                  <div class="flex justify-center p-1.5">
+                    <div class="w-15 text-end">
+                      {{ date.day }}
+                    </div>
+                  </div>
+                  <!-- <div class="h-3 w-full bg-black"></div>
+                <div class="h-3 w-full bg-gray"></div>
+                <div class="h-3 w-full bg-black"></div> -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Mask>
+</template>
 
 <style scoped>
 /* .viewport {

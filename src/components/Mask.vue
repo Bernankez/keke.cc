@@ -1,19 +1,3 @@
-<template>
-  <DefineTemplate>
-    <div v-if="show" :class="[props.wrapperClass]" :style="{ zIndex }" class="fixed bottom-0 left-0 right-0 top-0 flex overflow-y-auto bg-darkbackground bg-opacity-50 backdrop-blur-20 backdrop-saturate-50 transition-300" @click="emit('click', $event)">
-      <div :class="[props.class]" class="relative left-50% top-50% h-fit max-h-full w-fit -translate-x-50% -translate-y-50%" @click.stop>
-        <slot></slot>
-      </div>
-    </div>
-  </DefineTemplate>
-  <Teleport :to="to">
-    <ReuseTemplate v-if="!props.transition" />
-    <Transition v-else name="mask" @after-leave="() => unlock?.()">
-      <ReuseTemplate />
-    </Transition>
-  </Teleport>
-</template>
-
 <script setup lang="ts">
 import type { TeleportProps } from "vue";
 
@@ -62,6 +46,22 @@ watch(show, (show) => {
   }
 });
 </script>
+
+<template>
+  <DefineTemplate>
+    <div v-if="show" :class="[props.wrapperClass]" :style="{ zIndex }" class="fixed bottom-0 left-0 right-0 top-0 flex overflow-y-auto bg-darkbackground bg-opacity-50 backdrop-blur-20 backdrop-saturate-50 transition-300" @click="emit('click', $event)">
+      <div :class="[props.class]" class="relative left-50% top-50% h-fit max-h-full w-fit -translate-x-50% -translate-y-50%" @click.stop>
+        <slot></slot>
+      </div>
+    </div>
+  </DefineTemplate>
+  <Teleport :to="to">
+    <ReuseTemplate v-if="!props.transition" />
+    <Transition v-else name="mask" @after-leave="() => unlock?.()">
+      <ReuseTemplate />
+    </Transition>
+  </Teleport>
+</template>
 
 <style scoped>
 .mask-enter-from,

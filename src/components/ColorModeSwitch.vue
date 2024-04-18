@@ -1,12 +1,8 @@
-<template>
-  <Icon :icon="icon" title="Toggle Color Scheme" @click="toggleMode" />
-</template>
-
 <script setup lang="ts">
 const icon = computed(() => isDark.value ? "i-ri:moon-line" : "i-ri:sun-line");
 const toggle = useToggle(isDark);
 
-const toggleMode = (event: MouseEvent) => {
+function toggleMode(event: MouseEvent) {
   if ("startViewTransition" in document) {
     const x = event.clientX;
     const y = event.clientY;
@@ -44,5 +40,9 @@ const toggleMode = (event: MouseEvent) => {
   } else {
     toggle();
   }
-};
+}
 </script>
+
+<template>
+  <Icon :icon="icon" title="Toggle Color Scheme" @click="toggleMode" />
+</template>

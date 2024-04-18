@@ -1,12 +1,12 @@
-import { type Fn, type MaybeComputedElementRef } from "@vueuse/core";
+import type { Fn, MaybeComputedElementRef } from "@vueuse/core";
 import type { MaybeRefOrGetter } from "vue";
 
 export interface UseVirtualScrollOptions {
   scrollEl: MaybeComputedElementRef<HTMLElement | undefined>;
   width: MaybeRefOrGetter<number>;
   bufferSize?: MaybeRefOrGetter<number>;
-  onScrollStart?: (e: UIEvent) => void;
-  onScroll?: (e: UIEvent) => void;
+  onScrollStart?: (e: Event) => void;
+  onScroll?: (e: Event) => void;
   onScrollEnd?: Fn;
   onReachStart?: Fn;
   onReachEnd?: Fn;
@@ -24,7 +24,7 @@ export interface SetFirstActiveIndexOptions {
 }
 
 export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: UseVirtualScrollOptions) {
-  const { width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachStart, onReachEnd, detectionInterval = 100 } = options;
+  const { width, bufferSize = ref(5), scrollEl, onScroll, onScrollStart, onScrollEnd, onReachStart: _, onReachEnd: _1, detectionInterval = 100 } = options;
   const visibleCount = computed(() => {
     const el = toValue(scrollEl);
     if (!el) {
@@ -76,7 +76,7 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
     });
   }
 
-  function handleScroll(e: UIEvent) {
+  function handleScroll(e: Event) {
     if (ignoreScrollEvent.value) {
       ignoreScrollEvent.value = false;
       return;

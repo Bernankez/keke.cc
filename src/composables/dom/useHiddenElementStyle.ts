@@ -4,7 +4,9 @@ export function useHiddenElementStyle(target: MaybeComputedElementRef) {
   const style = ref<Record<keyof CSSStyleDeclaration, string>>({} as any);
 
   function updateStyle<T extends MaybeElement>(el: UnRefElementReturn<T>) {
-    if (!el) { return; }
+    if (!el) {
+      return;
+    }
     const _style = el.style;
     const _computedStyle = window.getComputedStyle(el);
     const { getStyle } = createStyleSelector({ style: _style, computedStyle: _computedStyle });
@@ -28,7 +30,8 @@ export function useHiddenElementStyle(target: MaybeComputedElementRef) {
     () => unrefElement(target),
     (el) => {
       updateStyle(el);
-    });
+    },
+  );
 
   let stopListenResize: Fn, stopListenOrientationChange: Fn;
   onMounted(() => {

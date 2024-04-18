@@ -1,17 +1,3 @@
-<template>
-  <div>
-    <div
-      ref="hiddenName"
-      class="name relative hidden w-fit leading-none text-default transition dark-text-darkdefault"
-    >
-      {{ name }}
-    </div>
-    <div class="name relative w-fit leading-none text-default transition dark-text-darkdefault">
-      {{ names.join("") }}
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 const props = withDefaults(defineProps<{
   name?: string;
@@ -37,14 +23,14 @@ watch(style, (style) => {
   }
 });
 
+const names = ref<string[]>([]);
+
 const computedCursorDuration = computed(() => {
   if (names.value.length < name.value.length) {
     return "0";
   }
   return `${cursorDuration.value / 1000}s`;
 });
-
-let names = ref<string[]>([]);
 
 function play() {
   names.value = [];
@@ -69,6 +55,20 @@ onMounted(() => {
   play();
 });
 </script>
+
+<template>
+  <div>
+    <div
+      ref="hiddenName"
+      class="name relative hidden w-fit leading-none text-default transition dark-text-darkdefault"
+    >
+      {{ name }}
+    </div>
+    <div class="name relative w-fit leading-none text-default transition dark-text-darkdefault">
+      {{ names.join("") }}
+    </div>
+  </div>
+</template>
 
 <style scoped>
 .name::after {

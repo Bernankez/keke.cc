@@ -18,8 +18,8 @@ export const Days: Record<number, string> = {
   7: "SUN",
 };
 
-export const getSequenceDays = (start = 1) => {
+export function getSequenceDays(start = 1) {
   const days = Object.values(Days);
   const index = days.indexOf(Days[start]);
   return [...days.slice(index), ...days.slice(0, index)];
-};
+}
