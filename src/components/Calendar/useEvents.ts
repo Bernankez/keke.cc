@@ -1,33 +1,34 @@
 import dayjs from "dayjs";
 import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
+import type { DateCell } from ".";
 
 dayjs.extend(isSameOrBefore);
+dayjs.extend(isSameOrAfter);
 
 export function useEvents() {}
 
-export function defineEvent(name: string, dates: ({ from: string; to: string } | string)[]) {
+export interface DateEvent {
+  name: string;
+  range: { from: string; to: string }[];
+}
+
+export function defineEvent(name: string, dates: ({ from: string; to: string } | string)[]): DateEvent {
+  // format ranges
+  const dateRanges = dates.map(date => typeof date === "string" ? { from: date, to: date } : date);
   // filter repeated dates
-  const dateRanges = dates.map((date) => {
-    if (typeof date === "string") {
-      return { from: date, to: date };
-    }
-    return date;
-  });
   const _dates = new Set<string>();
   for (const range of dateRanges) {
-    const from = dayjs(range.from);
-    const to = dayjs(range.to);
-    let current = from;
+    const { from, to } = range;
+    let current = dayjs(from);
     while (current.isSameOrBefore(to, "day")) {
       _dates.add(current.format("YYYY-MM-DD"));
       current = current.add(1, "day");
     }
   }
   // sort dates
-  const sortDates = Array.from(_dates).sort((a, b) => {
-    return dayjs(a).isBefore(dayjs(b)) ? -1 : 1;
-  });
-  // combine dates
+  const sortDates = Array.from(_dates).sort((a, b) => dayjs(a).isBefore(dayjs(b)) ? -1 : 1);
+  // combine ranges
   const sortRanges: { from: string; to: string }[] = [];
   let currentRange: { from: string; to: string } | null = null;
   for (const date of sortDates) {
@@ -44,18 +45,80 @@ export function defineEvent(name: string, dates: ({ from: string; to: string } |
       }
     }
   }
+  if (currentRange !== null) {
+    sortRanges.push(currentRange);
+  }
   return {
     name,
     range: sortRanges,
   };
 }
 
-// TODO
-// export function calculateBoundaries(options: {
-//   width: number;
-//   height: number;
-//   rowGap: number;
-//   columnGap: number;
-//   monthList: string[];
-//   countPerRow: number;
-// }): { left: string; top: string; right: string;bottom: string } {}
+export interface BoundaryOptions {
+  offset?: number;
+  width: number;
+  height: number;
+  lineHeight?: number;
+  rowGap?: number;
+  columnGap?: number;
+  columnCount?: number;
+  month: {
+    year: number;
+    month: number;
+    dates: DateCell[];
+  };
+}
+
+export interface Boundary {
+  style: {
+    left: string;
+    top: string;
+    height: string;
+    width: string;
+  };
+  isStart: boolean;
+  isEnd: boolean;
+  startDate: string;
+  endDate: string;
+}
+
+export function calculateBoundaries(event: DateEvent, options: BoundaryOptions) {
+  const { width, height, lineHeight = height, month, rowGap = 0, columnGap = 0, columnCount = 7, offset = 0 } = options;
+  const dates = month.dates.map(date => date.date);
+  if (width === 0 || height === 0 || dates.length === 0) {
+    return [];
+  }
+  // filter ranges
+  const startDate = dayjs(`${month.year}-${month.month}`).startOf("month");
+  const endDate = dayjs(`${month.year}-${month.month}`).endOf("month");
+  const eventRanges = event.range.filter(r => !(dayjs(r.to).isBefore(startDate) || dayjs(r.from).isAfter(endDate))).map(r => ({
+    from: dayjs(r.from).isBefore(startDate) ? startDate : dayjs(r.from),
+    to: dayjs(r.to).isAfter(endDate) ? endDate : dayjs(r.to),
+  }));
+  const boundaries: Boundary[] = [];
+  for (const range of eventRanges) {
+    const startIndex = dates.indexOf(range.from.format("YYYY-MM-DD"));
+    const endIndex = dates.indexOf(range.to.format("YYYY-MM-DD"));
+    const startRow = Math.floor(startIndex / columnCount);
+    const endRow = Math.floor(endIndex / columnCount);
+    for (let r = startRow; r <= endRow; r++) {
+      const startColumn = r === startRow ? startIndex % columnCount : 0;
+      const endColumn = r === endRow ? endIndex % columnCount : columnCount - 1;
+      const left = startColumn * (width + columnGap);
+      const top = r * (height + rowGap);
+      boundaries.push({
+        style: {
+          left: `${left}px`,
+          top: `${top + offset}px`,
+          height: `${lineHeight}px`,
+          width: `${(endColumn - startColumn + 1) * (width + columnGap) - columnGap}px`,
+        },
+        isStart: r === startRow && startColumn === startIndex % columnCount,
+        isEnd: r === endRow && endColumn === endIndex % columnCount,
+        startDate: range.from.format("YYYY-MM-DD"),
+        endDate: range.to.format("YYYY-MM-DD"),
+      });
+    }
+  }
+  return boundaries;
+}

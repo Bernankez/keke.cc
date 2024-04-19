@@ -22,6 +22,29 @@ function onMask() {
 const viewportRef = ref<HTMLDivElement>();
 const { width: viewportWidth } = useElementSize(viewportRef);
 
+const dateWrapperRef = ref<HTMLDivElement>();
+const { width: lineWidth } = useElementSize(dateWrapperRef);
+const rootFontSize = useRootFontSize();
+const lineHeight = computed(() => 5 * rootFontSize.value);
+const rowGap = computed(() => 1.25 * rootFontSize.value);
+
+const Backmoji = defineEvent("Backmoji", [
+  {
+    from: "2024-03-20",
+    to: "2024-04-18",
+  },
+]);
+const DayGram = defineEvent("DayGram", [
+  {
+    from: "2024-01-30",
+    to: "2024-03-06",
+  },
+  {
+    from: "2024-04-18",
+    to: "2024-04-20",
+  },
+]);
+
 const today = shallowRef(dayjs());
 function generateMonthList(start: string, end: string, startDay: number) {
   const startDate = dayjs(start);
@@ -41,7 +64,35 @@ function generateMonthList(start: string, end: string, startDay: number) {
 
 const start = shallowRef(today.value.subtract(1, "year"));
 const end = shallowRef(today.value.add(1, "year"));
-const monthList = computed(() => generateMonthList(start.value.format("YYYY-MM-DD"), end.value.format("YYYY-MM-DD"), props.startDay));
+const monthList = computed(() => generateMonthList(start.value.format("YYYY-MM-DD"), end.value.format("YYYY-MM-DD"), props.startDay).map((month) => {
+  return {
+    ...month,
+    events: [
+      {
+        event: Backmoji,
+        boundaries: calculateBoundaries(Backmoji, {
+          width: lineWidth.value / 7,
+          height: lineHeight.value,
+          offset: 33,
+          lineHeight: 20,
+          rowGap: rowGap.value,
+          month,
+        }),
+      },
+      {
+        event: DayGram,
+        boundaries: calculateBoundaries(DayGram, {
+          width: lineWidth.value / 7,
+          height: lineHeight.value,
+          offset: 53,
+          lineHeight: 20,
+          rowGap: rowGap.value,
+          month,
+        }),
+      },
+    ],
+  };
+}));
 
 function resetMonthList() {
   start.value = today.value.subtract(1, "year");
@@ -100,18 +151,6 @@ function onWheel(e: WheelEvent) {
 function onScroll(e: Event) {
   handleScroll(e);
 }
-
-const _backmoji = defineEvent("backmoji", [
-  {
-    from: "2024-03-18",
-    to: "2024-04-18",
-  },
-  "2024-02-06",
-]);
-
-const dateWrapperRef = ref<HTMLDivElement>();
-const { width: _ } = useElementSize(dateWrapperRef); // width / 7
-const _height = "36.25rem"; // 145 = 6 * 20 + 5 * 5
 </script>
 
 <template>
@@ -147,11 +186,14 @@ const _height = "36.25rem"; // 145 = 6 * 20 + 5 * 5
                       {{ date.day }}
                     </div>
                   </div>
-                  <!-- <div class="h-3 w-full bg-black"></div>
-                  <div class="h-3 w-full bg-gray"></div>
-                  <div class="h-3 w-full bg-black"></div> -->
                 </div>
-                <div class="absolute left-0 right-0 top-50px bottom-0 bg-black"></div>
+                <template v-for="event in month.events" :key="event.event.name">
+                  <template v-for="(boundary, i) in event.boundaries" :key="i">
+                    <div class="absolute bg-#0c86fa px-2 text-sm text-white" :class="[{ 'rounded-l-md': boundary.isStart, 'rounded-r-md': boundary.isEnd }]" :style="{ ...boundary.style }">
+                      {{ event.event.name }}
+                    </div>
+                  </template>
+                </template>
               </div>
             </div>
           </div>

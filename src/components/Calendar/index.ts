@@ -1,5 +1,5 @@
 export interface DateCell {
-  date: string | number;
+  date: string;
   year: number;
   month: number;
   day: number;
