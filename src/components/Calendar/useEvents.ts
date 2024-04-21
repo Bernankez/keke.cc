@@ -122,3 +122,92 @@ export function calculateBoundaries(event: DateEvent, options: BoundaryOptions) 
   }
   return boundaries;
 }
+
+export interface EventTrack {
+  name: string;
+  range: {
+    from: string;
+    to: string;
+    track: number;
+  }[];
+}
+
+export interface DateTrack {
+  date: string;
+  events: {
+    name: string;
+    range: {
+      from: string;
+      to: string;
+    };
+  }[];
+}
+
+export function calculateTrack(events: DateEvent[], month: {
+  year: number;
+  month: number;
+  dates: DateCell[];
+}): EventTrack[] {
+  // filter ranges
+  const startDate = dayjs(`${month.year}-${month.month}`).startOf("month");
+  const endDate = dayjs(`${month.year}-${month.month}`).endOf("month");
+  const dateTracks = Array.from({ length: endDate.diff(startDate, "day") + 1 }).map<DateTrack>((_, i) => {
+    return {
+      date: startDate.add(i, "day").format("YYYY-MM-DD"),
+      events: [],
+    };
+  });
+  const filteredEvents = events.map((event) => {
+    const eventRanges = event.range.filter(r => !(dayjs(r.to).isBefore(startDate) || dayjs(r.from).isAfter(endDate))).map(r => ({
+      from: dayjs(r.from).isBefore(startDate) ? startDate : dayjs(r.from),
+      to: dayjs(r.to).isAfter(endDate) ? endDate : dayjs(r.to),
+    }));
+    return {
+      name: event.name,
+      range: eventRanges,
+    };
+  });
+  for (const event of filteredEvents) {
+    for (const range of event.range) {
+      const startIndex = dateTracks.findIndex(d => d.date === range.from.format("YYYY-MM-DD"));
+      const endIndex = dateTracks.findIndex(d => d.date === range.to.format("YYYY-MM-DD"));
+      for (let i = startIndex; i <= endIndex; i++) {
+        dateTracks[i].events.push({
+          name: event.name,
+          range: {
+            from: range.from.format("YYYY-MM-DD"),
+            to: range.to.format("YYYY-MM-DD"),
+          },
+        });
+      }
+    }
+  }
+  const _eventTracks: EventTrack[] = [];
+  for (const event of filteredEvents) {
+    for (const r of event.range) {
+      const start = r.from;
+      const end = r.to;
+      const diff = end.diff(start, "day") + 1;
+      for (let i = 0; i < diff; i++) {
+        const date = start.add(i, "day").format("YYYY-MM-DD");
+        const dateTrack = dateTracks.find(d => d.date === date);
+        const _track = dateTrack?.events.findIndex(e => e.name === event.name && e.range.from === r.from.format("YYYY-MM-DD") && e.range.to === r.to.format("YYYY-MM-DD"));
+        // TODO
+        // find max track
+      }
+    }
+  }
+  return [];
+}
+
+export function resolveTrack(tracks: Set<number>, track?: number, max = 100) {
+  if (isDefined(track) && !tracks.has(track)) {
+    return track;
+  }
+  for (let i = 0; i < max; i++) {
+    if (!tracks.has(i)) {
+      return i;
+    }
+  }
+  return max;
+}
