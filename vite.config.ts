@@ -6,7 +6,7 @@ import Components from "unplugin-vue-components/vite";
 import AutoImport from "unplugin-auto-import/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import UnoCSS from "unocss/vite";
-import DevTools from "vite-plugin-vue-devtools";
+import VueDevTools from "vite-plugin-vue-devtools";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -20,14 +20,17 @@ export default defineConfig({
         "vue",
         "vue-router",
         "@vueuse/core",
+        "@vueuse/math",
       ],
       dirs: [
         "./src/composables/**",
+        "./src/components/**/use*.ts",
+        "!*.test.ts",
       ],
       vueTemplate: true,
     }),
     UnoCSS(),
-    DevTools(),
+    VueDevTools(),
     basicSsl(),
   ],
   resolve: {

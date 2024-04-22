@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Background: typeof import('./src/components/Background/Background.vue')['default']
     Calendar: typeof import('./src/components/Calendar/Calendar.vue')['default']
     ColorModeSwitch: typeof import('./src/components/ColorModeSwitch.vue')['default']
     Icon: typeof import('./src/components/Icon.vue')['default']

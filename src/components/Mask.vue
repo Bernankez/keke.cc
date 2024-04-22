@@ -7,6 +7,7 @@ const props = withDefaults(defineProps<{
   transition?: boolean;
   lockScroll?: boolean;
   class?: any;
+  wrapperClass?: any;
 }>(), {
   transition: true,
   lockScroll: true,
@@ -17,8 +18,8 @@ const emit = defineEmits<{
 }>();
 
 const { lockScroll, show } = toRefs(props);
-const lock = computed(() => lockScroll.value && show.value);
-useLockHTMLScroll(lock);
+const isLocked = computed(() => lockScroll.value && show.value);
+const { markUnlock, unlock, lock } = useLockHtmlScroll(isLocked, { manual: true });
 
 const [DefineTemplate, ReuseTemplate] = createReusableTemplate();
 
@@ -33,19 +34,30 @@ watch(show, (show) => {
 }, {
   immediate: true,
 });
+
+watch(show, (show) => {
+  if (show) {
+    lock?.();
+  } else {
+    markUnlock?.();
+    if (!props.transition) {
+      unlock?.();
+    }
+  }
+});
 </script>
 
 <template>
   <DefineTemplate>
-    <div v-if="show" :style="{ zIndex }" class="fixed bottom-0 left-0 right-0 top-0 bg-darkbackground bg-opacity-50 backdrop-blur-20 backdrop-saturate-50 transition-300" @click="emit('click', $event)">
-      <div :class="[props.class]" class="relative left-50% top-50% h-fit w-fit -translate-x-50% -translate-y-50%" @click.stop>
+    <div v-if="show" :class="[props.wrapperClass]" :style="{ zIndex }" class="fixed bottom-0 left-0 right-0 top-0 flex overflow-y-auto bg-darkbackground bg-opacity-50 backdrop-blur-20 backdrop-saturate-50 transition-300" @click="emit('click', $event)">
+      <div :class="[props.class]" class="relative left-50% top-50% h-fit max-h-full w-fit -translate-x-50% -translate-y-50%" @click.stop>
         <slot></slot>
       </div>
     </div>
   </DefineTemplate>
   <Teleport :to="to">
     <ReuseTemplate v-if="!props.transition" />
-    <Transition v-else name="mask">
+    <Transition v-else name="mask" @after-leave="() => unlock?.()">
       <ReuseTemplate />
     </Transition>
   </Teleport>

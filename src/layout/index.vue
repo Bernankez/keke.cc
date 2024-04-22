@@ -4,6 +4,7 @@ import Header from "./Header.vue";
 </script>
 
 <template>
+  <Background />
   <Header />
   <main class="grid box-border min-h-full w-full p-t-18">
     <RouterView />

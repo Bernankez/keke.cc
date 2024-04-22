@@ -60,11 +60,11 @@ onMounted(() => {
   <div>
     <div
       ref="hiddenName"
-      class="name relative hidden w-fit leading-none text-default transition dark-text-darkdefault"
+      class="name relative hidden w-fit text-default leading-none transition dark-text-darkdefault"
     >
       {{ name }}
     </div>
-    <div class="name relative w-fit leading-none text-default transition dark-text-darkdefault">
+    <div class="name relative w-fit text-default leading-none transition dark-text-darkdefault">
       {{ names.join("") }}
     </div>
   </div>

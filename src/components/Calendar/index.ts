@@ -1,3 +1,13 @@
+export interface DateCell {
+  date: string;
+  year: number;
+  month: number;
+  day: number;
+  isToday: boolean;
+  isCurrentMonth: boolean;
+  isWeekend: boolean;
+}
+
 export const Days: Record<number, string> = {
   1: "MON",
   2: "TUE",
