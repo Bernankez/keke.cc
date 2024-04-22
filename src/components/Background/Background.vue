@@ -9,8 +9,8 @@ const { play, setCallback, getTimestamp } = animate({
 
 const canvasRef = ref<HTMLCanvasElement>();
 
-const renderer = useTextRenderer("●", {
-  font: "100px Aria",
+const renderer = useTextRenderer("</>", {
+  font: "30px Aria",
   customRender({ ctx, item, renderItemWidth, renderItemHeight, rowGap, columnGap, columnCount, rowCount }) {
     for (let rowIndex = 0; rowIndex < rowCount; rowIndex++) {
       let from: number, to: number;
