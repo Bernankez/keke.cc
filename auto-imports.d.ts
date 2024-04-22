@@ -8,9 +8,6 @@ declare global {
   const EffectScope: typeof import('vue')['EffectScope']
   const asyncComputed: typeof import('@vueuse/core')['asyncComputed']
   const autoResetRef: typeof import('@vueuse/core')['autoResetRef']
-  const calculateBoundaries: typeof import('./src/components/Calendar/useEvents')['calculateBoundaries']
-  const calculateEvents: typeof import('./src/components/Calendar/useEvents')['calculateEvents']
-  const calculateTrack: typeof import('./src/components/Calendar/useEvents')['calculateTrack']
   const computed: typeof import('vue')['computed']
   const computedAsync: typeof import('@vueuse/core')['computedAsync']
   const computedEager: typeof import('@vueuse/core')['computedEager']
@@ -33,17 +30,15 @@ declare global {
   const debouncedRef: typeof import('@vueuse/core')['debouncedRef']
   const debouncedWatch: typeof import('@vueuse/core')['debouncedWatch']
   const defineAsyncComponent: typeof import('vue')['defineAsyncComponent']
+  const defineCalendarEvent: typeof import('./src/components/Calendar/useEvents')['defineCalendarEvent']
   const defineComponent: typeof import('vue')['defineComponent']
-  const defineEvent: typeof import('./src/components/Calendar/useEvents')['defineEvent']
   const eagerComputed: typeof import('@vueuse/core')['eagerComputed']
   const effectScope: typeof import('vue')['effectScope']
-  const export: typeof import('./src/components/Calendar/useEvents')['export']
   const extendRef: typeof import('@vueuse/core')['extendRef']
-  const generate: typeof import('./src/components/Calendar/useEvents')['generate']
   const generateDayCells: typeof import('./src/components/Calendar/useDates')['generateDayCells']
+  const generateMonthList: typeof import('./src/components/Calendar/useDates')['generateMonthList']
   const getCurrentInstance: typeof import('vue')['getCurrentInstance']
   const getCurrentScope: typeof import('vue')['getCurrentScope']
-  const getNextTrack: typeof import('./src/components/Calendar/useEvents')['getNextTrack']
   const h: typeof import('vue')['h']
   const ignorableWatch: typeof import('@vueuse/core')['ignorableWatch']
   const inject: typeof import('vue')['inject']
@@ -96,9 +91,12 @@ declare global {
   const refDefault: typeof import('@vueuse/core')['refDefault']
   const refThrottled: typeof import('@vueuse/core')['refThrottled']
   const refWithControl: typeof import('@vueuse/core')['refWithControl']
+  const resolveColor: typeof import('./src/components/Calendar/useEvents')['resolveColor']
+  const resolveColors: typeof import('./src/components/Calendar/useEvents')['resolveColors']
   const resolveComponent: typeof import('vue')['resolveComponent']
+  const resolveEventBoundaries: typeof import('./src/components/Calendar/useEvents')['resolveEventBoundaries']
+  const resolveEventTracks: typeof import('./src/components/Calendar/useEvents')['resolveEventTracks']
   const resolveRef: typeof import('@vueuse/core')['resolveRef']
-  const resolveTrack: typeof import('./src/components/Calendar/useEvents')['resolveTrack']
   const resolveUnref: typeof import('@vueuse/core')['resolveUnref']
   const shallowReactive: typeof import('vue')['shallowReactive']
   const shallowReadonly: typeof import('vue')['shallowReadonly']
@@ -183,7 +181,6 @@ declare global {
   const useEventBus: typeof import('@vueuse/core')['useEventBus']
   const useEventListener: typeof import('@vueuse/core')['useEventListener']
   const useEventSource: typeof import('@vueuse/core')['useEventSource']
-  const useEvents: typeof import('./src/components/Calendar/useEvents')['useEvents']
   const useEyeDropper: typeof import('@vueuse/core')['useEyeDropper']
   const useFavicon: typeof import('@vueuse/core')['useFavicon']
   const useFetch: typeof import('@vueuse/core')['useFetch']
@@ -335,8 +332,6 @@ declare module 'vue' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
-    readonly calculateBoundaries: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['calculateBoundaries']>
-    readonly calculateTrack: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['calculateTrack']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -359,12 +354,13 @@ declare module 'vue' {
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
+    readonly defineCalendarEvent: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['defineCalendarEvent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
-    readonly defineEvent: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['defineEvent']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly generateDayCells: UnwrapRef<typeof import('./src/components/Calendar/useDates')['generateDayCells']>
+    readonly generateMonthList: UnwrapRef<typeof import('./src/components/Calendar/useDates')['generateMonthList']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
@@ -419,9 +415,12 @@ declare module 'vue' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
+    readonly resolveColor: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveColor']>
+    readonly resolveColors: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveColors']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
+    readonly resolveEventBoundaries: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveEventBoundaries']>
+    readonly resolveEventTracks: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveEventTracks']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
-    readonly resolveTrack: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveTrack']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
@@ -506,7 +505,6 @@ declare module 'vue' {
     readonly useEventBus: UnwrapRef<typeof import('@vueuse/core')['useEventBus']>
     readonly useEventListener: UnwrapRef<typeof import('@vueuse/core')['useEventListener']>
     readonly useEventSource: UnwrapRef<typeof import('@vueuse/core')['useEventSource']>
-    readonly useEvents: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['useEvents']>
     readonly useEyeDropper: UnwrapRef<typeof import('@vueuse/core')['useEyeDropper']>
     readonly useFavicon: UnwrapRef<typeof import('@vueuse/core')['useFavicon']>
     readonly useFetch: UnwrapRef<typeof import('@vueuse/core')['useFetch']>
@@ -651,8 +649,6 @@ declare module '@vue/runtime-core' {
     readonly EffectScope: UnwrapRef<typeof import('vue')['EffectScope']>
     readonly asyncComputed: UnwrapRef<typeof import('@vueuse/core')['asyncComputed']>
     readonly autoResetRef: UnwrapRef<typeof import('@vueuse/core')['autoResetRef']>
-    readonly calculateBoundaries: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['calculateBoundaries']>
-    readonly calculateTrack: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['calculateTrack']>
     readonly computed: UnwrapRef<typeof import('vue')['computed']>
     readonly computedAsync: UnwrapRef<typeof import('@vueuse/core')['computedAsync']>
     readonly computedEager: UnwrapRef<typeof import('@vueuse/core')['computedEager']>
@@ -675,12 +671,13 @@ declare module '@vue/runtime-core' {
     readonly debouncedRef: UnwrapRef<typeof import('@vueuse/core')['debouncedRef']>
     readonly debouncedWatch: UnwrapRef<typeof import('@vueuse/core')['debouncedWatch']>
     readonly defineAsyncComponent: UnwrapRef<typeof import('vue')['defineAsyncComponent']>
+    readonly defineCalendarEvent: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['defineCalendarEvent']>
     readonly defineComponent: UnwrapRef<typeof import('vue')['defineComponent']>
-    readonly defineEvent: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['defineEvent']>
     readonly eagerComputed: UnwrapRef<typeof import('@vueuse/core')['eagerComputed']>
     readonly effectScope: UnwrapRef<typeof import('vue')['effectScope']>
     readonly extendRef: UnwrapRef<typeof import('@vueuse/core')['extendRef']>
     readonly generateDayCells: UnwrapRef<typeof import('./src/components/Calendar/useDates')['generateDayCells']>
+    readonly generateMonthList: UnwrapRef<typeof import('./src/components/Calendar/useDates')['generateMonthList']>
     readonly getCurrentInstance: UnwrapRef<typeof import('vue')['getCurrentInstance']>
     readonly getCurrentScope: UnwrapRef<typeof import('vue')['getCurrentScope']>
     readonly h: UnwrapRef<typeof import('vue')['h']>
@@ -735,9 +732,12 @@ declare module '@vue/runtime-core' {
     readonly refDefault: UnwrapRef<typeof import('@vueuse/core')['refDefault']>
     readonly refThrottled: UnwrapRef<typeof import('@vueuse/core')['refThrottled']>
     readonly refWithControl: UnwrapRef<typeof import('@vueuse/core')['refWithControl']>
+    readonly resolveColor: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveColor']>
+    readonly resolveColors: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveColors']>
     readonly resolveComponent: UnwrapRef<typeof import('vue')['resolveComponent']>
+    readonly resolveEventBoundaries: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveEventBoundaries']>
+    readonly resolveEventTracks: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveEventTracks']>
     readonly resolveRef: UnwrapRef<typeof import('@vueuse/core')['resolveRef']>
-    readonly resolveTrack: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['resolveTrack']>
     readonly resolveUnref: UnwrapRef<typeof import('@vueuse/core')['resolveUnref']>
     readonly shallowReactive: UnwrapRef<typeof import('vue')['shallowReactive']>
     readonly shallowReadonly: UnwrapRef<typeof import('vue')['shallowReadonly']>
@@ -822,7 +822,6 @@ declare module '@vue/runtime-core' {
     readonly useEventBus: UnwrapRef<typeof import('@vueuse/core')['useEventBus']>
     readonly useEventListener: UnwrapRef<typeof import('@vueuse/core')['useEventListener']>
     readonly useEventSource: UnwrapRef<typeof import('@vueuse/core')['useEventSource']>
-    readonly useEvents: UnwrapRef<typeof import('./src/components/Calendar/useEvents')['useEvents']>
     readonly useEyeDropper: UnwrapRef<typeof import('@vueuse/core')['useEyeDropper']>
     readonly useFavicon: UnwrapRef<typeof import('@vueuse/core')['useFavicon']>
     readonly useFetch: UnwrapRef<typeof import('@vueuse/core')['useFetch']>

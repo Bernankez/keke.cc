@@ -17,12 +17,14 @@
   },
   "dependencies": {
     "@backmoji/vue": "^0.1.1",
+    "@bernankez/utils": "^0.6.2",
     "@unocss/reset": "^0.59.3",
     "@vueuse/core": "^10.9.0",
     "@vueuse/math": "^10.9.0",
     "blobity": "^0.2.3",
     "chroma-js": "^2.4.2",
     "dayjs": "^1.11.10",
+    "nanoid": "^5.0.7",
     "vue": "^3.4.23",
     "vue-router": "^4.3.1"
   },

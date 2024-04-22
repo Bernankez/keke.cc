@@ -1,0 +1,31 @@
+import { nanoid } from "nanoid";
+
+const Backmoji = defineCalendarEvent({
+  id: nanoid(6),
+  color: resolveColor()[0],
+  desc: "Backmoji",
+}, [
+  {
+    from: "2024-03-20",
+    to: "2024-04-18",
+  },
+]);
+
+const keke = defineCalendarEvent({
+  id: nanoid(6),
+  color: resolveColor()[0],
+  desc: "keke.cc",
+}, [
+  {
+    from: "2024-01-30",
+    to: "2024-03-06",
+    desc: "keke.cc - DayGram",
+  },
+  {
+    from: "2024-04-18",
+    to: "2024-04-22",
+    desc: "keke.cc - DayGram",
+  },
+]);
+
+export const events = [Backmoji, keke];

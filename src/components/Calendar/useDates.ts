@@ -42,3 +42,25 @@ export function generateDayCells(year: number, month: number, start: number): Da
   });
   return dateCells;
 }
+
+export interface Month {
+  year: number;
+  month: number;
+  dates: DateCell[];
+}
+
+export function generateMonthList(start: string, end: string, startDay: number): Month[] {
+  const startDate = dayjs(start);
+  const endDate = dayjs(end);
+  const count = endDate.diff(startDate, "month");
+  const months = Array.from({ length: count }, (_, i) => {
+    const date = startDate.add(i, "month");
+    const { dates } = useDates(date.year(), date.month() + 1, { start: startDay });
+    return {
+      year: date.year(),
+      month: date.month() + 1,
+      dates: dates.value,
+    };
+  });
+  return [...months];
+}

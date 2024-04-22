@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
+import { events } from "./events";
 import { getSequenceDays } from ".";
 
 const props = withDefaults(defineProps<{
@@ -28,69 +29,27 @@ const rootFontSize = useRootFontSize();
 const lineHeight = computed(() => 5 * rootFontSize.value);
 const rowGap = computed(() => 1.25 * rootFontSize.value);
 
-const Backmoji = defineEvent("Backmoji", [
-  {
-    from: "2024-03-20",
-    to: "2024-04-18",
-  },
-]);
-const DayGram = defineEvent("DayGram", [
-  {
-    from: "2024-01-30",
-    to: "2024-03-06",
-  },
-  {
-    from: "2024-04-18",
-    to: "2024-04-20",
-  },
-]);
-
 const today = shallowRef(dayjs());
-function generateMonthList(start: string, end: string, startDay: number) {
-  const startDate = dayjs(start);
-  const endDate = dayjs(end);
-  const count = endDate.diff(startDate, "month");
-  const months = Array.from({ length: count }, (_, i) => {
-    const date = startDate.add(i, "month");
-    const { dates } = useDates(date.year(), date.month() + 1, { start: startDay });
-    return {
-      year: date.year(),
-      month: date.month() + 1,
-      dates: dates.value,
-    };
-  });
-  return [...months];
-}
 
 const start = shallowRef(today.value.subtract(1, "year"));
 const end = shallowRef(today.value.add(1, "year"));
 const monthList = computed(() => generateMonthList(start.value.format("YYYY-MM-DD"), end.value.format("YYYY-MM-DD"), props.startDay).map((month) => {
+  const start = dayjs(`${month.year}-${month.month}`).startOf("month");
+  const end = start.endOf("month");
+  const eventWithTracks = resolveEventTracks(events, start.format("YYYY-MM-DD"), end.format("YYYY-MM-DD"));
+  const eventWithBoundaries = resolveEventBoundaries(eventWithTracks, {
+    start: start.format("YYYY-MM-DD"),
+    end: end.format("YYYY-MM-DD"),
+    month,
+    offset: 33,
+    width: lineWidth.value / 7,
+    height: lineHeight.value,
+    lineHeight: 20,
+    rowGap: rowGap.value,
+  });
   return {
     ...month,
-    events: [
-      {
-        event: Backmoji,
-        boundaries: calculateBoundaries(Backmoji, {
-          width: lineWidth.value / 7,
-          height: lineHeight.value,
-          offset: 33,
-          lineHeight: 20,
-          rowGap: rowGap.value,
-          month,
-        }),
-      },
-      {
-        event: DayGram,
-        boundaries: calculateBoundaries(DayGram, {
-          width: lineWidth.value / 7,
-          height: lineHeight.value,
-          offset: 53,
-          lineHeight: 20,
-          rowGap: rowGap.value,
-          month,
-        }),
-      },
-    ],
+    events: eventWithBoundaries,
   };
 }));
 
@@ -187,11 +146,13 @@ function onScroll(e: Event) {
                     </div>
                   </div>
                 </div>
-                <template v-for="event in month.events" :key="event.event.name">
-                  <template v-for="(boundary, i) in event.boundaries" :key="i">
-                    <div class="absolute bg-#0c86fa px-2 text-sm text-white" :class="[{ 'rounded-l-md': boundary.isStart, 'rounded-r-md': boundary.isEnd }]" :style="{ ...boundary.style }">
-                      {{ event.event.name }}
-                    </div>
+                <template v-for="event in month.events" :key="event.id">
+                  <template v-for="range in event.ranges" :key="range.id">
+                    <template v-for="(boundary, i) in range.boundaries" :key="i">
+                      <div class="absolute truncate px-2 text-sm text-white" :title="range.desc ?? event.desc" :class="[{ 'rounded-l-md': boundary.isStart, 'rounded-r-md': boundary.isEnd }]" :style="{ ...boundary.style, backgroundColor: event.color }">
+                        {{ range.desc ?? event.desc }}
+                      </div>
+                    </template>
                   </template>
                 </template>
               </div>
