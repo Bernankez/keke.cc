@@ -28,4 +28,15 @@ const keke = defineCalendarEvent({
   },
 ]);
 
-export const events = [Backmoji, keke];
+const themeGenerator = defineCalendarEvent({
+  id: nanoid(6),
+  color: resolveColor()[0],
+  desc: "@bernankez/theme-generator",
+}, [
+  {
+    from: "2024-04-24",
+    to: "2024-04-26",
+  },
+]);
+
+export const events = [Backmoji, keke, themeGenerator];
