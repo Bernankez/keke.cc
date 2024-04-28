@@ -60,8 +60,6 @@ function resetMonthList() {
 
 const bufferSize = 5;
 
-const timer = ref<number>();
-
 const startActiveIndex = Math.floor(monthList.value.length / 2);
 const { startOffset, data: renderList, firstActiveIndex, setFirstActiveIndex, totalWidth, handleScroll, scroll } = useVirtualScroll(monthList, {
   bufferSize,
@@ -82,23 +80,6 @@ const { startOffset, data: renderList, firstActiveIndex, setFirstActiveIndex, to
       end.value = end.value.add(1, "year");
       el.scrollLeft = scrollLeft - 12 * viewportWidth.value;
     }
-  },
-  onScrollStart() {
-    if (isDefined(timer.value)) {
-      window.clearTimeout(timer.value);
-      timer.value = undefined;
-    }
-  },
-  onScroll() {
-    if (isDefined(timer.value)) {
-      window.clearTimeout(timer.value);
-      timer.value = undefined;
-    }
-  },
-  onScrollEnd() {
-    timer.value = window.setTimeout(() => {
-      setFirstActiveIndex(firstActiveIndex.value);
-    }, 500);
   },
   scrollEl: viewportRef,
   width: viewportWidth,
