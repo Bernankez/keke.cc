@@ -63,6 +63,9 @@ const bufferSize = 5;
 const startActiveIndex = Math.floor(monthList.value.length / 2);
 const { startOffset, data: renderList, firstActiveIndex, setFirstActiveIndex, totalWidth, handleScroll, scroll } = useVirtualScroll(monthList, {
   bufferSize,
+  onScrollEnd() {
+    // TODO Need to handle ontouchend
+  },
   onReachStart() {
     const el = viewportRef.value;
     if (el) {
