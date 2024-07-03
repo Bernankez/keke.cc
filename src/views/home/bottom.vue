@@ -15,6 +15,7 @@
       <Tagi title="Snippets" icon="i-mdi:vector-intersection" desc="Just snippets." href="https://snippets.keke.cc/" />
       <Tagi title="Prototype" icon="i-iconoir:emoji-think-left" desc="Collection of prototypes." href="https://prototype.keke.cc/" />
       <Tagi title="Password Generator" icon="i-solar:key-linear" desc="Password generator." href="https://pwgen.keke.cc/" />
+      <Tagi title="Theme Generator" icon="i-fluent-emoji-high-contrast:rainbow" desc="Website theme generator." href="https://theme-generator.keke.cc/" />
     </div>
   </div>
   <div class="text-7">
