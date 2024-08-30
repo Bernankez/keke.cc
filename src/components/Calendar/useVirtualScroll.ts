@@ -1,8 +1,8 @@
-import type { Fn, MaybeComputedElementRef } from "@vueuse/core";
+import type { Fn } from "@vueuse/core";
 import type { MaybeRefOrGetter } from "vue";
 
 export interface UseVirtualScrollOptions {
-  scrollEl: MaybeComputedElementRef<HTMLElement | undefined>;
+  scrollEl: MaybeRefOrGetter<HTMLElement | undefined>;
   width: MaybeRefOrGetter<number>;
   bufferSize?: MaybeRefOrGetter<number>;
   onScrollStart?: (e: Event) => void;
