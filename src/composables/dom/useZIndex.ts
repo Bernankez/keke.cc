@@ -1,6 +1,13 @@
 const zIndexManager = ref<number[]>([]);
 const globalBaseZIndex = ref(0);
 
+function release(zIndex: number) {
+  const index = zIndexManager.value.indexOf(zIndex);
+  if (index > -1) {
+    zIndexManager.value.splice(index, 1);
+  }
+}
+
 export function useZIndex(baseZIndex?: number) {
   if (baseZIndex) {
     globalBaseZIndex.value = baseZIndex;
@@ -19,11 +26,6 @@ export function useZIndex(baseZIndex?: number) {
     }
 
     return _zIndex;
-  }
-
-  function release(zIndex: number) {
-    const index = zIndexManager.value.indexOf(zIndex);
-    index > -1 && zIndexManager.value.splice(index, 1);
   }
 
   return {

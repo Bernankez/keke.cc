@@ -18,7 +18,9 @@ export function useHackedText(text: MaybeRefOrGetter<string>, options?: Animatio
   function run() {
     let iteration = 0;
     const t = toValue(text);
-    animationId && cancelAnimationFrame(animationId);
+    if (animationId) {
+      cancelAnimationFrame(animationId);
+    }
 
     function animate(immediate = false) {
       if (!immediate) {
