@@ -24,6 +24,7 @@
       <Tagi title="vite-plugin-font-carrier" icon="i-radix-icons:font-family" desc="Compress your font asset on demand using font-carrier." href="https://github.com/Bernankez/vite-plugin-font-carrier" />
       <Tagi title="Backmoji" icon="i-ph:paw-print" desc="A library for creating patterns quickly and easily." href="https://backmoji.keke.cc/" />
       <Tagi title="git-sync" icon="i-tabler:git-branch" desc="Auto sync repos when pushing to git." href="https://github.com/Bernankez/git-sync" />
+      <Tagi title="npm-open" icon="i-tabler-brand-npm" desc="Open npm package homepage with `npm-open`." href="https://github.com/Bernankez/npm-open" />
       <Tagi title="create-l" icon="i-gridicons:create" desc="TypeScript library scaffold." href="https://create-l.keke.cc/" />
       <Tagi title="@bernankez/utils" icon="i-ph:package" desc="Using utils out-of-the-box" href="https://utils.keke.cc/" />
     </div>
