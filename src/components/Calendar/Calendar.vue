@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import dayjs from "dayjs";
-import { events } from "./events";
 import { getSequenceDays } from ".";
+import { events } from "./events";
 
 const props = withDefaults(defineProps<{
   closeOnMask?: boolean;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import Top from "./top.vue";
 import Bottom from "./bottom.vue";
+import Top from "./top.vue";
 
 const says: string[] = ["什么也不会，喜欢睡觉"];
 const index = Math.floor(Math.random() * (says.length));

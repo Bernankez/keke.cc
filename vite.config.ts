@@ -1,11 +1,11 @@
 /// <reference types="vitest" />
 import { resolve } from "node:path";
-import { defineConfig } from "vite";
-import vue from "@vitejs/plugin-vue";
-import Components from "unplugin-vue-components/vite";
-import AutoImport from "unplugin-auto-import/vite";
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import vue from "@vitejs/plugin-vue";
 import UnoCSS from "unocss/vite";
+import AutoImport from "unplugin-auto-import/vite";
+import Components from "unplugin-vue-components/vite";
+import { defineConfig } from "vite";
 import VueDevTools from "vite-plugin-vue-devtools";
 
 // https://vitejs.dev/config/

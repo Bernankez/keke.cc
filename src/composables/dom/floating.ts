@@ -1,6 +1,7 @@
 import type { Placement } from "@floating-ui/vue";
-import { type Fn, type MaybeRef, type MaybeRefOrGetter, noop } from "@vueuse/core";
+import type { Fn, MaybeRef, MaybeRefOrGetter } from "@vueuse/core";
 import type { ComponentPublicInstance, EffectScope } from "vue";
+import { noop } from "@vueuse/core";
 
 export type TriggerType = "hover" | "click" | "focus" | "manual";
 

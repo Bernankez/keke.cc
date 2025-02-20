@@ -1,6 +1,6 @@
 import type { MaybeRefOrGetter } from "vue";
-import dayjs from "dayjs";
 import type { DateCell } from ".";
+import dayjs from "dayjs";
 
 export interface UseDaysOptions {
   start?: number;

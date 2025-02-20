@@ -1,7 +1,6 @@
-import { defineConfig, presetIcons, presetUno, transformerDirectives } from "unocss";
 import { colorBackground, colorDarkBackground, colorDarkDefault, colorDefault, colorDisabled, colorPrimaryRed as colorPrimary } from "@bernankez/theme";
-/* eslint-disable unused-imports/no-unused-imports */
-import type { UserConfig } from "unocss";
+
+import { defineConfig, presetIcons, presetUno, transformerDirectives } from "unocss";
 
 export default defineConfig({
   presets: [presetUno(), presetIcons()],

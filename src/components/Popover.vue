@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import type { Placement, Side, Strategy } from "@floating-ui/vue";
-import { arrow, autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
 import type { Fn } from "@vueuse/core";
-import { noop } from "@vueuse/core";
 import type { StyleValue } from "vue";
-import { useMergedState } from "@bernankez/utils/vue";
 import { createSlot } from "@/utils/vue";
+import { useMergedState } from "@bernankez/utils/vue";
+import { arrow, autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
+import { noop } from "@vueuse/core";
 
 const props = withDefaults(defineProps<{
   trigger?: "click" | "hover" | "focus" | "manual";

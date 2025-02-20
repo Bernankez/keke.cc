@@ -1,5 +1,5 @@
 import type { ComponentPublicInstance, Slot, VNode, VNodeChild } from "vue";
-import { Comment, Fragment, createTextVNode } from "vue";
+import { Comment, createTextVNode, Fragment } from "vue";
 
 export function createSlot<T extends Slot<any>>(slot?: T, name?: string) {
   const _slotRef = ref<ComponentPublicInstance | HTMLElement>();
