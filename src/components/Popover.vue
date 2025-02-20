@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Placement, Side, Strategy } from "@floating-ui/vue";
 import type { Fn } from "@vueuse/core";
-import type { StyleValue } from "vue";
+import type { SetupContext, StyleValue } from "vue";
 import { createSlot } from "@/utils/vue";
 import { useMergedState } from "@bernankez/utils/vue";
 import { arrow, autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
@@ -52,7 +52,7 @@ const emit = defineEmits<{
 const { define: DefineTemplate, reuse: ReuseTemplate } = createReusableTemplate();
 
 // get slot dom
-const slots = useSlots();
+const slots = useSlots() as SetupContext["slots"];
 const { CustomSlot, slotRef: referenceRef } = createSlot(slots.default, "default");
 defineExpose({
   slotRef: referenceRef,
