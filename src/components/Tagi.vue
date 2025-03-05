@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { VariantProps } from "cva";
 import { cva } from "cva";
-import { twMerge } from "tailwind-merge";
 
 const props = withDefaults(defineProps<{
   title?: string;
@@ -49,10 +48,10 @@ const tagiVariants = cva(
 </script>
 
 <template>
-  <RouterLink :to="to" class="block flex select-none items-center flex-gap-3 p-2 text-dark-500 dark:text-darkdefault" :href="href" :target="target">
+  <RouterLink :to="to" class="group block flex select-none items-center flex-gap-3 p-2 text-dark-500 dark:text-darkdefault" :href="href" :target="target">
     <div>
       <div :class="icon" class="text-9"></div>
-      <div :class="twMerge('mx-auto w-1.5 h-1.5 rounded-full', tagiVariants({ status }))"></div>
+      <div class="mx-auto h-1.5 w-1.5 rounded-full transition-500 transition-delay-250 group-hover:invert" :class="[tagiVariants({ status })]"></div>
     </div>
     <div class="w-full flex flex-col flex-gap-1">
       <div class="text-5">
