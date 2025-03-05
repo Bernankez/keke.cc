@@ -15,8 +15,6 @@ declare module 'vue' {
     Image: typeof import('./src/components/Image.vue')['default']
     Mask: typeof import('./src/components/Mask.vue')['default']
     Popover: typeof import('./src/components/Popover.vue')['default']
-    PopoverContent: typeof import('./src/components/Popover/PopoverContent.vue')['default']
-    PopoverTrigger: typeof import('./src/components/Popover/PopoverTrigger.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Tagi: typeof import('./src/components/Tagi.vue')['default']
