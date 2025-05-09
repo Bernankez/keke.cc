@@ -1,4 +1,3 @@
-/// <reference types="vitest" />
 import { resolve } from "node:path";
 import basicSsl from "@vitejs/plugin-basic-ssl";
 import vue from "@vitejs/plugin-vue";
@@ -38,9 +37,5 @@ export default defineConfig({
       "@": resolve(__dirname, "src"),
       "~": resolve(__dirname, "."),
     },
-  },
-  test: {
-    environment: "happy-dom",
-    passWithNoTests: true,
   },
 });

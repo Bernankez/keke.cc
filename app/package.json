@@ -1,0 +1,41 @@
+{
+  "name": "@keke.cc/app",
+  "type": "module",
+  "version": "1.5.5",
+  "private": true,
+  "scripts": {
+    "dev": "vite --open",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "typecheck": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "@backmoji/vue": "^0.1.1",
+    "@bernankez/utils": "^0.6.4",
+    "@floating-ui/vue": "^1.1.6",
+    "@unocss/reset": "^66.0.0",
+    "@vueuse/core": "^12.7.0",
+    "@vueuse/math": "^12.7.0",
+    "blobity": "^0.2.3",
+    "cva": "npm:class-variance-authority@^0.7.1",
+    "dayjs": "^1.11.13",
+    "nanoid": "^5.1.0",
+    "tailwind-merge": "^3.0.2",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0"
+  },
+  "devDependencies": {
+    "@bernankez/theme": "0.2.0",
+    "@iconify/json": "^2.2.308",
+    "@types/node": "^20.17.19",
+    "@vitejs/plugin-basic-ssl": "^1.2.0",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.7.3",
+    "unocss": "^66.0.0",
+    "unplugin-auto-import": "^19.1.0",
+    "unplugin-vue-components": "^28.4.0",
+    "vite": "^6.1.1",
+    "vite-plugin-vue-devtools": "^7.7.2",
+    "vue-tsc": "^2.2.2"
+  }
+}
