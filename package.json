@@ -9,7 +9,7 @@
     "test": "vitest",
     "lint": "eslint --flag unstable_config_lookup_from_file . -f mo",
     "fix": "eslint --flag unstable_config_lookup_from_file . -f mo --fix",
-    "release": "bumpp"
+    "release": "bumpp -r"
   },
   "devDependencies": {
     "@bernankez/eslint-config": "^3.0.0",
