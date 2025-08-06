@@ -67,7 +67,7 @@ export function useFloatingTrigger<R extends MaybeRef<ComponentPublicInstance | 
           const referenceEl = computed(() => unrefElement(referenceRef));
           const { start, stop } = useListenClickOutside(referenceRef, () => {
             closeContent();
-          });
+          }, {});
           useEventListener(referenceEl, "click", openContent);
           watchEffect(() => {
             if (isOpened.value) {
@@ -103,7 +103,7 @@ export function useListenClickOutside(...args: Parameters<typeof onClickOutside>
   }
 
   function start() {
-    _stop.value = onClickOutside(...args);
+    _stop.value = onClickOutside(...args).stop;
   }
 
   return {
