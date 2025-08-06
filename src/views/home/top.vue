@@ -11,8 +11,9 @@
     </div>
     <div class="flex flex-gap-3">
       <Icon href="https://blog.keke.cc/" title="Posts" icon="i-ri:bill-line" show="auto" />
+      <Icon href="https://gallery.keke.cc/" title="Gallery" icon="i-ri-camera-line" show="auto" />
       <Icon href="https://tracking.keke.cc/" title="Tracking" icon="i-ri:focus-2-line" show="auto" />
-      <Icon href="https://status.keke.cc/" title="Status" icon="i-ri:broadcast-line" show="auto" />
+      <!-- <Icon href="https://status.keke.cc/" title="Status" icon="i-ri:broadcast-line" show="auto" /> -->
       <Icon href="https://github.com/Bernankez" title="GitHub" icon="i-ri:github-line" show="auto" />
       <Icon icon="i-ri:bilibili-fill" title="Bilibili" href="https://space.bilibili.com/32431375" show="auto" />
     </div>
