@@ -1,9 +1,17 @@
 <script setup lang="ts">
 const icon = computed(() => isDark.value ? "i-ri:moon-line" : "i-ri:sun-line");
 const toggle = useToggle(isDark);
+const prefersReducedMotion = usePreferredReducedMotion();
 
-function toggleMode(event: MouseEvent) {
-  if ("startViewTransition" in document) {
+function beforeToggle(event: MouseEvent) {
+  return new Promise((resolve) => {
+  // @ts-expect-error startViewTransition
+    const isAppearanceTransition = document.startViewTransition && prefersReducedMotion.value === "no-preference";
+    if (!isAppearanceTransition) {
+      resolve(true);
+      return;
+    }
+
     const x = event.clientX;
     const y = event.clientY;
     const endRadius = Math.hypot(
@@ -11,21 +19,21 @@ function toggleMode(event: MouseEvent) {
       Math.max(y, innerHeight - y),
     );
 
-    const viewTransition = (document as any).startViewTransition(() => {
-      toggle();
-      const html = document.querySelector("html");
-      if (html) {
-        html.classList.remove(isDark.value ? "dark" : "light");
-        html.classList.add(isDark.value ? "light" : "dark");
-      }
+    const ratioX = (100 * x) / innerWidth;
+    const ratioY = (100 * y) / innerHeight;
+    const referR = Math.hypot(innerWidth, innerHeight) / Math.SQRT2;
+    const ratioR = (100 * endRadius) / referR;
+
+    const transition = document.startViewTransition(async () => {
+      resolve(true);
+      await nextTick();
     });
-
-    viewTransition.ready.then(() => {
+    transition.ready.then(() => {
       const clipPath = [
-        `circle(0px at ${x}px ${y}px)`,
-        `circle(${endRadius}px at ${x}px ${y}px)`,
+        `circle(0% at ${ratioX}% ${ratioY}%)`,
+        `circle(${ratioR}% at ${ratioX}% ${ratioY}%)`,
       ];
-
+      console.log(clipPath);
       document.documentElement.animate(
         {
           clipPath,
@@ -33,13 +41,17 @@ function toggleMode(event: MouseEvent) {
         {
           duration: 500,
           easing: "cubic-bezier(.16,.08,.25,1)",
+          fill: "both",
           pseudoElement: "::view-transition-new(root)",
         },
       );
     });
-  } else {
-    toggle();
-  }
+  });
+}
+
+async function toggleMode(event: MouseEvent) {
+  await beforeToggle(event);
+  toggle();
 }
 </script>
 
