@@ -27,7 +27,7 @@ const paddingRight = computed(() => {
           </a>
         </template>
       </Popover>
-      <Icon icon="i-ri:chat-quote-line" title="ChatGPT Robot" href="https://chatgpt.keke.cc/" />
+      <!-- <Icon icon="i-ri:chat-quote-line" title="ChatGPT Robot" href="https://chatgpt.keke.cc/" /> -->
       <ColorModeSwitch />
     </div>
   </div>
