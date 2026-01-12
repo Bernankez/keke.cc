@@ -78,7 +78,8 @@ export function useLockHtmlScroll(lockRef: MaybeRefOrGetter<boolean>, options: U
         }
         activated.value = true;
         lockCount.value++;
-      } else {
+      }
+      else {
         lockCount.value--;
         if (lockCount.value <= 0 && !manual) {
           markUnlock();

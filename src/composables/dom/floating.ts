@@ -1,5 +1,5 @@
 import type { Placement } from "@floating-ui/vue";
-import type { Fn, MaybeElementRef, MaybeRef, MaybeRefOrGetter, OnClickOutsideHandler, OnClickOutsideOptions } from "@vueuse/core";
+import type { Fn } from "@vueuse/core";
 import type { ComponentPublicInstance, EffectScope } from "vue";
 import { noop } from "@vueuse/core";
 
@@ -33,37 +33,44 @@ export function useFloatingTrigger<R extends MaybeRef<ComponentPublicInstance | 
       triggerScope.value.run(() => {
         if (hover) {
           hover();
-        } else {
+        }
+        else {
           const { isOutside } = useMouseInElement(referenceRef);
           watchEffect(() => {
             if (isOutside.value) {
               closeContent();
-            } else {
+            }
+            else {
               openContent();
             }
           });
         }
       });
-    } else if (trigger === "focus") {
+    }
+    else if (trigger === "focus") {
       triggerScope.value.run(() => {
         if (focus) {
           focus();
-        } else {
+        }
+        else {
           const { focused } = useFocusWithin(referenceRef);
           watchEffect(() => {
             if (focused.value) {
               openContent();
-            } else {
+            }
+            else {
               closeContent();
             }
           });
         }
       });
-    } else if (trigger === "click") {
+    }
+    else if (trigger === "click") {
       triggerScope.value.run(() => {
         if (click) {
           click();
-        } else {
+        }
+        else {
           const referenceEl = computed(() => unrefElement(referenceRef));
           const { start, stop } = useListenClickOutside(referenceRef, () => {
             closeContent();
@@ -72,18 +79,21 @@ export function useFloatingTrigger<R extends MaybeRef<ComponentPublicInstance | 
           watchEffect(() => {
             if (isOpened.value) {
               start();
-            } else {
+            }
+            else {
               stop();
             }
           });
         }
       });
-    } else if (trigger === "manual") {
+    }
+    else if (trigger === "manual") {
     // do nothing
       if (manual) {
         manual();
       }
-    } else {
+    }
+    else {
       console.warn(`trigger[${trigger}] is not supported`);
     }
   }
@@ -94,10 +104,7 @@ export function useFloatingTrigger<R extends MaybeRef<ComponentPublicInstance | 
   };
 }
 
-export function useListenClickOutside(target: MaybeElementRef, handler: OnClickOutsideHandler<{
-  detectIframe: OnClickOutsideOptions["detectIframe"];
-  controls: true;
-}>, options: OnClickOutsideOptions<true>) {
+export function useListenClickOutside(...args: Parameters<typeof onClickOutside>) {
   const _stop = ref<Fn>();
 
   function stop() {
@@ -106,6 +113,7 @@ export function useListenClickOutside(target: MaybeElementRef, handler: OnClickO
   }
 
   function start() {
+    const [target, handler, options] = args;
     _stop.value = onClickOutside(target, handler, { ...options, controls: true }).stop;
   }
 
@@ -117,8 +125,8 @@ export function useListenClickOutside(target: MaybeElementRef, handler: OnClickO
 
 export function useTransition(placement: MaybeRefOrGetter<Placement>, offset: MaybeRefOrGetter<string | number> = "10%") {
   return computed(() => {
-    const _placement = resolveUnref(placement);
-    const _offset = resolveUnref(offset);
+    const _placement = toValue(placement);
+    const _offset = toValue(offset);
 
     const placementMap: Record<Placement, string> = {
       "top": `translateY(${_offset})`,

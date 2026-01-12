@@ -21,7 +21,8 @@ export function useHiddenElementStyle(target: MaybeComputedElementRef) {
       el.style.position = <string>position;
       el.style.visibility = <string>visibility;
       el.style.display = <string>display;
-    } else {
+    }
+    else {
       style.value = transformCSSProperties(window.getComputedStyle(el));
     }
   }

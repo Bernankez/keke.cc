@@ -33,7 +33,6 @@ function beforeToggle(event: MouseEvent) {
         `circle(0% at ${ratioX}% ${ratioY}%)`,
         `circle(${ratioR}% at ${ratioX}% ${ratioY}%)`,
       ];
-      console.log(clipPath);
       document.documentElement.animate(
         {
           clipPath,

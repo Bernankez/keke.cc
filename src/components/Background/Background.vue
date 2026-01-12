@@ -17,7 +17,8 @@ const renderer = useTextRenderer("</>", {
       if (rowIndex % 2 === 0) {
         from = -2;
         to = columnCount;
-      } else {
+      }
+      else {
         from = 0;
         to = columnCount + 2;
       }
@@ -29,7 +30,8 @@ const renderer = useTextRenderer("</>", {
         if ((columnIndex - rowIndex) % 2 === 0) {
           if (isDark.value) {
             ctx.fillStyle = "#191919";
-          } else {
+          }
+          else {
             ctx.fillStyle = "#efefef";
           }
           ctx.fillText(item, x, y);

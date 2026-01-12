@@ -46,7 +46,8 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
   watchEffect(() => {
     if (firstActiveIndex.value < toValue(bufferSize)) {
       onReachStart?.();
-    } else if (firstActiveIndex.value > totalLength.value - toValue(bufferSize)) {
+    }
+    else if (firstActiveIndex.value > totalLength.value - toValue(bufferSize)) {
       onReachEnd?.();
     }
   });
@@ -82,7 +83,8 @@ export function useVirtualScroll<T = any>(list: MaybeRefOrGetter<T[]>, options: 
     }
     if (!isScroll.value) {
       onScrollStart?.(e);
-    } else {
+    }
+    else {
       onScroll?.(e);
     }
     isScroll.value = true;

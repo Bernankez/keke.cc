@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import Layout from "@/layout/index.vue";
 import { colorPrimaryRed } from "@bernankez/theme";
 import useBlobity from "blobity/lib/vue/useBlobity";
+import Layout from "@/layout/index.vue";
 import "@unocss/reset/tailwind.css";
 
 useBlobity({

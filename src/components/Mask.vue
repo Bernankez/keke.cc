@@ -28,7 +28,8 @@ const { use, release, nextZIndex } = useZIndex();
 watch(show, (show) => {
   if (show) {
     zIndex.value = use(nextZIndex.value);
-  } else {
+  }
+  else {
     release(zIndex.value);
   }
 }, {
@@ -38,7 +39,8 @@ watch(show, (show) => {
 watch(show, (show) => {
   if (show) {
     lock?.();
-  } else {
+  }
+  else {
     markUnlock?.();
     if (!props.transition) {
       unlock?.();

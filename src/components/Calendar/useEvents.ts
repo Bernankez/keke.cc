@@ -91,7 +91,8 @@ export function defineCalendarEvent(options: Omit<CalendarEvent, "ranges">, date
   for (const date of dates) {
     if (typeof date === "string") {
       _dates.add(date);
-    } else if ("from" in date) {
+    }
+    else if ("from" in date) {
       let current = dayjs(date.from);
       while (current.isSameOrBefore(date.to, "day")) {
         _dates.add(current.format("YYYY-MM-DD"));
@@ -100,7 +101,8 @@ export function defineCalendarEvent(options: Omit<CalendarEvent, "ranges">, date
         }
         current = current.add(1, "day");
       }
-    } else {
+    }
+    else {
       if (date.desc) {
         descMap.set(date.date, date.desc);
       }
@@ -135,12 +137,14 @@ function datesToRanges(dates: string[], options?: DatesToRangesOptions): Calenda
         desc: resolveDesc?.(date),
         dates: [date],
       };
-    } else {
+    }
+    else {
       const previous = dayjs(current.dates.at(-1)!);
       const currentDay = dayjs(date);
       if (currentDay.diff(previous, "day") === 1) {
         current.dates.push(date);
-      } else {
+      }
+      else {
         eventDates.push(current);
         current = {
           id: _resolveId(date),

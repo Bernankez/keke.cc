@@ -44,7 +44,8 @@ function play() {
   timer = window.setInterval(() => {
     if (splitName.length > 0) {
       update();
-    } else {
+    }
+    else {
       clearInterval(timer);
       timer = undefined;
     }

@@ -30,7 +30,8 @@ export function animate(options?: {
     }
     if (isPlay) {
       _play();
-    } else {
+    }
+    else {
       _pause();
     }
     _isPlay = isPlay;

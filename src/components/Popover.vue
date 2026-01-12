@@ -2,10 +2,10 @@
 import type { Placement, Side, Strategy } from "@floating-ui/vue";
 import type { Fn } from "@vueuse/core";
 import type { SetupContext, StyleValue } from "vue";
-import { createSlot } from "@/utils/vue";
 import { useMergedState } from "@bernankez/utils/vue";
 import { arrow, autoUpdate, flip, offset, shift, useFloating } from "@floating-ui/vue";
 import { noop } from "@vueuse/core";
+import { createSlot } from "@/utils/vue";
 
 const props = withDefaults(defineProps<{
   trigger?: "click" | "hover" | "focus" | "manual";
@@ -82,7 +82,8 @@ function closeContent() {
 watch(() => props.delay, (delay) => {
   if (delay === 0) {
     debouncedOpenContent.value = () => showContent(true);
-  } else {
+  }
+  else {
     debouncedOpenContent.value = useDebounceFn(() => {
       if (canceled.value) {
         canceled.value = false;
@@ -147,7 +148,8 @@ const arrowStyle = computed(() => {
   if (arrowEl) {
     if (x !== undefined) {
       offset = -arrowEl.offsetHeight / 2;
-    } else if (y !== undefined) {
+    }
+    else if (y !== undefined) {
       offset = -arrowEl.offsetWidth / 2;
     }
   }
