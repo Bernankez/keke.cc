@@ -1,5 +1,5 @@
 import type { Placement } from "@floating-ui/vue";
-import type { Fn, MaybeRef, MaybeRefOrGetter } from "@vueuse/core";
+import type { Fn, MaybeElementRef, MaybeRef, MaybeRefOrGetter, OnClickOutsideHandler, OnClickOutsideOptions } from "@vueuse/core";
 import type { ComponentPublicInstance, EffectScope } from "vue";
 import { noop } from "@vueuse/core";
 
@@ -67,7 +67,7 @@ export function useFloatingTrigger<R extends MaybeRef<ComponentPublicInstance | 
           const referenceEl = computed(() => unrefElement(referenceRef));
           const { start, stop } = useListenClickOutside(referenceRef, () => {
             closeContent();
-          }, {});
+          }, { });
           useEventListener(referenceEl, "click", openContent);
           watchEffect(() => {
             if (isOpened.value) {
@@ -94,7 +94,10 @@ export function useFloatingTrigger<R extends MaybeRef<ComponentPublicInstance | 
   };
 }
 
-export function useListenClickOutside(...args: Parameters<typeof onClickOutside>) {
+export function useListenClickOutside(target: MaybeElementRef, handler: OnClickOutsideHandler<{
+  detectIframe: OnClickOutsideOptions["detectIframe"];
+  controls: true;
+}>, options: OnClickOutsideOptions<true>) {
   const _stop = ref<Fn>();
 
   function stop() {
@@ -103,7 +106,7 @@ export function useListenClickOutside(...args: Parameters<typeof onClickOutside>
   }
 
   function start() {
-    _stop.value = onClickOutside(...args).stop;
+    _stop.value = onClickOutside(target, handler, { ...options, controls: true }).stop;
   }
 
   return {
