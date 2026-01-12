@@ -18,7 +18,7 @@ export interface UseFloatingTriggerOptions extends TriggerFunctions {
 export function useFloatingTrigger<R extends MaybeRef<ComponentPublicInstance | HTMLElement | undefined>>(referenceRef: R, options: UseFloatingTriggerOptions = {}) {
   const { openContent = noop, closeContent = noop, hover, click, focus, manual, isOpened: _isOpened } = options;
 
-  const isOpened = computed(() => resolveUnref(_isOpened) || false);
+  const isOpened = computed(() => toValue(_isOpened) || false);
 
   const triggerScope = ref<EffectScope>();
   const dispose = () => {
