@@ -38,6 +38,12 @@ a {
   text-decoration: none;
 }
 
+@property --vt-radius {
+  syntax: "<length>";
+  initial-value: 0px;
+  inherits: true;
+}
+
 /* disable default animation for view transition */
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -45,18 +51,20 @@ a {
   animation: none;
 }
 
-.dark::view-transition-old(root) {
-  z-index: 1;
-}
-
-.dark::view-transition-new(root) {
+::view-transition-new(root) {
   z-index: 999;
+  -webkit-mask-image: radial-gradient(circle at var(--vt-x, 0) var(--vt-y, 0), #000 max(0px, calc(var(--vt-radius) - var(--vt-blur, 200px))), transparent var(--vt-radius));
+  mask-image: radial-gradient(circle at var(--vt-x, 0) var(--vt-y, 0), #000 max(0px, calc(var(--vt-radius) - var(--vt-blur, 200px))), transparent var(--vt-radius));
 }
 
 ::view-transition-old(root) {
   z-index: 1;
 }
 
-::view-transition-new(root) {
+.dark::view-transition-old(root) {
+  z-index: 1;
+}
+
+.dark::view-transition-new(root) {
   z-index: 999;
 }

@@ -18,25 +18,20 @@ function beforeToggle(event: MouseEvent) {
       Math.max(x, innerWidth - x),
       Math.max(y, innerHeight - y),
     );
-
-    const ratioX = (100 * x) / innerWidth;
-    const ratioY = (100 * y) / innerHeight;
-    const referR = Math.hypot(innerWidth, innerHeight) / Math.SQRT2;
-    const ratioR = (100 * endRadius) / referR;
+    const blurPx = 456;
 
     const transition = document.startViewTransition(async () => {
       resolve(true);
       await nextTick();
     });
     transition.ready.then(() => {
-      const clipPath = [
-        `circle(0% at ${ratioX}% ${ratioY}%)`,
-        `circle(${ratioR}% at ${ratioX}% ${ratioY}%)`,
-      ];
-      document.documentElement.animate(
-        {
-          clipPath,
-        },
+      const el = document.documentElement;
+      el.style.setProperty("--vt-x", `${x}px`);
+      el.style.setProperty("--vt-y", `${y}px`);
+      el.style.setProperty("--vt-blur", `${blurPx}px`);
+
+      el.animate(
+        { "--vt-radius": [`0px`, `${endRadius + blurPx}px`] },
         {
           duration: 500,
           easing: "cubic-bezier(.16,.08,.25,1)",
